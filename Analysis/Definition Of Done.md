@@ -1,13 +1,13 @@
 Definition of Done:
 
-Peer code reviewed
+* Peer code reviewed
 
-Peer code review passed
+* Peer code review passed
 
-No known deffects
+* No known deffects
 
-No build failures
+* No build failures
 
-No errors in coding standards
+* No errors in coding standards
 
-Documentation complete
+* Documentation complete
