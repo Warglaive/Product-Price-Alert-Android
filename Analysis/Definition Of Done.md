@@ -4,7 +4,7 @@ Definition of Done:
 
 * Peer code review passed
 
-* No known deffects
+* No known defects
 
 * No build failures
 
