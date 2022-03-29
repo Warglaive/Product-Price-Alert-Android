@@ -11,3 +11,5 @@ Definition of Done:
 * No errors in coding standards
 
 * Documentation complete
+
+* Functionality is explicitly implemented as stated
