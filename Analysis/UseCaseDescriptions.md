@@ -19,7 +19,7 @@
 |**Pre-condition**|None.|
 |**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses to view popular products.<br>3. System shows a list of the most popular products.|
 |**Result**|Customer has access to the list of most popular products.|
-|**Extensions**|3a. Customer chooses to view a product's details.<br> 1. System shows a list containing the details of the chosen product.<br>3a. Customer chooses to request price alerts for a product.<br>1. System displays confirmation of the request and asks the user for maximum price input.<br>4. User provides the input.<br>5. System displays a confirmation.<br>3a. Customer chooses to purchase a product. |
+|**Extensions**|3a. Customer chooses to view a product's details.<br> 1. System shows a list containing the details of the chosen product.<br>3a. Customer chooses to request price alerts for a product.<br>1. System displays confirmation of the request and asks the user for maximum price input.<br>2. User provides the input.<br>3. System displays a confirmation.<br>3a. Customer chooses to purchase a product.<br>1. System redirects the user to an external website where the order can be completed.|
 |**Exceptions**|None.|
 
 |Use case|3|
@@ -28,7 +28,7 @@
 |**Actor**|Customer|
 |**Description**|Customer views product's details.|
 |**Pre-condition**|None.|
-|**Scenario**|1. Customer <u>browses products</u>.<br>2. Customer chooses to view a product's details.<br>3. System shows a list containing the details of the chosen product.|
+|**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses to view a product's details.<br>3. System shows a list containing the details of the chosen product.|
 |**Result**|Customer has access to a product's details.|
 |**Extensions**|None.|
 |**Exceptions**|None.|
@@ -39,9 +39,9 @@
 |**Actor**|Customer|
 |**Description**|Customer filters products based on a certain criteria.|
 |**Pre-condition**|None.|
-|**Scenario**|1. Customer <u>browses products</u>.<br>2. Customer chooses the filter option.<br>3. System displays an option for input. <br>4. Customer enters keyword for filter.<br>5. System shows lists of products matching the input.|
+|**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses the filter option.<br>3. System displays an option for input. <br>4. Customer enters keyword for filter.<br>5. System shows lists of products matching the input.|
 |**Result**|Customer has access to a list of products that match given filter criteria.|
-|**Extensions**|5a. Customer chooses to view a product's details.<br> 1. System shows a list containing the details of the chosen product.<br>5a. Customer chooses to request price alerts for a product.<br>2. System displays confirmation of the request and asks the user for maximum price input.<br>4. User provides the input.<br>5. System displays a confirmation.|
+|**Extensions**|5a. Customer chooses to view a product's details.<br> 1. System shows a list containing the details of the chosen product.<br>5a. Customer chooses to request price alerts for a product.<br>2. System displays confirmation of the request and asks the user for maximum price input.<br>3. User provides the input.<br>4. System displays a confirmation.<br>5a. Customer chooses to purchase a product.<br>1. System redirects the user to an external website where the order can be completed.|
 |**Exceptions**|5. No products matching filter criteria.|
 
 |Use case|5|
@@ -50,7 +50,7 @@
 |**Actor**|Customer|
 |**Description**|Customer requests price alerts for a product.|
 |**Pre-condition**|None.|
-|**Scenario**|1. Customer <u>browses products</u>.<br>2. Customer chooses to request price alerts for a product.<br>3. System displays confirmation of the request and asks the user for maximum price input.<br>4. User provides the input.<br>5. System displays a confirmation.|
+|**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses to request price alerts for a product.<br>3. System displays confirmation of the request and asks the user for maximum price input.<br>4. User provides the input.<br>5. System displays a confirmation.|
 |**Result**|Customer has requested price alerts for a product and has given a maximum price they would pay for it.|
 |**Extensions**|None.|
 |**Exceptions**|None.|
@@ -83,7 +83,7 @@
 |**Actor**|Customer|
 |**Description**|Customer purchases a product.|
 |**Pre-condition**|None.|
-|**Scenario**|1. Customer <u>browses products</u>.<br>2. Customer chooses to purchase a product.<br>3. System redirects the user to an external website where the order can be completed.|
+|**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses to purchase a product.<br>3. System redirects the user to an external website where the order can be completed.|
 |**Result**|Customer has purchased a product.|
 |**Extensions**|None.|
 |**Exceptions**|None.|
