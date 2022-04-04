@@ -17,7 +17,7 @@
 |**Actor**|Customer|
 |**Description**|Customer views popular products.|
 |**Pre-condition**|None.|
-|**Scenario**|1. Customer <u>browses products</u>.<br>2. Customer chooses to view popular products.<br>3. System shows a list of the most popular products.|
+|**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses to view popular products.<br>3. System shows a list of the most popular products.|
 |**Result**|Customer has access to the list of most popular products.|
 |**Extensions**|3a. Customer chooses to view a product's details.<br> 1. System shows a list containing the details of the chosen product.<br>3a. Customer chooses to request price alerts for a product.<br>1. System displays confirmation of the request and asks the user for maximum price input.<br>4. User provides the input.<br>5. System displays a confirmation.<br>3a. Customer chooses to purchase a product. |
 |**Exceptions**|None.|
