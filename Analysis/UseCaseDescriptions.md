@@ -9,7 +9,7 @@
 |**Scenario**       |1. Customer chooses to browse products.<br>2. System displays list of products, with each product having an option for purchase, for more details to be seen and an option for price alerts request, filtering/search options and an option to view popular products.|
 |**Result**         |Customer has seen the browsing options.|
 |**Extensions**     |None.|
-|**Exceptions**     |None.|
+|**Exceptions**     |None.| 
 
 |Use case|2|
 |---|---|
