@@ -41,7 +41,7 @@
 |**Pre-condition**|None.|
 |**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses the filter option.<br>3. System displays an option for input. <br>4. Customer enters keyword for filter.<br>5. System shows lists of products matching the input.|
 |**Result**|Customer has access to a list of products that match given filter criteria.|
-|**Extensions**|5a. Customer chooses to view a product's details.<br> 1. System shows a list containing the details of the chosen product.<br>5a. Customer chooses to request price alerts for a product.<br>2. System displays confirmation of the request and asks the user for maximum price input.<br>3. User provides the input.<br>4. System displays a confirmation.<br>5a. Customer chooses to purchase a product.<br>1. System redirects the user to an external website where the order can be completed.|
+|**Extensions**|5a. Customer chooses to view a product's details.<br> 1. System shows a list containing the details of the chosen product.<br>5a. Customer chooses to request price alerts for a product.<br>1. System displays confirmation of the request and asks the user for maximum price input.<br>2. User provides the input.<br>3. System displays a confirmation.<br>5a. Customer chooses to purchase a product.<br>1. System redirects the user to an external website where the order can be completed.|
 |**Exceptions**|5. No products matching filter criteria.|
 
 |Use case|5|
@@ -63,7 +63,7 @@
 |**Pre-condition**|User must be logged in as an employee.|
 |**Scenario**|1. Employee chooses an option to add a product.<br>2. System asks the user for description, title and price of the product and displays an option to take a picture.<br>3. Employee inputs the information and confirms.<br>4. System displays a confirmation and shows the product's details.|
 |**Result**|Employee has added a new product to the application.|
-|**Extensions**|3a. User chooses to take a picture of the product.<br>1. System opens camera.<br>2. User chooses to take a picture.<br>3. System displays confirmation of the picture taken. Return to step 3.|
+|**Extensions**|3a. User chooses to take a picture of the product.<br>1. System opens camera.<br>2. User chooses to take a picture.<br>3. System displays confirmation of the picture taken and asks if the location of the picture should be stored.<br>4. User chooses to store or not store the location.<br>5. System displays confirmation of the choice. Return to step 3.|
 |**Exceptions**|4. System message: "Insufficient information!".<br>4.1 Use case ends here.|
 
 |Use case|7|
