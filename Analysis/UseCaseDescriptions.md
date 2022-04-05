@@ -49,7 +49,7 @@
 |**Name**|Request price alert|
 |**Actor**|Customer|
 |**Description**|Customer requests price alerts for a product.|
-|**Pre-condition**|None.|
+|**Pre-condition**|User must be logged in as a Customer.|
 |**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses to request price alerts for a product.<br>3. System displays confirmation of the request and asks the user for maximum price input.<br>4. User provides the input.<br>5. System displays a confirmation.|
 |**Result**|Customer has requested price alerts for a product and has given a maximum price they would pay for it.|
 |**Extensions**|None.|
@@ -58,11 +58,11 @@
 |Use case|6|
 |---|---|
 |**Name**|Add product|
-|**Actor**|Employee|
-|**Description**|Employee adds a new product to the applcation.|
-|**Pre-condition**|User must be logged in as an employee.|
-|**Scenario**|1. Employee chooses an option to add a product.<br>2. System asks the user for description, title and price of the product and displays an option to take a picture.<br>3. Employee inputs the information and confirms.<br>4. System displays a confirmation and shows the product's details.|
-|**Result**|Employee has added a new product to the application.|
+|**Actor**|Product Manager|
+|**Description**|Product Manager adds a new product to the applcation.|
+|**Pre-condition**|User must be logged in as a Product Manager.|
+|**Scenario**|1. Product Manager chooses an option to add a product.<br>2. System asks the user for description, title and price of the product and displays an option to take a picture.<br>3. Product Manager inputs the information and confirms.<br>4. System displays a confirmation and shows the product's details.|
+|**Result**|Product Manager has added a new product to the application.|
 |**Extensions**|3a. User chooses to take a picture of the product.<br>1. System opens camera.<br>2. User chooses to take a picture.<br>3. System displays confirmation of the picture taken and asks if the location of the picture should be stored.<br>4. User chooses to store or not store the location.<br>5. System displays confirmation of the choice. Return to step 3.|
 |**Exceptions**|4. System message: "Insufficient information!".<br>4.1 Use case ends here.|
 
@@ -71,7 +71,7 @@
 |**Name**|View store's location|
 |**Actor**|Customer|
 |**Description**|Customer views a store's location.|
-|**Pre-condition**|None.|
+|**Pre-condition**|User must be logged in as a Customer.|
 |**Scenario**|1. Customer chooses to view a list of stores.<br>2. System displays a list of all the stores available.<br>3. Customer chooses a store.<br>4. System shows a map with the location of the chosen store and a route to it from the location of the customer.|
 |**Result**|Customer has seen the location of a chosen store and the route to it.|
 |**Extensions**|None.|
@@ -82,8 +82,52 @@
 |**Name**|Purchase product|
 |**Actor**|Customer|
 |**Description**|Customer purchases a product.|
-|**Pre-condition**|None.|
+|**Pre-condition**|User must be logged in as a Customer.|
 |**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses to purchase a product.<br>3. System redirects the user to an external website where the order can be completed.|
 |**Result**|Customer has purchased a product.|
+|**Extensions**|None.|
+|**Exceptions**|None.|
+
+|Use case|9|
+|---|---|
+|**Name**|Log in|
+|**Actor**|Customer/Product Manager|
+|**Description**|User logs in the application.|
+|**Pre-condition**|User must have an account (be registered).|
+|**Scenario**|1. User chooses the log in option.<br>2. System displays option for input of a username and password.<br>3. User inputs information.<br>4. System displays home page with functionalities based on the type of user.|
+|**Result**|User has logged in.|
+|**Extensions**|None.|
+|**Exceptions**|4. System message: "Incorrect login credentials!".<br>4.1 Use case ends here.|
+
+|Use case|9|
+|---|---|
+|**Name**|Register|
+|**Actor**|Customer/Product Manager|
+|**Description**|User registers on the application.|
+|**Pre-condition**|None.|
+|**Scenario**|1. User chooses the register option.<br>2. System displays option for input of register details.<br>3. User inputs information.<br>4. System displays home page with functionalities based on the type of user.|
+|**Result**|User has registered.|
+|**Extensions**|None.|
+|**Exceptions**|4. System message: "Insufficient input!".<br>4.1 Use case ends here.|
+
+|Use case|10|
+|---|---|
+|**Name**|Receive price alert|
+|**Actor**|Customer|
+|**Description**|Customer receives price alert.|
+|**Pre-condition**|User must be logged in as a Customer.|
+|**Scenario**|1. |
+|**Result**|Customer has received a price alert.|
+|**Extensions**|None.|
+|**Exceptions**|None.|
+
+|Use case|11|
+|---|---|
+|**Name**|Send price alert (change product price)|
+|**Actor**|Product Manager|
+|**Description**|Product Manager sends a price alert.|
+|**Pre-condition**|User must be logged in as a Product Manager.|
+|**Scenario**|1. |
+|**Result**|Product Manager has sent a price alert.|
 |**Extensions**|None.|
 |**Exceptions**|None.|
