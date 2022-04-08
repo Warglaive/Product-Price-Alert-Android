@@ -5,6 +5,7 @@ export * from './application';
 export async function main(options: ApplicationConfig = {}) {
   const app = new Prj4GroupAndroidGroup3Application(options);
   await app.boot();
+  await app.migrateSchema();
   await app.start();
 
   const url = app.restServer.url;
