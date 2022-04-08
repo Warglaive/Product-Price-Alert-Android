@@ -1,9 +1,9 @@
-import {ApplicationConfig, LoopbackPrjApplication} from './application';
+import {ApplicationConfig, Prj4GroupAndroidGroup3Application} from './application';
 
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
-  const app = new LoopbackPrjApplication(options);
+  const app = new Prj4GroupAndroidGroup3Application(options);
   await app.boot();
   await app.start();
 

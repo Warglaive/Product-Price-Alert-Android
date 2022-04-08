@@ -1,9 +1,9 @@
 import {Client} from '@loopback/testlab';
-import {LoopbackPrjApplication} from '../..';
+import {Prj4GroupAndroidGroup3Application} from '../..';
 import {setupApplication} from './test-helper';
 
 describe('HomePage', () => {
-  let app: LoopbackPrjApplication;
+  let app: Prj4GroupAndroidGroup3Application;
   let client: Client;
 
   before('setupApplication', async () => {

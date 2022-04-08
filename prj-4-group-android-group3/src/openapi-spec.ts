@@ -1,5 +1,5 @@
 import {ApplicationConfig} from '@loopback/core';
-import {LoopbackPrjApplication} from './application';
+import {Prj4GroupAndroidGroup3Application} from './application';
 
 /**
  * Export the OpenAPI spec from the application
@@ -12,7 +12,7 @@ async function exportOpenApiSpec(): Promise<void> {
     },
   };
   const outFile = process.argv[2] ?? '';
-  const app = new LoopbackPrjApplication(config);
+  const app = new Prj4GroupAndroidGroup3Application(config);
   await app.boot();
   await app.exportOpenApiSpec(outFile);
 }

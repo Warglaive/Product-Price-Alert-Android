@@ -1,4 +1,4 @@
-import {LoopbackPrjApplication} from '../..';
+import {Prj4GroupAndroidGroup3Application} from '../..';
 import {
   createRestAppClient,
   givenHttpServerConfig,
@@ -14,7 +14,7 @@ export async function setupApplication(): Promise<AppWithClient> {
     // port: +process.env.PORT,
   });
 
-  const app = new LoopbackPrjApplication({
+  const app = new Prj4GroupAndroidGroup3Application({
     rest: restConfig,
   });
 
@@ -27,6 +27,6 @@ export async function setupApplication(): Promise<AppWithClient> {
 }
 
 export interface AppWithClient {
-  app: LoopbackPrjApplication;
+  app: Prj4GroupAndroidGroup3Application;
   client: Client;
 }
