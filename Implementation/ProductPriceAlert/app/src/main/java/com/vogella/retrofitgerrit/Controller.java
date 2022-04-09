@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Controller implements Callback<List<Change>> {
     //TODO: Fix BaseURl
-    static final String baseUrl = "localhost:3000";
+    static final String baseUrl = "http://127.0.0.1:3000/";
 
     public void start() {
         Gson gson = new GsonBuilder().setLenient().create();
