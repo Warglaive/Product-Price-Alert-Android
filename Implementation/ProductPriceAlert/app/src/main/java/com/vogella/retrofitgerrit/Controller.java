@@ -32,7 +32,7 @@ public class Controller implements Callback<List<UserData>> {
     public void onResponse(Call<List<UserData>> call, Response<List<UserData>> response) {
         if (response.isSuccessful()) {
             List<UserData> changesList = response.body();
-            changesList.forEach(c -> System.out.println(c.subject));
+            changesList.forEach(c -> System.out.println(c.getName()));
         }
     }
 
