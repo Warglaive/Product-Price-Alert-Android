@@ -17,18 +17,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    Controller userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        this.userController = new Controller();
+        //call here for test purposes, ref later
+        getAllUsers();
     }
 
     private void getAllUsers() {
         //TODO: add annotations if buggy
-        Controller userController = new Controller();
         //
         retrofit2.Call<List<UserData>> call = userController.getAllUsers();
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < listResult.size(); i++) {
                     users[i] = listResult.get(i).getName();
                 }
-
+                //TODO: Add users to a list
                 //  superListView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, oneHeroes));
             }
 
