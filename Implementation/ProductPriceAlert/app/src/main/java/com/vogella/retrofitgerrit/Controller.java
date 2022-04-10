@@ -19,7 +19,7 @@ public class Controller implements Callback<List<UserData>> {
     Retrofit retrofit;
     GerritAPI gerritAPI;
 
-    public void start() {
+    public Controller() {
         Gson gson = new GsonBuilder().setLenient().create();
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -32,8 +32,7 @@ public class Controller implements Callback<List<UserData>> {
     }
 
     public Call<List<UserData>> getAllUsers() {
-        Call<List<UserData>> call = gerritAPI.getUsers("status:open");
-        return call;
+        return gerritAPI.getUsers("status:open");
     }
 
     @Override
