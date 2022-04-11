@@ -6,9 +6,8 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public interface GerritAPI {
-    @GET("users/")
-    Call<List<UserData>> getUsers(@Query("q") String status);
+    @GET("http://192.168.0.113:3000/users/")
+    Call<List<UserData>> getUsers();
 }

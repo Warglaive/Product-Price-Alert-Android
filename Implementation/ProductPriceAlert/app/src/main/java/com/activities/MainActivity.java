@@ -6,52 +6,49 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.productpricealert.R;
-import com.vogella.retrofitgerrit.Controller;
+import com.vogella.retrofitgerrit.Interfaces.GerritAPI;
 import com.vogella.retrofitgerrit.UserData;
 
 import java.util.List;
 
+import models.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    Controller userController;
+    static final String baseUrl = "http://192.168.0.113:3000/";
+    public Retrofit retrofit;
+    public GerritAPI gerritAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.userController = new Controller();
-        //call here for test purposes, ref later
-        getAllUsers();
-    }
+        Gson gson = new GsonBuilder().setLenient().create();
+        this.retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        this.gerritAPI = retrofit.create(GerritAPI.class);
 
-    private void getAllUsers() {
-        //TODO: add annotations if buggy
-        //
-        retrofit2.Call<List<UserData>> call = userController.getAllUsers();
-
-        call.enqueue(new Callback<List<UserData>>() {
+        Call<List<UserData>> callUser = this.gerritAPI.getUsers();
+        callUser.enqueue(new Callback<List<UserData>>() {
             @Override
-            public void onResponse(retrofit2.Call<List<UserData>> call, Response<List<UserData>> response) {
-                List<UserData> listResult = response.body();
-                String[] users = new String[listResult.size()];
-
-                for (int i = 0; i < listResult.size(); i++) {
-                    users[i] = listResult.get(i).getName();
-                }
-                //TODO: Add users to a list
-                //  superListView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, oneHeroes));
+            public void onResponse(Call<List<UserData>> call, Response<List<UserData>> response) {
+                System.out.println("Reached on response!");
             }
 
             @Override
             public void onFailure(Call<List<UserData>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+                System.out.println("Reached on Failure!");
+                t.printStackTrace();
             }
-
         });
     }
-
 }
