@@ -14,7 +14,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Controller implements Callback<List<UserData>> {
-    //TODO: Fix BaseURl
     static final String baseUrl = "http://127.0.0.1:3000/";
     Retrofit retrofit;
     GerritAPI gerritAPI;
