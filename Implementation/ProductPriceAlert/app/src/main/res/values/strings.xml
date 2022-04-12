@@ -6,4 +6,7 @@
     </string>
     <string name="loginButton">Login</string>
     <string name="registerButton">Register</string>
+    <string name="registerWelcomeMsg">Hey Guest, please register!</string>
+    <string name="RegEmail">Email:</string>
+    <string name="RegName">Name:</string>
 </resources>
