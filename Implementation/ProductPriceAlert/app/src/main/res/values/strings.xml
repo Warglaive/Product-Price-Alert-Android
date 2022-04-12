@@ -2,7 +2,8 @@
     <string name="app_name">ProductPriceAlert</string>
     <string name="name">Name</string>
     <string name="hello">
-    <center>Hello Guest!\nPlease pick an option</center></string>
+      <center>Hello Guest!\nPlease pick an option</center>
+    </string>
     <string name="loginButton">Login</string>
     <string name="registerButton">Register</string>
 </resources>
