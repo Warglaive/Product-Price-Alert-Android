@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    static final String baseUrl = "http://192.168.0.113:3000/";
+    static final String baseUrl = "http://192.168.0.116:3000/";
     public Retrofit retrofit;
     public GerritAPI gerritAPI;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Initialize XML elements
-        this.registerButton = (Button) findViewById(registerButton.getId());
+        //this.registerButton = (Button) findViewById(registerButton.getId());
         //
         Gson gson = new GsonBuilder().setLenient().create();
         this.retrofit = new Retrofit.Builder()
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         this.gerritAPI = retrofit.create(GerritAPI.class);
-        //Used for test purposes, gonna refactor later, works though!
+        //Used for test purposes, gonna refactor later, works though via LB4!
         Call<List<UserData>> callUser = this.gerritAPI.getUsers();
         callUser.enqueue(new Callback<List<UserData>>() {
             @Override
