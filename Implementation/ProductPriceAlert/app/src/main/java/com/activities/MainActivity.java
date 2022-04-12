@@ -3,18 +3,15 @@ package com.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.productpricealert.R;
-import com.vogella.retrofitgerrit.Interfaces.GerritAPI;
+import com.vogella.retrofitgerrit.interfaces.GerritAPI;
 import com.vogella.retrofitgerrit.UserData;
 
 import java.util.List;
 
-import models.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

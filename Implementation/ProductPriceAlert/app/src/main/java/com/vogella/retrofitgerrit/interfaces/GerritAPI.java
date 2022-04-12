@@ -1,4 +1,4 @@
-package com.vogella.retrofitgerrit.Interfaces;
+package com.vogella.retrofitgerrit.interfaces;
 
 import com.vogella.retrofitgerrit.UserData;
 
