@@ -1,8 +1,11 @@
 package com.activities;
 
+import androidx.annotation.XmlRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,17 +26,23 @@ public class MainActivity extends AppCompatActivity {
     public Retrofit retrofit;
     public GerritAPI gerritAPI;
 
+    Button registerButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Initialize XML elements
+        this.registerButton = (Button) findViewById(registerButton.getId());
+        //
         Gson gson = new GsonBuilder().setLenient().create();
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         this.gerritAPI = retrofit.create(GerritAPI.class);
-
+        //Used for test purposes, gonna refactor later, works though!
         Call<List<UserData>> callUser = this.gerritAPI.getUsers();
         callUser.enqueue(new Callback<List<UserData>>() {
             @Override
@@ -47,5 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    /**
+     * Called when the user taps the Send button
+     */
+    public void registerUser(View view) {
+        // Do something in response to button
     }
 }
