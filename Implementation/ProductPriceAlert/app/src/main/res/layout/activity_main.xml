@@ -8,14 +8,35 @@
     tools:context="com.activities.MainActivity">
 
     <TextView
-        android:textColor="@color/white"
         android:id="@+id/editTextTextPersonName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:autoSizeTextType="uniform"
         android:ems="10"
-        android:text="@string/hello"
         android:gravity="center_horizontal"
-        android:layout_centerInParent="true"
-        android:textAlignment="center" />
+        android:text="@string/hello"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="333dp"
+        android:text="@string/registerButton" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="109dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="51dp"
+        android:layout_marginEnd="103dp"
+        android:layout_marginBottom="337dp"
+        android:layout_toStartOf="@+id/button2"
+        android:text="@string/loginButton" />
 </RelativeLayout>
