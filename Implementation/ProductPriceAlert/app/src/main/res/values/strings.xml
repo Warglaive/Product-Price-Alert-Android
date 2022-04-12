@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ProductPriceAlert</string>
+    <string name="name">Name</string>
+    <string name="hello">
+    <center>Hello Guest!\nPlease pick an option</center></string>
 </resources>
