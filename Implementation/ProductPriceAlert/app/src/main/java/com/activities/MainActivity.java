@@ -3,6 +3,7 @@ package com.activities;
 import androidx.annotation.XmlRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Initialize XML elements
-        //this.registerButton = (Button) findViewById(registerButton.getId());
+        this.registerButton = findViewById(R.id.registerButton);
         //
         Gson gson = new GsonBuilder().setLenient().create();
         this.retrofit = new Retrofit.Builder()
@@ -42,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         this.gerritAPI = retrofit.create(GerritAPI.class);
+        registerUser(findViewById(R.id.mainActivity).getRootView());
         //Used for test purposes, gonna refactor later, works though via LB4!
-        Call<List<UserData>> callUser = this.gerritAPI.getUsers();
+/*        Call<List<UserData>> callUser = this.gerritAPI.getUsers();
         callUser.enqueue(new Callback<List<UserData>>() {
             @Override
             public void onResponse(Call<List<UserData>> call, Response<List<UserData>> response) {
@@ -55,13 +57,22 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Reached on Failure!");
                 t.printStackTrace();
             }
-        });
+        });*/
     }
 
     /**
      * Called when the user taps the Send button
      */
     public void registerUser(View view) {
+        //Build intent so the 2 activities can bind
+        Intent intent = new Intent(this, RegisterUserActivity.class);
         // Do something in response to button
+        this.registerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(intent);
+            }
+        });
     }
 }
