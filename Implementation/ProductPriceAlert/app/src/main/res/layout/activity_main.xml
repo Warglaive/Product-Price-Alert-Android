@@ -26,17 +26,19 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="54dp"
         android:layout_marginBottom="333dp"
-        android:text="@string/registerButton"/>
+        android:onClick="registerUser"
+        android:text="@string/registerButton" />
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="109dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="51dp"
         android:layout_marginEnd="103dp"
         android:layout_marginBottom="337dp"
         android:layout_toStartOf="@+id/registerButton"
+        android:onClick="browseProducts"
         android:text="@string/loginButton" />
 </RelativeLayout>
