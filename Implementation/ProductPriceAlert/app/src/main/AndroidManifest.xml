@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.activities.RegisterUserActivity"
+            android:name="com.activities.BrowseProducts"
             android:exported="true" />
     </application>
 
