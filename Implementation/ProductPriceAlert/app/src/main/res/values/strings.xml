@@ -7,6 +7,9 @@
     <string name="loginButton">Login</string>
     <string name="registerButton">Register</string>
     <string name="registerWelcomeMsg">Hey Guest, please register!</string>
-    <string name="RegEmail">Email:</string>
+    <string name="email">Email:</string>
     <string name="RegName">Name:</string>
+    <string name="password">Password</string>
+    <string name="role">role</string>
+    <string name="backBtn">Back</string>
 </resources>
