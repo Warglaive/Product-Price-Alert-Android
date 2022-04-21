@@ -67,12 +67,6 @@ public class MainActivity extends AppCompatActivity {
         //Build intent so the 2 activities can bind
         Intent intent = new Intent(this, RegisterUserActivity.class);
         // Do something in response to button
-        this.registerButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                startActivity(intent);
-            }
-        });
+        this.registerButton.setOnClickListener(view1 -> startActivity(intent));
     }
 }
