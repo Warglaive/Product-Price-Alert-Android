@@ -18,5 +18,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
+        registerButton = findViewById(R.id.registerButton);
+        nameField = findViewById(R.id.nameText);
     }
 }
