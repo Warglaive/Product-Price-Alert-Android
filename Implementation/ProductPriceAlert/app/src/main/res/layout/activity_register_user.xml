@@ -6,7 +6,7 @@
 
 
     <EditText
-        android:id="@+id/nameText"
+        android:id="@+id/regName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.184" />
 
     <EditText
-        android:id="@+id/emailText"
+        android:id="@+id/regEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -60,7 +60,7 @@
         app:layout_constraintVertical_bias="0.466" />
 
     <EditText
-        android:id="@+id/roleText"
+        android:id="@+id/regRole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints=""

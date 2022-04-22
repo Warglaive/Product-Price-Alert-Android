@@ -7,6 +7,13 @@ public class User {
     /*private int id;*/
     private String role;
 
+    /**
+     * validate input and create new instance
+     * @param name
+     * @param email
+     * @param password
+     * @param role
+     */
     public User(String name, String email, String password, String role) {
         this.name = name;
         this.email = email;
