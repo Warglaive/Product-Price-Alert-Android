@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.productpricealert.R;
 
-import models.User;
+import com.models.User;
 
 public class RegisterUserActivity extends AppCompatActivity {
     private Button submitRegister;
