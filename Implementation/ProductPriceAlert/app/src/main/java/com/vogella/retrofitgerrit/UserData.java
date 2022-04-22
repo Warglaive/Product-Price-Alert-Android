@@ -1,11 +1,27 @@
 package com.vogella.retrofitgerrit;
 
+import com.models.User;
+
+/**
+ * Used ONLY to communicate with the LB4
+ */
 public class UserData {
     private String name;
     private String email;
     private String password;
-    /*private int id;*/
-    private String type;
+    private String role;
+
+    /**
+     * Get a User object and assign it to each field
+     * @param user
+     * */
+    //TODO: Delete constructor if unable to communicate with LB4
+    public UserData(User user) {
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.role = user.getRole();
+    }
 
     public String getName() {
         return name;
@@ -31,11 +47,11 @@ public class UserData {
         this.password = password;
     }
 
-    public String getType() {
-        return type;
+    public String getRole() {
+        return role;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.productpricealert.R;
+import com.services.UserStorageService;
 import com.vogella.retrofitgerrit.interfaces.GerritAPI;
 
 import retrofit2.Retrofit;
@@ -36,31 +37,22 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         this.gerritAPI = retrofit.create(GerritAPI.class);
-        registerUser(findViewById(R.id.mainActivity).getRootView());
-        //Used for test purposes, gonna refactor later, works though via LB4!
-/*        Call<List<UserData>> callUser = this.gerritAPI.getUsers();
-        callUser.enqueue(new Callback<List<UserData>>() {
-            @Override
-            public void onResponse(Call<List<UserData>> call, Response<List<UserData>> response) {
-                System.out.println("Reached on response!");
-            }
-
-            @Override
-            public void onFailure(Call<List<UserData>> call, Throwable t) {
-                System.out.println("Reached on Failure!");
-                t.printStackTrace();
-            }
-        });*/
+        loginOrRegister(findViewById(R.id.mainActivity).getRootView());
     }
 
     /**
      * Called when the user taps the Send button
      */
-    public void registerUser(View view) {
+    public void loginOrRegister(View view) {
         //Build intent so the 2 activities can bind
         //view.GetContext() can be replaced by "MainActivity.class" or just "this" if current activity is passed
         Intent intent = new Intent(view.getContext(), RegisterUserActivity.class);
+/*
+        Intent intent = new Intent(view.getContext(), LoginUserActivity.class);
+*/
+
         // Do something in response to button
+        //TODO: Add login view connection
         this.registerButton.setOnClickListener(view1 -> startActivity(intent));
     }
 }

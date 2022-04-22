@@ -49,6 +49,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         User user = new User(name, email, password, role);
         //Call storage service to store it.
         UserStorageService storageService = new UserStorageService();
-        storageService.registerUser(user);
+        storageService.getAllUsers();
+       // storageService.registerUser(user);
     }
 }
