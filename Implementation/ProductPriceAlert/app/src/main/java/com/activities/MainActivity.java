@@ -1,24 +1,17 @@
 package com.activities;
 
-import androidx.annotation.XmlRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.productpricealert.R;
 import com.vogella.retrofitgerrit.interfaces.GerritAPI;
-import com.vogella.retrofitgerrit.UserData;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -65,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void registerUser(View view) {
         //Build intent so the 2 activities can bind
-        Intent intent = new Intent(this, RegisterUserActivity.class);
+        //view.GetContext() can be replaced by "MainActivity.class" or just "this" if current activity is passed
+        Intent intent = new Intent(view.getContext(), RegisterUserActivity.class);
         // Do something in response to button
         this.registerButton.setOnClickListener(view1 -> startActivity(intent));
     }

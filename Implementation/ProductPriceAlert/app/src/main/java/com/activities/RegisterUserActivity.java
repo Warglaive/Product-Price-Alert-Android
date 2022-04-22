@@ -10,15 +10,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.productpricealert.R;
 
 public class RegisterUserActivity extends AppCompatActivity {
-    Button registerButton = findViewById(R.id.registerButton);
-    EditText nameField = findViewById(R.id.nameText);
+    private Button submitRegister;
+    private EditText nameField;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
-        registerButton = findViewById(R.id.registerButton);
+        submitRegister = findViewById(R.id.registerButton);
         nameField = findViewById(R.id.nameText);
+    }
+
+    /**
+     * 1. get user data from the fields and register user via LB4 (add validation later)
+     * 2. redirect to login view
+     */
+    void getUserInput(){
+        this.submitRegister.setOnClickListener(v->{
+
+        });
     }
 }
