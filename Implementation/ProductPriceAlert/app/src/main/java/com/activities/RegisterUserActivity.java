@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.productpricealert.R;
 
 import com.models.User;
+import com.services.UserStorageService;
 
 public class RegisterUserActivity extends AppCompatActivity {
     private Button submitRegister;
@@ -47,5 +48,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     private void CreateUser(String name, String email, String password, String role) {
         User user = new User(name, email, password, role);
         //Call storage service to store it.
+        UserStorageService storageService = new UserStorageService();
+        storageService.registerUser(user);
     }
 }

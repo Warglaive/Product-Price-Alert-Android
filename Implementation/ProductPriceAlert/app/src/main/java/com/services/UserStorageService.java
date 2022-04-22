@@ -12,7 +12,7 @@ public class UserStorageService {
 
     }
 
-    void registerUser(User user) {
+  public  void registerUser(User user) {
         this.user = user;
         //do LB4 to register
 
