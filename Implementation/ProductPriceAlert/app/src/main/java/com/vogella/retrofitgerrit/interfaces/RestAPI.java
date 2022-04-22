@@ -8,11 +8,11 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface GerritAPI {
+public interface RestAPI {
     @GET("http://192.168.0.116:3000/users/")
     Call<List<UserData>> getAllUsers();
     //TODO: Post
-    @POST("http://192.168.0.116:3000/users/")
-    void postUser();
+   //@POST("http://192.168.0.116:3000/users/")
+   //Call<User> postUser(@Body User user)
 
 }

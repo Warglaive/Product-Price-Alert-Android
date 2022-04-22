@@ -3,9 +3,8 @@ package com.services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.models.User;
-import com.productpricealert.R;
 import com.vogella.retrofitgerrit.UserData;
-import com.vogella.retrofitgerrit.interfaces.GerritAPI;
+import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class UserStorageService {
     //
     static final String baseUrl = "http://192.168.0.116:3000/";
     public Retrofit retrofit;
-    public GerritAPI gerritAPI;
+    public RestAPI restAPI;
     //
     private User user;
 
@@ -36,7 +35,24 @@ public class UserStorageService {
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-        this.gerritAPI = retrofit.create(GerritAPI.class);
+        this.restAPI = retrofit.create(RestAPI.class);
+
+
+        Call<List<UserData>> callUser = this.restAPI.getAllUsers();
+       // List<UserData> receivedUsers = new ArrayList<>();
+        callUser.enqueue(new Callback<List<UserData>>() {
+            @Override
+            public void onResponse(Call<List<UserData>> call, Response<List<UserData>> response) {
+              //  receivedUsers.addAll(response.body());
+                System.out.println("Reached on response!");
+            }
+
+            @Override
+            public void onFailure(Call<List<UserData>> call, Throwable t) {
+                System.out.println("Reached on Failure!");
+                t.printStackTrace();
+            }
+        });
     }
 
     /**
@@ -55,12 +71,12 @@ public class UserStorageService {
      * @return list of all users
      */
     public List<UserData> getAllUsers() {
-        Call<List<UserData>> callUser = this.gerritAPI.getAllUsers();
+        Call<List<UserData>> callUser = this.restAPI.getAllUsers();
         List<UserData> receivedUsers = new ArrayList<>();
         callUser.enqueue(new Callback<List<UserData>>() {
             @Override
             public void onResponse(Call<List<UserData>> call, Response<List<UserData>> response) {
-                receivedUsers.addAll(response.body());
+
                 System.out.println("Reached on response!");
             }
 
