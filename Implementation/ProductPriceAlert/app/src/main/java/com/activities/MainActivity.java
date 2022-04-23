@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     //static final String baseUrl = "http://192.168.0.116:3000/";
     //public Retrofit retrofit;
-    public RestAPI restAPI;
+   // public RestAPI restAPI;
 
     Button registerButton;
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //Initialize XML elements
         this.registerButton = findViewById(R.id.registerButton);
         //Works just fine
-        this.restAPI = RestClient.getClient();
+    /*    this.restAPI = RestClient.getClient();
         //TODO: Ask someone why it works like that
         Call<List<UserData>> callUser = this.restAPI.getAllUsers();
         // List<UserData> receivedUsers = new ArrayList<>();
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Reached on Failure!");
                 t.printStackTrace();
             }
-        });
+        });*/
         //
         loginOrRegister(findViewById(R.id.mainActivity).getRootView());
     }
