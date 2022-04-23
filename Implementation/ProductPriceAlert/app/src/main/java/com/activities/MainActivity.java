@@ -1,18 +1,17 @@
 package com.activities;
 
-import androidx.annotation.XmlRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.productpricealert.R;
-import com.vogella.retrofitgerrit.interfaces.GerritAPI;
 import com.vogella.retrofitgerrit.UserData;
+import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     static final String baseUrl = "http://192.168.0.116:3000/";
     public Retrofit retrofit;
-    public GerritAPI gerritAPI;
+    public RestAPI restAPI;
 
     Button registerButton;
 
@@ -42,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-        this.gerritAPI = retrofit.create(GerritAPI.class);
-        registerUser(findViewById(R.id.mainActivity).getRootView());
-        //Used for test purposes, gonna refactor later, works though via LB4!
-/*        Call<List<UserData>> callUser = this.gerritAPI.getUsers();
+        this.restAPI = retrofit.create(RestAPI.class);
+        //TODO: Ask someone why it works like that
+        Call<List<UserData>> callUser = this.restAPI.getAllUsers();
+        // List<UserData> receivedUsers = new ArrayList<>();
         callUser.enqueue(new Callback<List<UserData>>() {
             @Override
             public void onResponse(Call<List<UserData>> call, Response<List<UserData>> response) {
+                //  receivedUsers.addAll(response.body());
                 System.out.println("Reached on response!");
             }
 
@@ -57,16 +57,24 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Reached on Failure!");
                 t.printStackTrace();
             }
-        });*/
+        });
+        //
+        loginOrRegister(findViewById(R.id.mainActivity).getRootView());
     }
 
     /**
      * Called when the user taps the Send button
      */
-    public void registerUser(View view) {
+    public void loginOrRegister(View view) {
         //Build intent so the 2 activities can bind
-        Intent intent = new Intent(this, RegisterUserActivity.class);
+        //view.GetContext() can be replaced by "MainActivity.class" or just "this" if current activity is passed
+        Intent intent = new Intent(view.getContext(), RegisterUserActivity.class);
+/*
+        Intent intent = new Intent(view.getContext(), LoginUserActivity.class);
+*/
+
         // Do something in response to button
+        //TODO: Add login view connection
         this.registerButton.setOnClickListener(view1 -> startActivity(intent));
     }
 }

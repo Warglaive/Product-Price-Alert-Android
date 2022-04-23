@@ -1,11 +1,16 @@
 package com.vogella.retrofitgerrit;
 
+import com.google.gson.annotations.SerializedName;
+
+/**
+ * Used ONLY to communicate with the LB4
+ */
 public class UserData {
+    @SerializedName(value = "name")
     private String name;
     private String email;
     private String password;
-    /*private int id;*/
-    private String type;
+    private String role;
 
     public String getName() {
         return name;
@@ -31,11 +36,11 @@ public class UserData {
         this.password = password;
     }
 
-    public String getType() {
-        return type;
+    public String getRole() {
+        return role;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
