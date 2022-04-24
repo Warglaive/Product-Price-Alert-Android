@@ -7,10 +7,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/name"
         android:layout_width="148dp"
         android:layout_height="45dp"
-        android:text="TextView"
+        android:text="@string/nameProduct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,25 +18,25 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/price"
         android:layout_width="145dp"
         android:layout_height="41dp"
-        android:text="TextView"
+        android:text="@string/price"
         tools:layout_editor_absoluteX="131dp"
         tools:layout_editor_absoluteY="435dp"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/description"
         android:layout_width="145dp"
         android:layout_height="40dp"
-        android:text="TextView"
+        android:text="@string/description"
         tools:layout_editor_absoluteX="129dp"
         tools:layout_editor_absoluteY="513dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/image"
         android:layout_width="218dp"
         android:layout_height="239dp"
         app:srcCompat="@drawable/background"
