@@ -42,6 +42,7 @@
         app:srcCompat="@drawable/background"
         tools:layout_editor_absoluteX="96dp"
         tools:layout_editor_absoluteY="152dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:contentDescription="@string/imageDesc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
