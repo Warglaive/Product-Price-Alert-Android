@@ -1,7 +1,5 @@
 package com.services;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.models.User;
 import com.vogella.retrofitgerrit.RestClient;
 import com.vogella.retrofitgerrit.UserData;
@@ -13,8 +11,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * CRUD and more for the User
@@ -37,8 +33,26 @@ public class UserStorageService {
      */
     public void registerUser(User user) {
         this.user = user;
-        //do LB4 to register
-        //TODO: implement
+        //Make UserData from User and use LB4 to add it to the DB
+        UserData userData = new UserData();
+        userData.setName(user.getName());
+        userData.setEmail(user.getEmail());
+        userData.setPassword(user.getPassword());
+        userData.setRole(user.getRole());
+        //add UserData to DB
+        Call<UserData> call = this.restAPI.postUser(userData);
+        call.enqueue(new Callback<UserData>() {
+            @Override
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+                System.out.println(response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+                System.out.println("On Failure Reached");
+            }
+        });
+
     }
 
     /**

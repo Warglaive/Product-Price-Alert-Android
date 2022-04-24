@@ -11,8 +11,17 @@ public class RestClient {
     //
     static final String baseUrl = "http://192.168.0.116:3000/";
 
-    //
+    //GET
     public static RestAPI getClient() {
+        Gson gson = new GsonBuilder().setLenient().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        return retrofit.create(RestAPI.class);
+    }
+    //POST
+    public static RestAPI getClientPOST(){
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)

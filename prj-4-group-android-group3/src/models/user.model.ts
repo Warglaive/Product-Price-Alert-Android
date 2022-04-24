@@ -27,7 +27,7 @@ export class User extends Entity {
   @property({
     type: 'string',
   })
-  type?: string;
+  role?: string;
 
   // Define well-known properties here
 
