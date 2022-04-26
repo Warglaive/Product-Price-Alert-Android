@@ -24,9 +24,10 @@ public class BrowseProducts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
+        //TODO Add the products to the list from a database (GET)
         final ListView listview = (ListView) findViewById(R.id.listview);
-        String[] values = new String[] { "Apples", "Bananas", "Salami",
-                "Blackberry", "Cherry"};
+        String[] values = new String[] { "Cigari", "Vodka", "Salami",
+                "Sok ot Praskova", "Cherry", "Rakiq"};
 
         final ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < values.length; ++i) {
@@ -38,6 +39,7 @@ public class BrowseProducts extends AppCompatActivity {
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            // TODO Display Information about item
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
