@@ -57,6 +57,7 @@
     "@loopback/rest-explorer": "^4.0.1",
     "@loopback/service-proxy": "^4.0.1",
     "loopback-component-storage": "^3.6.0",
+    "loopback-connector-mongodb": "^6.2.0",
     "loopback-connector-postgresql": "^5.5.0",
     "tslib": "^2.0.0"
   },
