@@ -23,6 +23,9 @@
         <activity
             android:name="com.activities.RegisterUserActivity"
             android:exported="true" />
+        <activity
+            android:name="com.activities.ProductDetailsActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
