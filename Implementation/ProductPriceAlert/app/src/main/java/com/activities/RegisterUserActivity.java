@@ -7,9 +7,8 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.productpricealert.R;
-
 import com.models.User;
+import com.productpricealert.R;
 import com.services.UserStorageService;
 
 public class RegisterUserActivity extends AppCompatActivity {
@@ -25,31 +24,40 @@ public class RegisterUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
         submitRegister = findViewById(R.id.registerButton);
         this.submitRegister.setOnClickListener(v -> {
-            getUserInput();
+            RegisterAndRedirect();
         });
+        //find fields
+        this.nameField = findViewById(R.id.regName);
+        this.emailField = findViewById(R.id.regEmail);
+        this.passwordField = findViewById(R.id.regPassword);
+        this.roleField = findViewById(R.id.regRole);
+        //
     }
 
     /**
      * 1. get user data from the fields and register user via LB4 (add validation later)
      * 2. redirect to login view
      */
-    void getUserInput() {
-        this.nameField = findViewById(R.id.regName);
-        this.emailField = findViewById(R.id.regEmail);
-        this.passwordField = findViewById(R.id.regPassword);
-        this.roleField = findViewById(R.id.regRole);
+    void RegisterAndRedirect() {
         String name = this.nameField.getText().toString();
         String email = this.emailField.getText().toString();
         String password = this.passwordField.getText().toString();
         String role = this.roleField.getText().toString();
-        CreateUser(name, email, password, role);
+        //Create user
+        User user = CreateUser(name, email, password, role);
+        //Register
+        RegisterUser(user);
+        //TODO: Redirect to login
     }
 
-    private void CreateUser(String name, String email, String password, String role) {
-        User user = new User(name, email, password, role);
+    private User CreateUser(String name, String email, String password, String role) {
         //Call storage service to store it.
+        return new User(name, email, password, role);
+    }
+
+
+    private void RegisterUser(User user) {
         UserStorageService storageService = new UserStorageService();
-        storageService.getAllUsers();
-       // storageService.registerUser(user);
+        storageService.registerUser(user);
     }
 }
