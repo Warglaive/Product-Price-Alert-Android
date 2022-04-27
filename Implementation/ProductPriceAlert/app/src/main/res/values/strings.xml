@@ -12,4 +12,8 @@
     <string name="password">Password:</string>
     <string name="role">Role:</string>
     <string name="backBtn">Back</string>
+    <string name="nameProduct">Product:</string>
+    <string name="price">Price:</string>
+    <string name="description">Description:</string>
+    <string name="imageDesc">Product picture</string>
 </resources>

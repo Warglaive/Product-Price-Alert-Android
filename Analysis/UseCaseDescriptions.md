@@ -28,7 +28,7 @@
 |**Actor**|Customer|
 |**Description**|Customer views product's details.|
 |**Pre-condition**|None.|
-|**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses to view a product's details.<br>3. System shows a list containing the details of the chosen product.|
+|**Scenario**|1. Customer <ins>browses products</ins>.<br>2. Customer chooses to view a product's details.<br>3. System shows a list containing the details of the chosen product, including the product's location.|
 |**Result**|Customer has access to a product's details.|
 |**Extensions**|None.|
 |**Exceptions**|None.|
@@ -68,17 +68,6 @@
 
 |Use case|7|
 |---|---|
-|**Name**|View store's location|
-|**Actor**|Customer|
-|**Description**|Customer views a store's location.|
-|**Pre-condition**|User must be logged in as a Customer.|
-|**Scenario**|1. Customer chooses to view a list of stores.<br>2. System displays a list of all the stores available.<br>3. Customer chooses a store.<br>4. System shows a map with the location of the chosen store and a route to it from the location of the customer.|
-|**Result**|Customer has seen the location of a chosen store and the route to it.|
-|**Extensions**|None.|
-|**Exceptions**|None.|
-
-|Use case|8|
-|---|---|
 |**Name**|Purchase product|
 |**Actor**|Customer|
 |**Description**|Customer purchases a product.|
@@ -88,7 +77,7 @@
 |**Extensions**|None.|
 |**Exceptions**|None.|
 
-|Use case|9|
+|Use case|8|
 |---|---|
 |**Name**|Log in|
 |**Actor**|Customer/Product Manager|
