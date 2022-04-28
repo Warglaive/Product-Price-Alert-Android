@@ -1,33 +1,35 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({settings: {strict: false}})
-export class User extends Entity {
+export class Product extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: true,
   })
-  id?: number;
+  id?: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  name: string;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  price: number;
 
   @property({
     type: 'string',
   })
-  email?: string;
+  image?: string;
 
   @property({
     type: 'string',
   })
-  name?: string;
-
-  @property({
-    type: 'string',
-  })
-  password?: string;
-
-  @property({
-    type: 'string',
-  })
-  role?: string;
+  description?: string;
 
   // Define well-known properties here
 
@@ -35,13 +37,13 @@ export class User extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<User>) {
+  constructor(data?: Partial<Product>) {
     super(data);
   }
 }
 
-export interface UserRelations {
+export interface ProductRelations {
   // describe navigational properties here
 }
 
-export type UserWithRelations = User & UserRelations;
+export type ProductWithRelations = Product & ProductRelations;

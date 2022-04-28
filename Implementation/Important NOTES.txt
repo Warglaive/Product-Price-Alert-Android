@@ -1,1 +1,3 @@
 1. In case you are using a localhost for LB4 or Database, change "localhost" with your LOCAL IP, check video -> https://www.youtube.com/watch?v=uw_fDk3mRGk
+
+2. When you create a LB4 model, make sure to say YES to the question "Is ID omitted".
