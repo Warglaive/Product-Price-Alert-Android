@@ -29,9 +29,6 @@
         <activity
             android:name="com.activities.BrowseProducts"
             android:exported="true" />
-        <activity
-            android:name="com.activities.ProductDetailsActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
