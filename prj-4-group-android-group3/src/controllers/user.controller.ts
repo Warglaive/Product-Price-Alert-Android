@@ -31,8 +31,12 @@ import {
   UserRepository,
   Credentials,
 } from '@loopback/authentication-jwt';
-import { TokenService } from '@loopback/authentication';
-import { SecurityBindings, UserProfile } from '@loopback/security';
+import { authenticate, TokenService } from '@loopback/authentication';
+import { SecurityBindings, securityId, UserProfile } from '@loopback/security';
+import {genSalt, hash} from 'bcryptjs';
+
+import _ from 'lodash';
+
 //import {repository} from '@loopback/repository';
 // ----------------------------------
 
@@ -238,5 +242,67 @@ export class UserController {
   })
   async deleteById(@param.path.number('id') id: string): Promise<void> {
     await this.userRepository.deleteById(id);
+  }
+
+  //REGISTER Endpoints
+  @authenticate('jwt')
+  @get('/whoAmI', {
+    responses: {
+      '200': {
+        description: 'Return current user',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
+  })
+  async whoAmI(
+    @inject(SecurityBindings.USER)
+    currentUserProfile: UserProfile,
+  ): Promise<string> {
+    return currentUserProfile[securityId];
+  }
+  
+
+  @post('/signup', {
+    responses: {
+      '200': {
+        description: 'User',
+        content: {
+          'application/json': {
+            schema: {
+              'x-ts-type': User,
+            },
+          },
+        },
+      },
+    },
+  })
+  async signUp(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(NewUserRequest, {
+            title: 'NewUser',
+          }),
+        },
+      },
+    })
+    newUserRequest: NewUserRequest,
+  ): Promise<User> {
+    const password = await hash(newUserRequest.password, await genSalt());
+    const savedUser = await this.userRepository.create(
+      _.omit(newUserRequest, 'password'),
+    );
+
+    await this.userRepository.userCredentials(savedUser.id).create({ password });
+
+    return savedUser;
+    //
+
   }
 }
