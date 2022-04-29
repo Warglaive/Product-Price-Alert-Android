@@ -23,6 +23,7 @@
         <activity
             android:name="com.activities.RegisterUserActivity"
             android:exported="true" />
+        <activity android:name="com.activities.LoginUserActivity"/>
         <activity
             android:name="com.activities.ProductDetailsActivity"
             android:exported="true" />
