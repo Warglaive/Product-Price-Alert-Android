@@ -20,7 +20,8 @@ public class LoginUserActivity extends AppCompatActivity {
         redirectToMainOnBackButtonClick(backToMainBtn);
         //submit login btn
         Button submitLoginBtn = findViewById(R.id.loginButton);
-        //Check if role == "Product manager"
+        //Check if role == "Product Manager" -> redirect to corresponding view.
+        //Check if role == "Customer" -> redirect to corresponding view.
         submitLoginBtn.setOnClickListener(v -> {
 
         });
