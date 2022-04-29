@@ -3,6 +3,8 @@ import {
   CountSchema,
   Filter,
   FilterExcludingWhere,
+  model,
+  property,
   repository,
   Where,
 } from '@loopback/repository';
@@ -16,21 +18,57 @@ import {
   del,
   requestBody,
   response,
+  SchemaObject,
 } from '@loopback/rest';
-import {User} from '../models';
+import { User } from '../models';
 //import {UserRepository} from '../repositories';
 // ---------- ADD IMPORTS -------------
-import {inject} from '@loopback/core';
+import { inject } from '@loopback/core';
 import {
   TokenServiceBindings,
   MyUserService,
   UserServiceBindings,
   UserRepository,
 } from '@loopback/authentication-jwt';
-import {TokenService} from '@loopback/authentication';
-import {SecurityBindings, UserProfile} from '@loopback/security';
+import { TokenService } from '@loopback/authentication';
+import { SecurityBindings, UserProfile } from '@loopback/security';
 //import {repository} from '@loopback/repository';
 // ----------------------------------
+
+//Add login/register 
+@model()
+export class NewUserRequest extends User {
+  @property({
+    type: 'string',
+    required: true,
+  })
+  password: string;
+}
+//
+const CredentialsSchema: SchemaObject = {
+  type: 'object',
+  required: ['email', 'password'],
+  properties: {
+    email: {
+      type: 'string',
+      format: 'email',
+    },
+    password: {
+      type: 'string',
+      minLength: 1,
+    },
+  },
+};
+//
+export const CredentialsRequestBody = {
+  description: 'The input of login function',
+  required: true,
+  content: {
+    'application/json': { schema: CredentialsSchema },
+  },
+};
+//Add login/register 
+
 export class UserController {
   constructor(
     //Login/Register 
@@ -38,17 +76,39 @@ export class UserController {
     public jwtService: TokenService,
     @inject(UserServiceBindings.USER_SERVICE)
     public userService: MyUserService,
-    @inject(SecurityBindings.USER, {optional: true})
+    @inject(SecurityBindings.USER, { optional: true })
     public user: UserProfile,
     //
     @repository(UserRepository)
-    public userRepository : UserRepository,
-  ) {}
+    public userRepository: UserRepository,
+  ) { }
+  //Add login/register endpoints
+  @post('/users/login', {
+    responses: {
+      '200': {
+        description: 'Token',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                token: {
+                  type: 'string',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+
+  //
 
   @post('/users')
   @response(200, {
     description: 'User model instance',
-    content: {'application/json': {schema: getModelSchemaRef(User)}},
+    content: { 'application/json': { schema: getModelSchemaRef(User) } },
   })
   async create(
     @requestBody({
@@ -69,7 +129,7 @@ export class UserController {
   @get('/users/count')
   @response(200, {
     description: 'User model count',
-    content: {'application/json': {schema: CountSchema}},
+    content: { 'application/json': { schema: CountSchema } },
   })
   async count(
     @param.where(User) where?: Where<User>,
@@ -84,7 +144,7 @@ export class UserController {
       'application/json': {
         schema: {
           type: 'array',
-          items: getModelSchemaRef(User, {includeRelations: true}),
+          items: getModelSchemaRef(User, { includeRelations: true }),
         },
       },
     },
@@ -98,13 +158,13 @@ export class UserController {
   @patch('/users')
   @response(200, {
     description: 'User PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
+    content: { 'application/json': { schema: CountSchema } },
   })
   async updateAll(
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(User, {partial: true}),
+          schema: getModelSchemaRef(User, { partial: true }),
         },
       },
     })
@@ -119,13 +179,13 @@ export class UserController {
     description: 'User model instance',
     content: {
       'application/json': {
-        schema: getModelSchemaRef(User, {includeRelations: true}),
+        schema: getModelSchemaRef(User, { includeRelations: true }),
       },
     },
   })
   async findById(
     @param.path.number('id') id: string,
-    @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>
+    @param.filter(User, { exclude: 'where' }) filter?: FilterExcludingWhere<User>
   ): Promise<User> {
     return this.userRepository.findById(id, filter);
   }
@@ -139,7 +199,7 @@ export class UserController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(User, {partial: true}),
+          schema: getModelSchemaRef(User, { partial: true }),
         },
       },
     })
