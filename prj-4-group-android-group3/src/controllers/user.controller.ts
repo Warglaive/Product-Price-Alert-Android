@@ -29,6 +29,7 @@ import {
   MyUserService,
   UserServiceBindings,
   UserRepository,
+  Credentials,
 } from '@loopback/authentication-jwt';
 import { TokenService } from '@loopback/authentication';
 import { SecurityBindings, UserProfile } from '@loopback/security';
@@ -82,7 +83,7 @@ export class UserController {
     @repository(UserRepository)
     public userRepository: UserRepository,
   ) { }
-  //Add login/register endpoints
+  //LOGIN EndPoints
   @post('/users/login', {
     responses: {
       '200': {
@@ -102,8 +103,20 @@ export class UserController {
       },
     },
   })
+  async login(
+    @requestBody(CredentialsRequestBody) credentials: Credentials,
+  ): Promise<{ token: string }> {
+    // ensure the user exists, and the password is correct
+    const user = await this.userService.verifyCredentials(credentials);
+    // convert a User object into a UserProfile object (reduced set of properties)
+    const userProfile = this.userService.convertToUserProfile(user);
 
-  //
+    // create a JSON Web Token based on the user profile
+    const token = await this.jwtService.generateToken(userProfile);
+    return { token };
+  }
+  //REGISTER Endpoints
+
 
   @post('/users')
   @response(200, {
