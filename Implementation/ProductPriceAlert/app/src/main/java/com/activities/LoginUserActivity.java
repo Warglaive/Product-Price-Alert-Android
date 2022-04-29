@@ -1,6 +1,8 @@
 package com.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,5 +15,11 @@ public class LoginUserActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_user);
+        //back btn
+        Button backToMainBtn = findViewById(R.id.backToMainButton);
+        redirectToMainOnBackButtonClick(backToMainBtn);
+    }
+    private void redirectToMainOnBackButtonClick(Button backToMainBtn) {
+        backToMainBtn.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MainActivity.class)));
     }
 }
