@@ -18,7 +18,14 @@ public class LoginUserActivity extends AppCompatActivity {
         //back btn
         Button backToMainBtn = findViewById(R.id.backToMainButton);
         redirectToMainOnBackButtonClick(backToMainBtn);
+        //submit login btn
+        Button submitLoginBtn = findViewById(R.id.loginButton);
+        //Check if role == "Product manager"
+        submitLoginBtn.setOnClickListener(v -> {
+
+        });
     }
+
     private void redirectToMainOnBackButtonClick(Button backToMainBtn) {
         backToMainBtn.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MainActivity.class)));
     }
