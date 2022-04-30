@@ -1,1 +1,1 @@
-export * from './mongo.datasource';
+export * from './postgresql.datasource';

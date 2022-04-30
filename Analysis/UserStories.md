@@ -13,11 +13,9 @@ As a customer I would like to be able to **view products based on several criter
 
 As a customer I would like to be able to **purchase products** in order to place an order and own the products.
 
-As a customer I would like to be able to **view a product’s location** in order to know where it is located and the path to it.
+As a customer I would like to be able to **view the store’s location** in order to know where it is located and the path to it.
 
 As a customer I would like to be able to **provide a maximum price I would pay for a product** in order to have a maximum for the price alerts coming to me.
-
-As a customer I would like to be able to **receive price alerts** in order to know when the price changes.
 
 ## Employee
 As an employee I would like to be able to **store the location of a picture** so that the customers can see the location of the product in the picture.
