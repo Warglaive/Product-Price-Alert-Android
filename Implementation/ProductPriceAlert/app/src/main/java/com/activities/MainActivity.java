@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
    // public RestAPI restAPI;
 
     Button registerButton;
+    Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialize XML elements
         this.registerButton = findViewById(R.id.registerButton);
+        this.loginButton = findViewById(R.id.loginButton);
         //Works just fine
     /*    this.restAPI = RestClient.getClient();
         //TODO: Ask someone why it works like that
@@ -59,5 +61,9 @@ public class MainActivity extends AppCompatActivity {
         // Do something in response to button
         //TODO: Add login view connection
         this.registerButton.setOnClickListener(view1 -> startActivity(intent));
+        this.loginButton.setOnClickListener(view1 -> startActivity(new Intent(view.getContext(), BrowseProducts.class)));
+
     }
+
+
 }

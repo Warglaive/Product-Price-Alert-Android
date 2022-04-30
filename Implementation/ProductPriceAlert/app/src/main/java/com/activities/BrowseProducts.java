@@ -22,12 +22,12 @@ public class BrowseProducts extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_user);
+        setContentView(R.layout.activity_browse_products);
 
         //TODO Add the products to the list from a database (GET)
         final ListView listview = (ListView) findViewById(R.id.listview);
         String[] values = new String[] { "Cigari", "Vodka", "Salami",
-                "Sok ot Praskova", "Cherry", "Rakiq"};
+                "Mara", "Vape", "Rakiq"};
 
         final ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < values.length; ++i) {
