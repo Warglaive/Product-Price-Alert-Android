@@ -1,6 +1,6 @@
 |  Words  |      Definition     |
 |----------|:-------------:|
-| Product |  An item displayed for sell in the store | 
+| Product |  An item displayed for sell in the store, it contains the Name, Price, Description and a photo of the item. | 
 | Price |  The amount of money expected in payment for something  |
 | Alert | A notice about something  |
 | Purchase | The action of buying something |

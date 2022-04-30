@@ -1,29 +1,20 @@
 package com.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.productpricealert.R;
-import com.vogella.retrofitgerrit.interfaces.GerritAPI;
+import androidx.appcompat.app.AppCompatActivity;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.productpricealert.R;
 
 public class MainActivity extends AppCompatActivity {
-    static final String baseUrl = "http://192.168.0.116:3000/";
-    public Retrofit retrofit;
-    public GerritAPI gerritAPI;
+    //static final String baseUrl = "http://192.168.0.116:3000/";
+    //public Retrofit retrofit;
+   // public RestAPI restAPI;
 
     Button registerButton;
-
-    //Tim
-    Button browseProductsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +23,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialize XML elements
         this.registerButton = findViewById(R.id.registerButton);
-        // TODO it should be connected to a different button
-        this.browseProductsButton = findViewById(R.id.loginButton);
-        //
-        Gson gson = new GsonBuilder().setLenient().create();
-        this.retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        this.gerritAPI = retrofit.create(GerritAPI.class);
-        //Used for test purposes, gonna refactor later, works though via LB4!
-/*        Call<List<UserData>> callUser = this.gerritAPI.getUsers();
+        //Works just fine
+    /*    this.restAPI = RestClient.getClient();
+        //TODO: Ask someone why it works like that
+        Call<List<UserData>> callUser = this.restAPI.getAllUsers();
+        // List<UserData> receivedUsers = new ArrayList<>();
         callUser.enqueue(new Callback<List<UserData>>() {
             @Override
             public void onResponse(Call<List<UserData>> call, Response<List<UserData>> response) {
+                //  receivedUsers.addAll(response.body());
                 System.out.println("Reached on response!");
             }
 
@@ -55,35 +41,23 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });*/
+        //
+        loginOrRegister(findViewById(R.id.mainActivity).getRootView());
     }
 
     /**
      * Called when the user taps the Send button
      */
-    public void registerUser(View view) {
+    public void loginOrRegister(View view) {
         //Build intent so the 2 activities can bind
-        Intent intent = new Intent(this, BrowseProducts.class);
+        //view.GetContext() can be replaced by "MainActivity.class" or just "this" if current activity is passed
+        Intent intent = new Intent(view.getContext(), RegisterUserActivity.class);
+/*
+        Intent intent = new Intent(view.getContext(), LoginUserActivity.class);
+*/
+
         // Do something in response to button
-        this.registerButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                startActivity(intent);
-            }
-        });
+        //TODO: Add login view connection
+        this.registerButton.setOnClickListener(view1 -> startActivity(intent));
     }
-
-    public void browseProducts(View view) {
-        //Build intent so the 2 activities can bind
-        Intent intent = new Intent(this, BrowseProducts.class);
-        // Do something in response to button
-        this.browseProductsButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                startActivity(intent);
-            }
-        });
-    }
-
 }

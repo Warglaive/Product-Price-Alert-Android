@@ -13,21 +13,18 @@
         android:theme="@style/Theme.ProductPriceAlert"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".BrowseProducts"
-            android:exported="false"
-            android:label="@string/title_activity_browse_products"
-            android:theme="@style/Theme.ProductPriceAlert.NoActionBar" />
-        <activity
             android:name="com.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.activities.BrowseProducts"
+            android:name="com.activities.RegisterUserActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.activities.ProductDetailsActivity"
             android:exported="true" />
     </application>
 
