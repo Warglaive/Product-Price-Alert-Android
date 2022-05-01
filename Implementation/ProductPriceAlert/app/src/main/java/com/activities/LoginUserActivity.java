@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.productpricealert.R;
 
 public class LoginUserActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -19,7 +20,7 @@ public class LoginUserActivity extends AppCompatActivity {
         Button backToMainBtn = findViewById(R.id.backToMainButton);
         redirectToMainOnBackButtonClick(backToMainBtn);
         //submit login btn
-        Button submitLoginBtn = findViewById(R.id.loginButton);
+        Button submitLoginBtn = findViewById(R.id.loginBtnLogin);
         //Check if role == "Product Manager" -> redirect to corresponding view.
         //Check if role == "Customer" -> redirect to corresponding view.
         submitLoginBtn.setOnClickListener(v -> {
