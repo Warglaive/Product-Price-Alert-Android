@@ -5,4 +5,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.activities.FilterProductsActivity">
 
+    <Button
+        android:id="@+id/filterfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="436dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/enter"
+        android:layout_width="222dp"
+        android:layout_height="68dp"
+        android:text="@string/enter"
+        tools:layout_editor_absoluteX="94dp"
+        tools:layout_editor_absoluteY="118dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="190dp"
+        android:layout_height="48dp"
+        android:hint="@string/input"
+        android:text=""
+        android:textColorHint="#757575"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="110dp"
+        tools:layout_editor_absoluteY="282dp"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/backp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backBtn"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="511dp"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

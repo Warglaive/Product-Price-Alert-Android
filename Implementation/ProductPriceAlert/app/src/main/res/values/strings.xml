@@ -16,4 +16,8 @@
     <string name="price">Price:</string>
     <string name="description">Description:</string>
     <string name="imageDesc">Product picture</string>
+    <string name="filter">filter</string>
+    <string name="popular">popular</string>
+    <string name="enter">Enter your filter input below:</string>
+    <string name="input">Your input:</string>
 </resources>

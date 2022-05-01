@@ -29,6 +29,9 @@
         <activity
             android:name="com.activities.BrowseProducts"
             android:exported="true" />
+        <activity
+            android:name="com.activities.FilterProductsActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

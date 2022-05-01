@@ -16,16 +16,20 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextView price;
     private TextView description;
     private ImageView image;
-    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
+
+        final Button button = findViewById(R.id.button);
+        backToBrowse(button);
+
+
     }
 
-    public void backToBrowse(View view) {
-        //Intent intent = new Intent(view.getContext(), BrowseProductsActivity.class);
-        //this.button.setOnClickListener(view1 -> startActivity(intent));
+    public void backToBrowse(Button button) {
+        Intent intent = new Intent(this, BrowseProducts.class);
+        button.setOnClickListener(view1 -> startActivity(intent));
     }
 }

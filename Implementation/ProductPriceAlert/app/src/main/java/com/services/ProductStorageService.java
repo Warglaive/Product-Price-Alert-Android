@@ -26,7 +26,6 @@ public class ProductStorageService {
         callProduct.enqueue(new Callback<List<ProductData>>() {
             @Override
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
-
                 System.out.println("Reached on response!");
             }
 
