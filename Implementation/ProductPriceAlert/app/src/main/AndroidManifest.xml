@@ -27,7 +27,7 @@
             android:name="com.activities.ProductDetailsActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.FilterProductsActivity"
+            android:name="com.activities.BrowseProducts"
             android:exported="true" />
     </application>
 
