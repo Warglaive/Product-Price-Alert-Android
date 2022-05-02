@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient {
     //
-    static final String baseUrl = "http://192.168.0.116:3000/";
+    static final String baseUrl = "http://192.168.100.17:3000/";
 
     //GET
     public static RestAPI getClient() {
