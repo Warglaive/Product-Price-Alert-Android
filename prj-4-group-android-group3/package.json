@@ -1,80 +1,74 @@
 {
-  "name": "@loopback/example-todo",
-  "description": "Tutorial example on how to build an application with LoopBack 4",
-  "version": "5.0.1",
+  "name": "prj-4-group-android-group3",
+  "version": "0.0.1",
+  "description": "prj4 group android group3",
   "keywords": [
-    "loopback",
-    "LoopBack",
-    "example",
-    "tutorial",
-    "CRUD",
-    "models",
-    "todo"
+    "loopback-application",
+    "loopback"
   ],
-  "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "author": "IBM Corp.",
-  "copyright.owner": "IBM Corp.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/loopbackio/loopback-next.git",
-    "directory": "examples/todo"
-  },
   "engines": {
     "node": "12 || 14 || 16 || 17"
   },
   "scripts": {
     "build": "lb-tsc",
     "build:watch": "lb-tsc --watch",
-    "clean": "lb-clean *example-todo*.tgz dist *.tsbuildinfo package",
-    "lint": "npm run prettier:check && npm run eslint",
+    "lint": "npm run eslint && npm run prettier:check",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
-    "prettier:cli": "lb-prettier \"**/*.ts\"",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
     "prettier:check": "npm run prettier:cli -- -l",
     "prettier:fix": "npm run prettier:cli -- --write",
     "eslint": "lb-eslint --report-unused-disable-directives .",
     "eslint:fix": "npm run eslint -- --fix",
     "pretest": "npm run rebuild",
-    "test": "lb-mocha \"dist/__tests__/**/*.js\"",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
-    "verify": "npm pack && tar xf loopback-todo*.tgz && tree package && npm run clean",
-    "premigrate": "npm run build ",
+    "docker:build": "docker build -t prj-4-group-android-group3 .",
+    "docker:run": "docker run -p 3000:3000 -d prj-4-group-android-group3",
+    "premigrate": "npm run build",
     "migrate": "node ./dist/migrate",
     "preopenapi-spec": "npm run build",
     "openapi-spec": "node ./dist/openapi-spec",
-    "rebuild": "npm run clean && npm run build",
     "prestart": "npm run rebuild",
-    "start": "node ."
+    "start": "node -r source-map-support/register .",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "rebuild": "npm run clean && npm run build"
   },
-  "publishConfig": {
-    "access": "public"
+  "repository": {
+    "type": "git",
+    "url": ""
   },
+  "author": "Svetoslav Stoyanov <426911@student.fontys.nl>",
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
   "dependencies": {
     "@loopback/authentication": "^8.1.2",
     "@loopback/authentication-jwt": "^0.11.2",
     "@loopback/boot": "^4.1.2",
     "@loopback/core": "^3.1.2",
+    "@loopback/logging": "^0.8.2",
     "@loopback/repository": "^4.1.2",
     "@loopback/rest": "^11.1.2",
     "@loopback/rest-explorer": "^4.1.2",
     "@loopback/service-proxy": "^4.1.2",
     "loopback-connector-mongodb": "^5.6.0",
-    "loopback-connector-rest": "^4.0.1",
-    "morgan": "^1.10.0",
+    "loopback-connector-postgresql": "^5.5.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@loopback/build": "^8.1.2",
-    "@loopback/eslint-config": "^12.0.4",
-    "@loopback/http-caching-proxy": "^3.1.2",
-    "@loopback/testlab": "^4.1.2",
-    "@types/lodash": "^4.14.178",
-    "@types/morgan": "^1.9.3",
-    "@types/node": "^12.20.47",
-    "eslint": "^8.10.0",
-    "lodash": "^4.17.21",
-    "typescript": "~4.6.3"
-  },
-  "gitHead": "4a8886403cd9cb3ae529cb69712f077623cba2c2"
+    "@loopback/build": "^8.0.1",
+    "@loopback/eslint-config": "^12.0.1",
+    "@loopback/testlab": "^4.0.1",
+    "@types/node": "^10.17.60",
+    "eslint": "^8.6.0",
+    "source-map-support": "^0.5.21",
+    "typescript": "~4.5.4"
+  }
 }

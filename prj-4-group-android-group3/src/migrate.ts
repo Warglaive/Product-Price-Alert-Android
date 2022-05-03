@@ -1,15 +1,10 @@
-// Copyright IBM Corp. 2018,2020. All Rights Reserved.
-// Node module: @loopback/example-todo
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
-
-import {TodoListApplication} from './application';
+import {Prj4GroupAndroidGroup3Application} from './application';
 
 export async function migrate(args: string[]) {
   const existingSchema = args.includes('--rebuild') ? 'drop' : 'alter';
   console.log('Migrating schemas (%s existing schema)', existingSchema);
 
-  const app = new TodoListApplication();
+  const app = new Prj4GroupAndroidGroup3Application();
   await app.boot();
   await app.migrateSchema({existingSchema});
 

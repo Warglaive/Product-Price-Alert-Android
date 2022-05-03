@@ -1,104 +1,75 @@
-# @loopback/example-todo
+# prj-4-group-android-group3
 
-This is the basic tutorial for getting started with Loopback 4!
+This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
+[initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
 
-## Overview
+## Install dependencies
 
-This tutorial demonstrates how to create a basic API for a todo list using
-LoopBack 4. You will experience how you can create REST APIs with just
-[5 steps](#steps).
-
-![todo-tutorial-overview](https://loopback.io/pages/en/lb4/imgs/todo-overview.png)
-
-## Setup
-
-First, you'll need to install a supported version of Node:
-
-- [Node.js](https://nodejs.org/en/) at v10 or greater
-
-Additionally, this tutorial assumes that you are comfortable with certain
-technologies, languages and concepts.
-
-- JavaScript (ES6)
-- [REST](http://www.restapitutorial.com/lessons/whatisrest.html)
-
-Lastly, you'll need to install the LoopBack 4 CLI toolkit:
+By default, dependencies were installed when this application was generated.
+Whenever dependencies in `package.json` are changed, run the following command:
 
 ```sh
-npm i -g @loopback/cli
+npm install
 ```
 
-## Tutorial
+To only install resolved dependencies in `package-lock.json`:
 
-To follow this tutorial, begin with the
-[Create your app scaffolding](http://loopback.io/doc/en/lb4/todo-tutorial-scaffolding.html)
-section.
+```sh
+npm ci
+```
 
-### Steps
+## Run the application
 
-1.  [Create your app scaffolding](http://loopback.io/doc/en/lb4/todo-tutorial-scaffolding.html)
-2.  [Add your Todo model](http://loopback.io/doc/en/lb4/todo-tutorial-model.html)
-3.  [Add a datasource](http://loopback.io/doc/en/lb4/todo-tutorial-datasource.html)
-4.  [Add a repository](http://loopback.io/doc/en/lb4/todo-tutorial-repository.html)
-5.  [Add a controller](http://loopback.io/doc/en/lb4/todo-tutorial-controller.html)
-6.  [Putting it all together](http://loopback.io/doc/en/lb4/todo-tutorial-putting-it-together.html)
-7.  Bonus:
-    [Integrate with a geo-coding service](http://loopback.io/doc/en/lb4/todo-tutorial-geocoding-service.html)
+```sh
+npm start
+```
 
-## Try it out
+You can also run `node .` to skip the build step.
 
-If you'd like to see the final results of this tutorial as an example
-application, follow these steps:
+Open http://127.0.0.1:3000 in your browser.
 
-1.  Run the `lb4 example` command to select and clone the todo repository:
+## Rebuild the project
 
-    ```sh
-    lb4 example todo
-    ```
+To incrementally build the project:
 
-2.  Switch to the directory.
+```sh
+npm run build
+```
 
-    ```sh
-    cd loopback4-example-todo
-    ```
+To force a full build by cleaning up cached artifacts:
 
-3.  Finally, start the application!
+```sh
+npm run rebuild
+```
 
-    ```sh
-    $ npm start
+## Fix code style and formatting issues
 
-    Server is running at http://127.0.0.1:3000
-    ```
+```sh
+npm run lint
+```
 
-Feel free to look around in the application's code to get a feel for how it
-works. If you're interested in learning how to build it step-by-step, then
-continue with this tutorial!
+To automatically fix such issues:
 
-### Need help?
+```sh
+npm run lint:fix
+```
 
-Check out our
-[Slack](https://join.slack.com/t/loopbackio/shared_invite/zt-8lbow73r-SKAKz61Vdao~_rGf91pcsw)
-and ask for help with this tutorial.
+## Other useful commands
 
-### Bugs/Feedback
-
-Open an issue in [loopback-next](https://github.com/loopbackio/loopback-next)
-and we'll take a look.
-
-## Contributions
-
-- [Guidelines](https://github.com/loopbackio/loopback-next/blob/master/docs/CONTRIBUTING.md)
-- [Join the team](https://github.com/loopbackio/loopback-next/issues/110)
+- `npm run migrate`: Migrate database schemas for models
+- `npm run openapi-spec`: Generate OpenAPI spec into a file
+- `npm run docker:build`: Build a Docker image for this application
+- `npm run docker:run`: Run this application inside a Docker container
 
 ## Tests
 
-Run `npm test` from the root folder.
+```sh
+npm test
+```
 
-## Contributors
+## What's next
 
-See
-[all contributors](https://github.com/loopbackio/loopback-next/graphs/contributors).
+Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
+understand how you can continue to add features to this application.
 
-## License
-
-MIT
+[![LoopBack](https://github.com/loopbackio/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
