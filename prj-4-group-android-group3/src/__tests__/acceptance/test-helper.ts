@@ -1,21 +1,18 @@
-import {Prj4GroupAndroidGroup3Application} from '../..';
+// Copyright IBM Corp. 2019,2020 All Rights Reserved.
+// Node module: @loopback/example-todo
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
+
 import {
+  Client,
   createRestAppClient,
   givenHttpServerConfig,
-  Client,
 } from '@loopback/testlab';
+import {TodoListApplication} from '../..';
 
 export async function setupApplication(): Promise<AppWithClient> {
-  const restConfig = givenHttpServerConfig({
-    // Customize the server configuration here.
-    // Empty values (undefined, '') will be ignored by the helper.
-    //
-    // host: process.env.HOST,
-    // port: +process.env.PORT,
-  });
-
-  const app = new Prj4GroupAndroidGroup3Application({
-    rest: restConfig,
+  const app = new TodoListApplication({
+    rest: givenHttpServerConfig(),
   });
 
   await app.boot();
@@ -27,6 +24,6 @@ export async function setupApplication(): Promise<AppWithClient> {
 }
 
 export interface AppWithClient {
-  app: Prj4GroupAndroidGroup3Application;
+  app: TodoListApplication;
   client: Client;
 }

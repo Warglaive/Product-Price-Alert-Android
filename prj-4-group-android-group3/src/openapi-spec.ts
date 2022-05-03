@@ -1,5 +1,10 @@
+// Copyright IBM Corp. 2018,2020. All Rights Reserved.
+// Node module: @loopback/example-todo
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
+
 import {ApplicationConfig} from '@loopback/core';
-import {Prj4GroupAndroidGroup3Application} from './application';
+import {TodoListApplication} from './application';
 
 /**
  * Export the OpenAPI spec from the application
@@ -12,7 +17,7 @@ async function exportOpenApiSpec(): Promise<void> {
     },
   };
   const outFile = process.argv[2] ?? '';
-  const app = new Prj4GroupAndroidGroup3Application(config);
+  const app = new TodoListApplication(config);
   await app.boot();
   await app.exportOpenApiSpec(outFile);
 }
