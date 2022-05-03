@@ -1,9 +1,13 @@
 package com.activities;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -11,59 +15,95 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.models.Product;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
-import com.vogella.retrofitgerrit.RestClient;
-import com.vogella.retrofitgerrit.interfaces.RestAPI;
+import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.Scanner;
 
 public class BrowseProducts extends AppCompatActivity {
-
-    private RestAPI restAPI;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_products);
 
-        this.restAPI = RestClient.getClient();
-        final Button filter = findViewById(R.id.filter);
-        final Button popular = findViewById(R.id.popular);
+        ProductStorageService service = new ProductStorageService();
+
+        Context currentContext = this;
+
         final ListView listview = (ListView) findViewById(R.id.listview);
 
-        Call<List<ProductData>> callProduct = this.restAPI.getAllProducts();
-        List<ProductData> receivedProducts = new ArrayList<>();
-        callProduct.enqueue(new Callback<List<ProductData>>() {
-            @Override
-            public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
-                List<ProductData> data = response.body();
-                final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                        android.R.layout.simple_list_item_1, data);
-                listview.setAdapter(adapter);
-            }
+        final ArrayList<String> list = new ArrayList<String>();
 
+        service.getAllProducts(new ResponseWait() {
             @Override
-            public void onFailure(Call<List<ProductData>> call, Throwable t) {
-                System.out.println("Reached on Failure!");
-                t.printStackTrace();
+            public void responseWaitArray(List response) {
+                for (Object t: response) {
+                    ProductData data = (ProductData) t;
+                    list.add(data.getName());
+                }
+
+                final StableArrayAdapter adapter = new StableArrayAdapter(currentContext,
+                        android.R.layout.simple_list_item_1, list);
+                listview.setAdapter(adapter);
+
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, final View view,
+                                            int position, long id) {
+                        final String item = (String) parent.getItemAtPosition(position);
+                        view.animate().setDuration(2000).alpha(0)
+                                .withEndAction(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ProductData p = (ProductData) parent.getItemAtPosition(position);
+                                        intent().putExtra("key", (Parcelable) p);
+                                        startActivity(intent());
+                                    }
+                                });
+                    }
+
+                });
             }
         });
 
-        filter(filter);
-        popular(popular);
+
     }
 
-    public void productDetails() {
-        Intent intent = new Intent(this, ProductDetailsActivity.class);
-        startActivity(intent);
+    private class StableArrayAdapter extends ArrayAdapter<String> {
+
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+
+        public StableArrayAdapter(Context context, int textViewResourceId,
+                                  List<String> objects) {
+            super(context, textViewResourceId, objects);
+            for (int i = 0; i < objects.size(); ++i) {
+                mIdMap.put(objects.get(i), i);
+            }
+        }
+
+        @Override
+        public long getItemId(int position) {
+            String item = getItem(position);
+            return mIdMap.get(item);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
+
+    }
+
+    public Intent intent() {
+        return new Intent(this, ProductDetailsActivity.class);
     }
 
     public void filter(Button filter){
@@ -72,31 +112,6 @@ public class BrowseProducts extends AppCompatActivity {
     }
 
     public void popular(Button popular){
-
-    }
-
-    private class StableArrayAdapter extends ArrayAdapter<ProductData> {
-
-        HashMap<ProductData, Integer> mIdMap = new HashMap<>();
-
-        public StableArrayAdapter(Callback<List<ProductData>> context, int textViewResourceId,
-                                  List<ProductData> objects) {
-            super((Context) context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            ProductData item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
 
     }
 

@@ -40,4 +40,14 @@ public class ProductData {
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return "ProductData{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
 }
