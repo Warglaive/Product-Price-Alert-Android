@@ -3,6 +3,7 @@ package com.services;
 import com.models.Product;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.RestClient;
+import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
 import java.util.ArrayList;
@@ -20,14 +21,23 @@ public class ProductStorageService {
         this.restAPI = RestClient.getClient();
     }
 
-    public List<ProductData> getAllProducts() {
+    public List<ProductData> getAllProducts(ResponseWait callback) {
         Call<List<ProductData>> callProduct = this.restAPI.getAllProducts();
         List<ProductData> receivedProducts = new ArrayList<>();
         callProduct.enqueue(new Callback<List<ProductData>>() {
             @Override
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
 
-                System.out.println("Reached on response!");
+                if(response.isSuccessful()){
+                    List<ProductData> productData = response.body();
+                    for (ProductData data: productData
+                         ) {
+                        System.out.println(data.toString());
+                    }
+                    callback.responseWaitArray(response.body());
+                } else {
+                    System.out.println(response.errorBody());
+                }
             }
 
             @Override
@@ -36,6 +46,8 @@ public class ProductStorageService {
                 t.printStackTrace();
             }
         });
+        System.out.println("Received products size: "+receivedProducts.size());
+
         return receivedProducts;
     }
 

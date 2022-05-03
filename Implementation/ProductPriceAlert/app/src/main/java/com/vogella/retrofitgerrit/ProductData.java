@@ -5,7 +5,7 @@ import android.media.Image;
 public class ProductData {
     private String name;
     private double price;
-    private Image image;
+    private String image;
     private String description;
 
     public String getName() {
@@ -16,7 +16,7 @@ public class ProductData {
         return this.price;
     }
 
-    public Image getImage() {
+    public String getImage() {
         return this.image;
     }
 
@@ -36,8 +36,17 @@ public class ProductData {
         this.description = description;
     }
 
-    public void setImage(Image image){
+    public void setImage(String image){
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return "ProductData{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
