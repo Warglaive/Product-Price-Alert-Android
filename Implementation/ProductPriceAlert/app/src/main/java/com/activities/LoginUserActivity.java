@@ -24,7 +24,7 @@ public class LoginUserActivity extends AppCompatActivity {
         //Check if role == "Product Manager" -> redirect to corresponding view.
         //Check if role == "Customer" -> redirect to corresponding view.
         submitLoginBtn.setOnClickListener(v -> {
-
+            //TODO: Take logged in user's data and pass it to new logged in view depending on Role
         });
     }
 
