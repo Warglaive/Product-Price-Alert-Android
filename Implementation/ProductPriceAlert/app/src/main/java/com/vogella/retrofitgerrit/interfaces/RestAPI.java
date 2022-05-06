@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface RestAPI {
     @GET("http://192.168.0.116:3000/users/")
@@ -17,5 +18,5 @@ public interface RestAPI {
     Call<UserData> postUser(@Body UserData userData);
 
     @GET
-    Call<UserData> getUserByName();
+    Call<UserData> findByName(@Query("name") String name);
 }

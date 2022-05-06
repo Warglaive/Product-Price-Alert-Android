@@ -85,9 +85,10 @@ public class UserStorageService {
 
     /**
      * get a User instance from DB by name
+     *
      * @return
      */
-    public User getUserByName() {
-        Call<List<UserData>> callUser= this.restAPI.getAllUsers()
+    public User findByName(String name) {
+        Call<UserData> callUser = this.restAPI.findByName(name);
     }
 }
