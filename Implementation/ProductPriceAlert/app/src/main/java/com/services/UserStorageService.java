@@ -90,5 +90,19 @@ public class UserStorageService {
      */
     public User findByName(String name) {
         Call<UserData> callUser = this.restAPI.findByName(name);
+        callUser.enqueue(new Callback<UserData>() {
+                             @Override
+                             public void onResponse(Call<UserData> call, Response<UserData> response) {
+                                 response.body();
+                             }
+
+                             @Override
+                             public void onFailure(Call<UserData> call, Throwable t) {
+                                 t.printStackTrace();
+                             }
+                         }
+
+        );
+        return null;
     }
 }

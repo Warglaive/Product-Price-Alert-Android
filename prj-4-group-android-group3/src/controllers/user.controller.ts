@@ -94,7 +94,9 @@ export class UserController {
   ): Promise<Count> {
     return this.userRepository.updateAll(user, where);
   }
-
+ /**
+   * changed to string
+   */
   @get('/users/{id}')
   @response(200, {
     description: 'User model instance',
@@ -104,9 +106,7 @@ export class UserController {
       },
     },
   })
-  /**
-   * changed to string
-   */
+ 
   async findById(
     @param.path.string('id') id: string,
     @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>
@@ -149,5 +149,21 @@ export class UserController {
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.userRepository.deleteById(id);
+  }
+  //Find by name NOT WORKING, fix
+  @get('/users/{email}')
+  @response(200, {
+    description: 'User model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(User, {includeRelations: true}),
+      },
+    },
+  })
+ 
+  async findByName(
+    @param.path.string('email') email: string,
+  ): Promise<User> {
+    return this.userRepository.findByName(email);
   }
 }
