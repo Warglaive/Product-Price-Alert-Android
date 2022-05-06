@@ -41,6 +41,8 @@ public class BrowseProducts extends AppCompatActivity {
 
         final ArrayList<String> list = new ArrayList<String>();
 
+        Context context = this;
+
         service.getAllProducts(new ResponseWait() {
             @Override
             public void responseWaitArray(List response) {
@@ -63,9 +65,10 @@ public class BrowseProducts extends AppCompatActivity {
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
-                                        ProductData p = (ProductData) parent.getItemAtPosition(position);
-                                        intent().putExtra("key", (Parcelable) p);
-                                        startActivity(intent());
+                                        String p = (String) parent.getItemAtPosition(position);
+                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
+                                        intent.putExtra("key", p);
+                                        startActivity(intent);
                                     }
                                 });
                     }

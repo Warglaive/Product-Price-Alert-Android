@@ -14,49 +14,55 @@ import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
+import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductDetailsActivity extends AppCompatActivity {
-    private TextView name;
-    private TextView price;
-    private TextView description;
-    private ImageView image;
-    private Button button;
-    private ProductData product;
     private ProductStorageService service;
-    private ArrayList<ProductData> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
+        this.service = new ProductStorageService();
+
         Bundle extras = getIntent().getExtras();
-        this.product = extras.getParcelable("key");
+        String productName = extras.getString("key");
+        ProductData product = new ProductData();
 
 
-        this.name = findViewById(R.id.nameGet);
-        this.price = findViewById(R.id.priceGet);
-        this.description = findViewById(R.id.descriptionGet);
-        this.image = findViewById(R.id.image);
-        this.button = findViewById(R.id.button);
-        this.list = new ArrayList<ProductData>();
+        TextView name = (TextView) findViewById(R.id.nameGet);
+        TextView price = (TextView) findViewById(R.id.priceGet);
+        TextView description = (TextView) findViewById(R.id.descriptionGet);
+        ImageView image = findViewById(R.id.image);
+        Button button = findViewById(R.id.button);
+        ArrayList<ProductData> list = new ArrayList<ProductData>();
 
-/*        ResponseWait response = response1 -> {
-            for (Object t : response1) {
+        ArrayList<ArrayList<ProductData>> listt = new ArrayList<>();
+        listt.add(list);
+
+        this.service.getAllProducts(response -> {
+            for (Object t : response) {
                 ProductData data = (ProductData) t;
-                this.list.add(data);
+                listt.get(0).add(data);
             }
-        };*/
+        });
 
-        //this.service.getAllProducts(response);
+        for(ProductData p : list){
+            if(p.getName().equals(productName)){
+                product = p;
+                break;
+            }
+        }
 
-        this.name.setText(this.product.getName());
-        this.price.setText(String.valueOf(this.product.getPrice()));
-        this.description.setText(this.product.getDescription());
+        name.setText(product.getName());
+        price.setText(String.valueOf(product.getPrice()));
+        description.setText(product.getDescription());
 
-        backToBrowse(this.button);
+        backToBrowse(button);
     }
 
     public void backToBrowse(Button button) {
