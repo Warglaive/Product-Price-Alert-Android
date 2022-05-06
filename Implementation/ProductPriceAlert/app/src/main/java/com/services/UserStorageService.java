@@ -83,7 +83,11 @@ public class UserStorageService {
         return receivedUsers;
     }
 
-    public User getUser() {
-        return user;
+    /**
+     * get a User instance from DB by name
+     * @return
+     */
+    public User getUserByName() {
+        Call<List<UserData>> callUser= this.restAPI.getAllUsers()
     }
 }

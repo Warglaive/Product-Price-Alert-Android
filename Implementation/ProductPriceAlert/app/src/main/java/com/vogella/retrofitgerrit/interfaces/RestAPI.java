@@ -16,4 +16,6 @@ public interface RestAPI {
     @POST("http://192.168.0.116:3000/users/")
     Call<UserData> postUser(@Body UserData userData);
 
+    @GET
+    Call<UserData> getUserByName();
 }
