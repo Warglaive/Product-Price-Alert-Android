@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.productpricealert.R;
+import com.services.ProductStorageService;
 
 public class FilterProductsActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class FilterProductsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_products);
+        ProductStorageService service = new ProductStorageService();
         Button filterfil = findViewById(R.id.filterfil);
         TextView enter = findViewById(R.id.enter);
         EditText input = findViewById(R.id.input);
