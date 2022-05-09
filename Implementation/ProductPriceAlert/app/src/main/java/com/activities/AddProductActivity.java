@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.models.Product;
 import com.productpricealert.R;
 
 public class AddProductActivity extends AppCompatActivity {
@@ -56,6 +58,13 @@ public class AddProductActivity extends AppCompatActivity {
                 }
             }
         });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
 }
     Uri image_uri;
     private static final int RESULT_LOAD_IMAGE = 123;
@@ -70,4 +79,20 @@ public class AddProductActivity extends AppCompatActivity {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
     }
+
+    private Product CreateProduct(String name, Double price) {
+        //Call storage service to store it.
+        return new Product(name,price);
     }
+
+    private Product CreateProduct(String name, Double price,String description) {
+        //Call storage service to store it.
+        return new Product(name,price,description);
+    }
+
+    private Product CreateProduct(String name, Double price, String description, Image image) {
+        //Call storage service to store it.
+        return new Product(name,price,description,image);
+    }
+
+}
