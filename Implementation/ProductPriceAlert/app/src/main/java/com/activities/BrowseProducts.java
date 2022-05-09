@@ -44,6 +44,9 @@ public class BrowseProducts extends AppCompatActivity {
 
         Context context = this;
 
+        Button filter = findViewById(R.id.filter);
+        Button popular = findViewById(R.id.popular);
+
         service.getAllProducts(new ResponseWait() {
             @Override
             public void responseWaitArray(List response) {
@@ -77,6 +80,9 @@ public class BrowseProducts extends AppCompatActivity {
                 });
             }
         });
+
+        filter(filter);
+        popular(popular);
 
 
     }

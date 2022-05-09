@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purple_50"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.activities.FilterProductsActivity">
 
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="92dp"
         android:text="@string/filter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input"
@@ -19,11 +20,12 @@
 
     <TextView
         android:id="@+id/enter"
-        android:layout_width="212dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="96dp"
+        android:layout_width="279dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="92dp"
         android:layout_marginTop="196dp"
         android:text="@string/enter"
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -53,7 +55,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filterfil"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

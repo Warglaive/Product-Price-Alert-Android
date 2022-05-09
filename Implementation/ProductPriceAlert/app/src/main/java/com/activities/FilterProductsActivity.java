@@ -26,7 +26,7 @@ public class FilterProductsActivity extends AppCompatActivity {
     }
 
     public void filter(Button filter){
-
+        
     }
 
     public void backToBrowse(Button backp){

@@ -46,6 +46,27 @@ public class ProductStorageService {
         });
     }
 
+    public void filterProducts(String filter, ResponseWait callback){
+        Call<List<ProductData>> callFilter = this.restAPI.getFilteredUsers(filter);
+        callFilter.enqueue(new Callback<List<ProductData>>() {
+            @Override
+            public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
+                if(response.isSuccessful()){
+                    List<ProductData> filterResult = response.body();
+                    callback.responseWaitArray(filterResult);
+                } else{
+                    System.out.println(response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductData>> call, Throwable t) {
+                System.out.println("Failure!");
+                t.printStackTrace();
+            }
+        });
+    }
+
     public Product getProduct() {
         return product;
     }
