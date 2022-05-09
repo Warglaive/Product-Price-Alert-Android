@@ -19,4 +19,7 @@ public interface RestAPI {
 
     @GET("http://192.168.0.117:3000/products/")
     Call<List<ProductData>> getAllProducts();
+
+    @POST("http://192.168.0.117:3000/products/")
+    Call<ProductData> postProduct(@Body ProductData productData);
 }
