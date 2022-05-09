@@ -150,7 +150,7 @@ export class UserController {
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.userRepository.deleteById(id);
   }
-  //Find by name NOT WORKING, fix
+  //Find by name NOT WORKING
   @get('/users/{email}')
   @response(200, {
     description: 'User model instance',
@@ -162,7 +162,8 @@ export class UserController {
   })
  
   async findByName(
-    @param.path.string('email') email: string,
+    @param.path.string('email') email: string, 
+    @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>
   ): Promise<User> {
     return this.userRepository.findByName(email);
   }
