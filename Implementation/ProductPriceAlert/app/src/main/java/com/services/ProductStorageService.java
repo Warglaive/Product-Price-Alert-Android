@@ -21,20 +21,18 @@ public class ProductStorageService {
         this.restAPI = RestClient.getClient();
     }
 
-    public List<ProductData> getAllProducts(ResponseWait callback) {
+    public void getAllProducts(ResponseWait callback) {
         Call<List<ProductData>> callProduct = this.restAPI.getAllProducts();
-        List<ProductData> receivedProducts = new ArrayList<>();
         callProduct.enqueue(new Callback<List<ProductData>>() {
             @Override
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
-
                 if(response.isSuccessful()){
                     List<ProductData> productData = response.body();
                     for (ProductData data: productData
                     ) {
                         System.out.println(data.toString());
                     }
-                    callback.responseWaitArray(response.body());
+                    callback.responseWaitArray(productData);
                 } else {
                     System.out.println(response.errorBody());
                 }
@@ -46,9 +44,6 @@ public class ProductStorageService {
                 t.printStackTrace();
             }
         });
-        System.out.println("Received products size: "+receivedProducts.size());
-
-        return receivedProducts;
     }
 
     public Product getProduct() {

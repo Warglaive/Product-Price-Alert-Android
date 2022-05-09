@@ -31,7 +31,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         String productName = extras.getString("key");
-        ProductData product = new ProductData();
 
 
         TextView name = (TextView) findViewById(R.id.nameGet);
@@ -41,29 +40,31 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
-        ArrayList<ArrayList<ProductData>> listt = new ArrayList<>();
-        listt.add(list);
+        this.service.getAllProducts(new ResponseWait() {
+            @Override
+            public void responseWaitArray(List response) {
+                for (Object t : response) {
+                    ProductData data = (ProductData) t;
+                    list.add(data);
+                }
 
-        this.service.getAllProducts(response -> {
-            for (Object t : response) {
-                ProductData data = (ProductData) t;
-                listt.get(0).add(data);
+                ProductData product = new ProductData();
+                for (ProductData p : list) {
+                    if (p.getName().equals(productName)) {
+                        product = p;
+                        break;
+                    }
+                }
+
+                name.setText(product.getName());
+                price.setText(String.valueOf(product.getPrice()));
+                description.setText(product.getDescription());
             }
         });
 
-        for(ProductData p : list){
-            if(p.getName().equals(productName)){
-                product = p;
-                break;
-            }
-        }
-
-        name.setText(product.getName());
-        price.setText(String.valueOf(product.getPrice()));
-        description.setText(product.getDescription());
-
         backToBrowse(button);
     }
+
 
     public void backToBrowse(Button button) {
         Intent intent = new Intent(this, BrowseProducts.class);

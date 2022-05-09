@@ -19,6 +19,7 @@ import com.models.Product;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
+import com.vogella.retrofitgerrit.ResponseWaitImpl;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.util.ArrayList;
