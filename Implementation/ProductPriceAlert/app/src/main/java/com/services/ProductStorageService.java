@@ -21,15 +21,15 @@ public class ProductStorageService {
         this.restAPI = RestClient.getClient();
     }
 
-    public boolean registerUser(Product product) {
+    public boolean registerProduct(Product product) {
         this.product = product;
-        //Make UserData from User and use LB4 to add it to the DB
+        //Make ProductData from User and use LB4 to add it to the DB
         ProductData productData = new ProductData();
         productData.setName(product.getName());
         productData.setPrice(product.getPrice());
         productData.setDescription(product.getDescription());
         productData.setImage(product.getImage());
-        //add UserData to DB
+        //add ProductData to DB
         Call<ProductData> call = this.restAPI.postProduct(productData);
         call.enqueue(new Callback<ProductData>() {
             @Override
