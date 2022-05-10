@@ -1,7 +1,8 @@
-import {inject} from '@loopback/core';
-import {DefaultCrudRepository} from '@loopback/repository';
-import {MongoDataSource} from '../datasources';
-import {User, UserRelations} from '../models';
+import { inject } from '@loopback/core';
+import { DefaultCrudRepository } from '@loopback/repository';
+import { use } from 'should';
+import { MongoDataSource } from '../datasources';
+import { User, UserRelations } from '../models';
 
 export class UserRepository extends DefaultCrudRepository<
   User,
@@ -12,5 +13,14 @@ export class UserRepository extends DefaultCrudRepository<
     @inject('datasources.mongo') dataSource: MongoDataSource,
   ) {
     super(User, dataSource);
+  }
+  //Find by Email custom method
+  findByEmail(email: string): User | PromiseLike<User> {
+    const user = this.find({
+      where: {
+        email: User.email
+      }
+    }) as unknown as User
+    return user;
   }
 }

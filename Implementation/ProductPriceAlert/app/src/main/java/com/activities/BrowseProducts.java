@@ -3,20 +3,30 @@ package com.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.models.Product;
 import com.productpricealert.R;
+import com.services.ProductStorageService;
+import com.vogella.retrofitgerrit.ProductData;
+import com.vogella.retrofitgerrit.ResponseWaitImpl;
+import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 public class BrowseProducts extends AppCompatActivity {
     @Override
@@ -24,38 +34,57 @@ public class BrowseProducts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_products);
 
-        //TODO Add the products to the list from a database (GET)
+        ProductStorageService service = new ProductStorageService();
+
+        Context currentContext = this;
+
         final ListView listview = (ListView) findViewById(R.id.listview);
-        String[] values = new String[] { "Cigari", "Vodka", "Salami",
-                "Mara", "Vape", "Rakiq"};
 
         final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
-        }
-        final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
-        listview.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Context context = this;
 
-            // TODO Display Information about item
+        Button filter = findViewById(R.id.filter);
+        Button popular = findViewById(R.id.popular);
+
+        service.getAllProducts(new ResponseWait() {
             @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                final String item = (String) parent.getItemAtPosition(position);
-                view.animate().setDuration(2000).alpha(0)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                list.remove(item);
-                                adapter.notifyDataSetChanged();
-                                view.setAlpha(1);
-                            }
-                        });
-            }
+            public void responseWaitArray(List response) {
+                for (Object t: response) {
+                    ProductData data = (ProductData) t;
+                    list.add(data.getName());
+                }
 
+                final StableArrayAdapter adapter = new StableArrayAdapter(currentContext,
+                        android.R.layout.simple_list_item_1, list);
+                listview.setAdapter(adapter);
+
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, final View view,
+                                            int position, long id) {
+                        final String item = (String) parent.getItemAtPosition(position);
+                        view.animate().setDuration(2000).alpha(0)
+                                .withEndAction(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String p = (String) parent.getItemAtPosition(position);
+                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
+                                        intent.putExtra("key", p);
+                                        startActivity(intent);
+                                    }
+                                });
+                    }
+
+                });
+            }
         });
+
+        filter(filter);
+        popular(popular);
+
+
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
@@ -80,6 +109,19 @@ public class BrowseProducts extends AppCompatActivity {
         public boolean hasStableIds() {
             return true;
         }
+
+    }
+
+    public Intent intent() {
+        return new Intent(this, ProductDetailsActivity.class);
+    }
+
+    public void filter(Button filter){
+        Intent intent = new Intent(this, FilterProductsActivity.class);
+        filter.setOnClickListener(view1 -> startActivity(intent));
+    }
+
+    public void popular(Button popular){
 
     }
 

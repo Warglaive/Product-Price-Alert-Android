@@ -27,6 +27,7 @@
         <activity
             android:name="com.activities.RegisterUserActivity"
             android:exported="true" />
+        <activity android:name="com.activities.LoginUserActivity"/>
         <activity
             android:name="com.activities.ProductDetailsActivity"
             android:exported="true" />
@@ -34,8 +35,13 @@
             android:name="com.activities.BrowseProducts"
             android:exported="true" />
 
+
         <activity
             android:name="com.activities.AddProductActivity"
+
+        <activity
+            android:name="com.activities.FilterProductsActivity"
+
             android:exported="true" />
     </application>
 
