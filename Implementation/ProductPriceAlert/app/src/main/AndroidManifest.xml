@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.productpricealert">
 
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,11 +27,21 @@
         <activity
             android:name="com.activities.RegisterUserActivity"
             android:exported="true" />
+        <activity android:name="com.activities.LoginUserActivity"/>
         <activity
             android:name="com.activities.ProductDetailsActivity"
             android:exported="true" />
         <activity
             android:name="com.activities.BrowseProducts"
+            android:exported="true" />
+
+
+        <activity
+            android:name="com.activities.AddProductActivity"
+
+        <activity
+            android:name="com.activities.FilterProductsActivity"
+
             android:exported="true" />
     </application>
 

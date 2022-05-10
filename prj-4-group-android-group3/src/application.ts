@@ -1,3 +1,15 @@
+//Authentication
+import {AuthenticationComponent} from '@loopback/authentication';
+import {
+  JWTAuthenticationComponent,
+  SECURITY_SCHEME_SPEC,
+  UserServiceBindings,
+} from '@loopback/authentication-jwt';
+import {MongoDataSource} from './datasources';
+// ------------------------------------
+
+
+//
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
 import {
@@ -40,5 +52,13 @@ export class Prj4GroupAndroidGroup3Application extends BootMixin(
         nested: true,
       },
     };
+    // ------ ADD SNIPPET AT THE BOTTOM ---------
+    // Mount authentication system
+    this.component(AuthenticationComponent);
+    // Mount jwt component
+    this.component(JWTAuthenticationComponent);
+    // Bind datasource
+    this.dataSource(MongoDataSource, UserServiceBindings.DATASOURCE_NAME);
+    // ------------- END OF SNIPPET -------------
   }
 }

@@ -3,10 +3,13 @@ package com.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
@@ -16,6 +19,7 @@ import com.models.Product;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
+import com.vogella.retrofitgerrit.ResponseWaitImpl;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.util.ArrayList;
@@ -34,16 +38,20 @@ public class BrowseProducts extends AppCompatActivity {
 
         Context currentContext = this;
 
-        //TODO Add the products to the list from a database (GET)
         final ListView listview = (ListView) findViewById(R.id.listview);
 
         final ArrayList<String> list = new ArrayList<String>();
+
+        Context context = this;
+
+        Button filter = findViewById(R.id.filter);
+        Button popular = findViewById(R.id.popular);
 
         service.getAllProducts(new ResponseWait() {
             @Override
             public void responseWaitArray(List response) {
                 for (Object t: response) {
-                ProductData data = (ProductData) t;
+                    ProductData data = (ProductData) t;
                     list.add(data.getName());
                 }
 
@@ -53,7 +61,6 @@ public class BrowseProducts extends AppCompatActivity {
 
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                    // TODO Display Information about item
                     @Override
                     public void onItemClick(AdapterView<?> parent, final View view,
                                             int position, long id) {
@@ -62,9 +69,10 @@ public class BrowseProducts extends AppCompatActivity {
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
-                                        list.remove(item);
-                                        adapter.notifyDataSetChanged();
-                                        view.setAlpha(1);
+                                        String p = (String) parent.getItemAtPosition(position);
+                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
+                                        intent.putExtra("key", p);
+                                        startActivity(intent);
                                     }
                                 });
                     }
@@ -73,10 +81,12 @@ public class BrowseProducts extends AppCompatActivity {
             }
         });
 
+        filter(filter);
+        popular(popular);
+
 
     }
 
-    // TODO Separate from BrowseProducts Activity
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
@@ -99,6 +109,19 @@ public class BrowseProducts extends AppCompatActivity {
         public boolean hasStableIds() {
             return true;
         }
+
+    }
+
+    public Intent intent() {
+        return new Intent(this, ProductDetailsActivity.class);
+    }
+
+    public void filter(Button filter){
+        Intent intent = new Intent(this, FilterProductsActivity.class);
+        filter.setOnClickListener(view1 -> startActivity(intent));
+    }
+
+    public void popular(Button popular){
 
     }
 
