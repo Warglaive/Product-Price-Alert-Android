@@ -3,6 +3,7 @@ package com.services;
 import com.models.Product;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.RestClient;
+import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
 import java.util.ArrayList;
@@ -20,14 +21,21 @@ public class ProductStorageService {
         this.restAPI = RestClient.getClient();
     }
 
-    public List<ProductData> getAllProducts() {
+    public void getAllProducts(ResponseWait callback) {
         Call<List<ProductData>> callProduct = this.restAPI.getAllProducts();
-        List<ProductData> receivedProducts = new ArrayList<>();
         callProduct.enqueue(new Callback<List<ProductData>>() {
             @Override
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
-
-                System.out.println("Reached on response!");
+                if(response.isSuccessful()){
+                    List<ProductData> productData = response.body();
+                    for (ProductData data: productData
+                    ) {
+                        System.out.println(data.toString());
+                    }
+                    callback.responseWaitArray(productData);
+                } else {
+                    System.out.println(response.errorBody());
+                }
             }
 
             @Override
@@ -36,7 +44,27 @@ public class ProductStorageService {
                 t.printStackTrace();
             }
         });
-        return receivedProducts;
+    }
+
+    public void filterProducts(String filter, ResponseWait callback){
+        Call<List<ProductData>> callFilter = this.restAPI.getFilteredUsers(filter);
+        callFilter.enqueue(new Callback<List<ProductData>>() {
+            @Override
+            public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
+                if(response.isSuccessful()){
+                    List<ProductData> filterResult = response.body();
+                    callback.responseWaitArray(filterResult);
+                } else{
+                    System.out.println(response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductData>> call, Throwable t) {
+                System.out.println("Failure!");
+                t.printStackTrace();
+            }
+        });
     }
 
     public Product getProduct() {

@@ -24,4 +24,7 @@ public interface RestAPI {
 
     @GET("http://192.168.0.117:3000/products/")
     Call<List<ProductData>> getAllProducts();
+
+    @GET("http://192.168.0.117:3000/products/")
+    Call<List<ProductData>> getFilteredUsers(@Query("$filter") String filter);
 }
