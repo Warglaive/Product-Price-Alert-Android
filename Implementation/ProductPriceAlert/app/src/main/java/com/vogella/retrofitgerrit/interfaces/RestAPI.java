@@ -25,13 +25,10 @@ public interface RestAPI {
     @POST("http://172.25.80.1:3000/products/")
     Call<ProductData> postProduct(@Body ProductData productData);
 
-
     @GET
     Call<UserData> findByName(@Query("name") String name);
 
-   
-
     @GET("http://192.168.0.117:3000/products/")
-    Call<List<ProductData>> getFilteredUsers(@Query("$filter") String filter);
+    Call<List<ProductData>> getFilteredProducts(@Query("$filter") String filter);
 
 }

@@ -77,7 +77,7 @@ public class ProductStorageService {
     }
 
     public void filterProducts(String filter, ResponseWait callback){
-        Call<List<ProductData>> callFilter = this.restAPI.getFilteredUsers(filter);
+        Call<List<ProductData>> callFilter = this.restAPI.getFilteredProducts(filter);
         callFilter.enqueue(new Callback<List<ProductData>>() {
             @Override
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
