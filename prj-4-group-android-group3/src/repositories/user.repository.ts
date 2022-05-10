@@ -14,8 +14,8 @@ export class UserRepository extends DefaultCrudRepository<
   ) {
     super(User, dataSource);
   }
-  //Find by name custom method
-  findByName(email: string): User | PromiseLike<User> {
+  //Find by Email custom method
+  findByEmail(email: string): User | PromiseLike<User> {
     const user = this.find({
       where: {
         email: User.email
