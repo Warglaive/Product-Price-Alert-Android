@@ -18,6 +18,8 @@ import retrofit2.Response;
 public class UserStorageService {
     public RestAPI restAPI;
     private User user;
+    //may be useless
+    private boolean isSuccessful = true;
 
     /**
      * initialize retrofit connection
@@ -31,7 +33,7 @@ public class UserStorageService {
      *
      * @param user
      */
-    public void registerUser(User user) {
+    public boolean registerUser(User user) {
         this.user = user;
         //Make UserData from User and use LB4 to add it to the DB
         UserData userData = new UserData();
@@ -45,14 +47,16 @@ public class UserStorageService {
             @Override
             public void onResponse(Call<UserData> call, Response<UserData> response) {
                 System.out.println(response.isSuccessful());
+                isSuccessful = response.isSuccessful();
             }
 
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 System.out.println("On Failure Reached");
+                isSuccessful = false;
             }
         });
-
+        return isSuccessful;
     }
 
     /**
@@ -79,7 +83,26 @@ public class UserStorageService {
         return receivedUsers;
     }
 
-    public User getUser() {
-        return user;
+    /**
+     * get a User instance from DB by name
+     *
+     * @return
+     */
+    public User findByName(String name) {
+        Call<UserData> callUser = this.restAPI.findByName(name);
+        callUser.enqueue(new Callback<UserData>() {
+                             @Override
+                             public void onResponse(Call<UserData> call, Response<UserData> response) {
+                                 response.body();
+                             }
+
+                             @Override
+                             public void onFailure(Call<UserData> call, Throwable t) {
+                                 t.printStackTrace();
+                             }
+                         }
+
+        );
+        return null;
     }
 }

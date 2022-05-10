@@ -94,7 +94,9 @@ export class UserController {
   ): Promise<Count> {
     return this.userRepository.updateAll(user, where);
   }
-
+ /**
+   * changed to string
+   */
   @get('/users/{id}')
   @response(200, {
     description: 'User model instance',
@@ -104,8 +106,9 @@ export class UserController {
       },
     },
   })
+ 
   async findById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>
   ): Promise<User> {
     return this.userRepository.findById(id, filter);
@@ -116,7 +119,7 @@ export class UserController {
     description: 'User PATCH success',
   })
   async updateById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +137,7 @@ export class UserController {
     description: 'User PUT success',
   })
   async replaceById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody() user: User,
   ): Promise<void> {
     await this.userRepository.replaceById(id, user);
@@ -144,7 +147,24 @@ export class UserController {
   @response(204, {
     description: 'User DELETE success',
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
+  async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.userRepository.deleteById(id);
+  }
+  //Find by Email NOT WORKING
+  @get('/users/{email}')
+  @response(200, {
+    description: 'User model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(User, {includeRelations: true}),
+      },
+    },
+  })
+ 
+  async findByEmail(
+    @param.path.string('email') email: string, 
+    @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>
+  ): Promise<User> {
+    return this.userRepository.find(filter);
   }
 }
