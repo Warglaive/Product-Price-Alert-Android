@@ -16,12 +16,42 @@ import retrofit2.Response;
 public class ProductStorageService {
     public RestAPI restAPI;
     private Product product;
+    private boolean isSuccessful = true;
 
     public ProductStorageService() {
         this.restAPI = RestClient.getClient();
     }
 
+
+    public boolean registerProduct(Product product) {
+        this.product = product;
+        //Make ProductData from User and use LB4 to add it to the DB
+        ProductData productData = new ProductData();
+        productData.setName(product.getName());
+        productData.setPrice(product.getPrice());
+        productData.setDescription(product.getDescription());
+        productData.setImage(product.getImage());
+        //add ProductData to DB
+        Call<ProductData> call = this.restAPI.postProduct(productData);
+        call.enqueue(new Callback<ProductData>() {
+            @Override
+            public void onResponse(Call<ProductData> call, Response<ProductData> response) {
+                System.out.println(response.isSuccessful());
+                isSuccessful = response.isSuccessful();
+            }
+
+            @Override
+            public void onFailure(Call<ProductData> call, Throwable t) {
+                System.out.println("On Failure Reached");
+                isSuccessful = false;
+            }
+        });
+        return isSuccessful;
+    }
+    public List<ProductData> getAllProducts() {
+
     public void getAllProducts(ResponseWait callback) {
+
         Call<List<ProductData>> callProduct = this.restAPI.getAllProducts();
         callProduct.enqueue(new Callback<List<ProductData>>() {
             @Override
