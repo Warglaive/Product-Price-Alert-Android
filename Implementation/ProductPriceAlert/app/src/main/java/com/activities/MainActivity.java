@@ -10,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.productpricealert.R;
 
 public class MainActivity extends AppCompatActivity {
+
     private Button registerButton;
     private Button loginButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         //Initialize XML elements
         this.registerButton = findViewById(R.id.registerButton);
         this.loginButton = findViewById(R.id.loginButton);
+
         loginOrRegister(findViewById(R.id.mainActivity).getRootView());
     }
 
@@ -36,5 +39,10 @@ public class MainActivity extends AppCompatActivity {
         //TODO: Add login view connection
         this.registerButton.setOnClickListener(v -> startActivity(registerIntent));
         this.loginButton.setOnClickListener(v -> startActivity(loginIntent));
+
+       // this.registerButton.setOnClickListener(view1 -> startActivity(intent));
+       // this.loginButton.setOnClickListener(view1 -> startActivity(new Intent(view.getContext(), BrowseProducts.class)));
+
+
     }
 }
