@@ -130,7 +130,7 @@ public class AddProductActivity extends AppCompatActivity {
         return new Product(name,price,description);
     }
 
-    private Product CreateProduct(String name, Double price, String description, Image image) {
+    private Product CreateProduct(String name, Double price, String description, String image) {
         //Call storage service to store it.
         return new Product(name,price,description,image);
     }
