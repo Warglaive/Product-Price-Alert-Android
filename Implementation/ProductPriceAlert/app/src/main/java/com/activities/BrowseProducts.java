@@ -76,6 +76,7 @@ public class BrowseProducts extends AppCompatActivity {
 
     }
 
+    // TODO Separate from BrowseProducts Activity
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
