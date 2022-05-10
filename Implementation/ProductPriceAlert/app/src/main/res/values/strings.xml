@@ -20,4 +20,5 @@
     <string name="popular">popular</string>
     <string name="enter">Enter your filter input below:</string>
     <string name="input">Your input:</string>
+    <string name="please_enter_your_login_details">Please enter your login details</string>
 </resources>
