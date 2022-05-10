@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
@@ -18,7 +19,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.models.Product;
+import com.models.User;
 import com.productpricealert.R;
+import com.services.ProductStorageService;
+import com.services.UserStorageService;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class AddProductActivity extends AppCompatActivity {
     private Button takePhotoButton;
@@ -30,17 +37,27 @@ public class AddProductActivity extends AppCompatActivity {
     private EditText productDes;
     private ImageView imageView;
 
+    private static final int GALLERY_REQUEST = 100;
+    private static final int CAMERA_REQUEST = 200;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-        takePhotoButton = findViewById(R.id.takePhotoButton);
-        addGallery = findViewById(R.id.addGallery);
-        addButton = findViewById(R.id.addButton);
-        productName = findViewById(R.id.productName);
-        productPrice = findViewById(R.id.productPrice);
-        productDes = findViewById(R.id.productDes);
-        imageView = findViewById(R.id.imageView);
+        this.takePhotoButton = findViewById(R.id.takePhotoButton);
+        this.addGallery = findViewById(R.id.addGallery);
+        this.addButton = findViewById(R.id.addButton);
+        this.productName = findViewById(R.id.productName);
+        this.productPrice = findViewById(R.id.productPrice);
+        this.productDes = findViewById(R.id.productDes);
+        this.imageView = findViewById(R.id.imageView);
+
+        String productName = this.productName.getText().toString();
+        Double productPrice = Double.parseDouble(String.valueOf(this.productPrice.getText()));
+        String productDes = this.productDes.getText().toString();
+
+
 
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,22 +79,45 @@ public class AddProductActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Product newProduct = CreateProduct(productName,productPrice);
+                RegisterProduct(newProduct);
+            }
+        });
+
+        addGallery.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"Select Picture"), GALLERY_REQUEST);
+
             }
         });
 }
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+
+        if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK){
+            try{
+                Uri selectedImage = data.getData();
+                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                imageView.setImageBitmap(BitmapFactory.decodeStream(imageStream));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     Uri image_uri;
     private static final int RESULT_LOAD_IMAGE = 123;
     public static final int IMAGE_CAPTURE_CODE = 654;
 
     private void openCamera() {
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Images.Media.TITLE, "New Picture");
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera");
-        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
-        startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(intent,CAMERA_REQUEST);
+        }
     }
 
     private Product CreateProduct(String name, Double price) {
@@ -93,6 +133,11 @@ public class AddProductActivity extends AppCompatActivity {
     private Product CreateProduct(String name, Double price, String description, Image image) {
         //Call storage service to store it.
         return new Product(name,price,description,image);
+    }
+
+    private void RegisterProduct(Product product) {
+        ProductStorageService storageService = new ProductStorageService();
+        storageService.registerProduct(product);
     }
 
 }
