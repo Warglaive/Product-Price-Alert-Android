@@ -42,9 +42,10 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+        ProductStorageService service = new ProductStorageService();
         this.takePhotoButton = findViewById(R.id.takePhotoButton);
         this.addGallery = findViewById(R.id.addGallery);
         this.addButton = findViewById(R.id.addButton);
@@ -52,19 +53,18 @@ public class AddProductActivity extends AppCompatActivity {
         this.productPrice = findViewById(R.id.productPrice);
         this.productDes = findViewById(R.id.productDes);
         this.imageView = findViewById(R.id.imageView);
+        this.homeButton = findViewById(R.id.homeButton);
 
-        String productName = this.productName.getText().toString();
-        Double productPrice = Double.parseDouble(String.valueOf(this.productPrice.getText()));
-        String productDes = this.productDes.getText().toString();
-
-
-
-        takePhotoButton.setOnClickListener(new View.OnClickListener() {
+        this.homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(AddProductActivity.this, HomePageActivity.class));
             }
         });
+
+
+
+
 
 
 }

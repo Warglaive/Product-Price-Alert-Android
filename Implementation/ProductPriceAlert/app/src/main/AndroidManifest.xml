@@ -17,7 +17,7 @@
         android:theme="@style/Theme.ProductPriceAlert"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.activities.MainActivity"
+            android:name="com.activities.AddProductActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,14 +37,14 @@
 
 
         <activity
-            android:name="com.activities.AddProductActivity"
+            android:name="com.activities.HomePageActivity"
             android:exported="true" />
         <activity
             android:name="com.activities.FilterProductsActivity"
             android:exported="true" />
 
         <activity
-            android:name="com.activities.HomePageActivity"
+            android:name="com.activities.MainActivity"
             android:exported="true" />
     </application>
 

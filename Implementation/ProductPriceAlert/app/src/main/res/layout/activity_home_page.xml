@@ -9,7 +9,7 @@
         android:id="@+id/addProductButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add new Product"
+        android:text="@string/add_new_product"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

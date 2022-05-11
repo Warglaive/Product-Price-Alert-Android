@@ -21,4 +21,7 @@
     <string name="enter">Enter your filter input below:</string>
     <string name="input">Your input:</string>
     <string name="please_enter_your_login_details">Please enter your login details</string>
+    <string name="add_new_product">Add new Product</string>
+    <string name="productName">Name</string>
+    <string name="productPrice">Price</string>
 </resources>
