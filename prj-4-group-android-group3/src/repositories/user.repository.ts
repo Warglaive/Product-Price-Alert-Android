@@ -4,11 +4,7 @@ import { use } from 'should';
 import { MongoDataSource } from '../datasources';
 import { User, UserRelations } from '../models';
 
-export class UserRepository extends DefaultCrudRepository<
-  User,
-  typeof User.prototype.id,
-  UserRelations
-> {
+export class UserRepository extends DefaultCrudRepository< User,  typeof User.prototype.id,  UserRelations> {
   constructor(
     @inject('datasources.mongo') dataSource: MongoDataSource,
   ) {
@@ -16,9 +12,9 @@ export class UserRepository extends DefaultCrudRepository<
   }
   //Find by Email custom method
   findByEmail(email: string): User | PromiseLike<User> {
-    const user = this.find({
+    const user = this.findOne({
       where: {
-        email: User.email
+        email: email
       }
     }) as unknown as User
     return user;
