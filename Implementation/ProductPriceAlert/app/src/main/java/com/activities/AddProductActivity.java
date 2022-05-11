@@ -62,63 +62,14 @@ public class AddProductActivity extends AppCompatActivity {
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_DENIED) {
-                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permission, 111);
-                    } else {
-                        openCamera();
-                    }
-                } else {
-                    openCamera();
-                }
-            }
-        });
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Product newProduct = CreateProduct(productName,productPrice);
-                RegisterProduct(newProduct);
-            }
-        });
-
-        addGallery.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"Select Picture"), GALLERY_REQUEST);
 
             }
         });
+
+
 }
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
 
-        if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK){
-            try{
-                Uri selectedImage = data.getData();
-                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
-                imageView.setImageBitmap(BitmapFactory.decodeStream(imageStream));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    Uri image_uri;
-    private static final int RESULT_LOAD_IMAGE = 123;
-    public static final int IMAGE_CAPTURE_CODE = 654;
 
-    private void openCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(intent.resolveActivity(getPackageManager()) != null){
-            startActivityForResult(intent,CAMERA_REQUEST);
-        }
-    }
 
     private Product CreateProduct(String name, Double price) {
         //Call storage service to store it.

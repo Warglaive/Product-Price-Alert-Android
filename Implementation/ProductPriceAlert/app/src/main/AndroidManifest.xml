@@ -41,7 +41,10 @@
             android:exported="true" />
         <activity
             android:name="com.activities.FilterProductsActivity"
+            android:exported="true" />
 
+        <activity
+            android:name="com.activities.HomePageActivity"
             android:exported="true" />
     </application>
 
