@@ -34,14 +34,13 @@
         <activity
             android:name="com.activities.BrowseProducts"
             android:exported="true" />
-
-
         <activity
             android:name="com.activities.AddProductActivity"></activity>
-
         <activity
             android:name="com.activities.FilterProductsActivity"
-
+            android:exported="true" />
+        <activity
+            android:name="com.activities.ShowFilteredProductsActivity"
             android:exported="true" />
     </application>
 

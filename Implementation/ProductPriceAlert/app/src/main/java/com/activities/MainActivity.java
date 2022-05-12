@@ -38,11 +38,10 @@ public class MainActivity extends AppCompatActivity {
         // Do something in response to button
         //TODO: Add login view connection
         this.registerButton.setOnClickListener(v -> startActivity(registerIntent));
-        this.loginButton.setOnClickListener(v -> startActivity(loginIntent));
+        //this.loginButton.setOnClickListener(v -> startActivity(loginIntent));
 
         //this.registerButton.setOnClickListener(view1 -> startActivity(intent));
-        //this.loginButton.setOnClickListener(view1 -> startActivity(new Intent(view.getContext(), BrowseProducts.class)));
-
+        this.loginButton.setOnClickListener(view1 -> startActivity(new Intent(view.getContext(), BrowseProducts.class)));
 
     }
 }
