@@ -37,7 +37,7 @@
 
 
         <activity
-            android:name="com.activities.AddProductActivity"
+            android:name="com.activities.AddProductActivity"></activity>
 
         <activity
             android:name="com.activities.FilterProductsActivity"
