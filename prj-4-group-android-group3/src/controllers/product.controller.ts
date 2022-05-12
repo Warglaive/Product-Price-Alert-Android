@@ -147,4 +147,20 @@ export class ProductController {
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.productRepository.deleteById(id);
   }
+
+  @get('/users/searchBy/{searchTerm}')
+  @response(200, {
+    description: 'Product model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Product, {includeRelations: true}),
+      },
+    },
+  })
+ 
+  async findBySearchTerm(
+    @param.path.string('searchTerm') searchTerm: string, 
+  ): Promise<Product> {
+    return this.productRepository.findBySearchTerm(searchTerm);
+  }
 }
