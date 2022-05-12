@@ -6,7 +6,7 @@ import android.media.Image;
 public class Product {
     private String name;
     private double price;
-    private Image image;
+    private String image;
     private String description;
 
     public Product(String name, double price) {
@@ -20,7 +20,7 @@ public class Product {
         this.description = description;
     }
 
-    public Product(String name, double price, String description, Image image){
+    public Product(String name, double price, String description, String image){
         this.name = name;
         this.price = price;
         this.description = description;
@@ -35,7 +35,7 @@ public class Product {
         return this.price;
     }
 
-    public Image getImage() {
+    public String getImage() {
         return this.image;
     }
 
@@ -55,7 +55,7 @@ public class Product {
         this.description = description;
     }
 
-    public void setImage(Image image){
+    public void setImage(String image){
         this.image = image;
     }
 }
