@@ -140,6 +140,7 @@ public class AddProductActivity extends AppCompatActivity {
             //imageView.setImageURI(image_uri);
             Bitmap bitmap = uriToBitmap(image_uri);
             imageView.setImageBitmap(bitmap);
+
         }
     }
 
