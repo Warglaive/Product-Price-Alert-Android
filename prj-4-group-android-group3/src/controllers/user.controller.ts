@@ -151,8 +151,8 @@ export class UserController {
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.userRepository.deleteById(id);
   }
-  //Find by Email NOT WORKING
-  @get('/users/searchBy/{email}')
+  
+  @get('/users/findByEmail/{email}')
   @response(200, {
     description: 'User model instance',
     content: {

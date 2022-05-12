@@ -88,8 +88,8 @@ public class UserStorageService {
      *
      * @return
      */
-    public User findByName(String name) {
-        Call<UserData> callUser = this.restAPI.findByName(name);
+    public User findByEmail(String email) {
+        Call<UserData> callUser = this.restAPI.findByEmail(email);
         callUser.enqueue(new Callback<UserData>() {
                              @Override
                              public void onResponse(Call<UserData> call, Response<UserData> response) {
