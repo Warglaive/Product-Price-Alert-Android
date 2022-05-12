@@ -1,3 +1,4 @@
+//import { User } from '@loopback/authentication-jwt/dist/models';
 import {
   Count,
   CountSchema,
@@ -150,8 +151,8 @@ export class UserController {
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.userRepository.deleteById(id);
   }
-
-  @get('/users/searchBy/{email}')
+  
+  @get('/users/findByEmail/{email}')
   @response(200, {
     description: 'User model instance',
     content: {
@@ -168,3 +169,4 @@ export class UserController {
     return this.userRepository.findByEmail(email);
   }
 }
+//getId, getIdObject, toJSON, toObject

@@ -18,17 +18,15 @@ public interface RestAPI {
     @POST("http://172.25.80.1:3000/users/")
     Call<UserData> postUser(@Body UserData userData);
 
-
     @GET("http://172.25.80.1:3000/products/")
     Call<List<ProductData>> getAllProducts();
 
     @POST("http://172.25.80.1:3000/products/")
     Call<ProductData> postProduct(@Body ProductData productData);
 
-    @GET
-    Call<UserData> findByName(@Query("name") String name);
-
     @GET("http://192.168.0.117:3000/products/")
     Call<List<ProductData>> getFilteredProducts(@Query("$filter") String filter);
 
+    @GET("http://127.0.0.1:3000/users/findByEmail/")
+    Call<UserData> findByEmail(@Query("email") String email);
 }
