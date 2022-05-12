@@ -15,7 +15,7 @@ public interface RestAPI {
     @GET("http://172.25.80.1:3000/users/")
     Call<List<UserData>> getAllUsers();
 
-    @POST("http://172.25.80.1:3000/users/")
+    @POST("http://172.30.128.1:3000/users/")
     Call<UserData> postUser(@Body UserData userData);
 
     @GET("http://172.25.80.1:3000/products/")
@@ -27,6 +27,6 @@ public interface RestAPI {
     @GET("http://192.168.0.117:3000/products/")
     Call<List<ProductData>> getFilteredProducts(@Query("$filter") String filter);
 
-    @GET("http://127.0.0.1:3000/users/findByEmail/")
+    @GET("http://172.30.128.1:3000/users/findByEmail/")
     Call<UserData> findByEmail(@Query("email") String email);
 }
