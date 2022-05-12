@@ -28,7 +28,7 @@ public class LoginUserActivity extends AppCompatActivity {
 
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
-        
+
         //Check if role == "Customer" -> redirect to corresponding view.
         submitLoginBtn.setOnClickListener(v -> {
             //TODO: Take logged in user's data and pass it to new logged in view depending on Role
