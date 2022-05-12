@@ -48,7 +48,7 @@ public class ProductStorageService {
         });
         return isSuccessful;
     }
-    public List<ProductData> getAllProducts() {
+    //public List<ProductData> getAllProducts() {
 
     public void getAllProducts(ResponseWait callback) {
 
