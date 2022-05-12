@@ -43,7 +43,7 @@ public class FilterProductsActivity extends AppCompatActivity {
                     list.add(data);
                 }
 
-                
+
 
                 /*ProductData product = new ProductData();
                 for (ProductData p : list) {

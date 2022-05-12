@@ -49,7 +49,6 @@ public class ProductStorageService {
     }
 
     public void getAllProducts(ResponseWait callback) {
-
         Call<List<ProductData>> callProduct = this.restAPI.getAllProducts();
         callProduct.enqueue(new Callback<List<ProductData>>() {
             @Override
