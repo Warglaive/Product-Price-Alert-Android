@@ -7,6 +7,7 @@ public class ProductData {
     private double price;
     private String image;
     private String description;
+    private String location;
 
     public String getName() {
         return this.name;
@@ -40,6 +41,10 @@ public class ProductData {
         this.image = image;
     }
 
+    public String getLocation(){
+        return this.location;
+    }
+
     @Override
     public String toString() {
         return "ProductData{" +
@@ -47,6 +52,7 @@ public class ProductData {
                 ", price=" + price +
                 ", image='" + image + '\'' +
                 ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 
