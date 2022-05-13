@@ -40,6 +40,9 @@ public class LoginUserActivity extends AppCompatActivity {
         this.userStorageService = new UserStorageService();
         User user = this.userStorageService.findByLoginCredentials(email, password);
         //Check if role == "Product Manager" -> redirect to corresponding view
+        if (user.getRole().equals("Product Manager")){
+            //TODO: redirect
+        }
         // TODO: Get data from login fields and find user by Email
         //TODO: Take logged in user's data and pass it to new logged in view depending on Role
         //TODO: 1. Get current user's data from DB Using LB4
