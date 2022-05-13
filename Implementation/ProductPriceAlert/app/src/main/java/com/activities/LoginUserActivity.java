@@ -58,7 +58,7 @@ public class LoginUserActivity extends AppCompatActivity {
                 System.out.println(userData.getRole());
                 //Check if role == "Product Manager" -> redirect to corresponding view
                 if (Objects.equals(userData.getRole(), "Product Manager")) {
-                    //TODO: redirect to new Customer Manager view
+                    //TODO: redirect to new Customer Manager view to display User Data
                     System.out.println("1");
                 }
 
