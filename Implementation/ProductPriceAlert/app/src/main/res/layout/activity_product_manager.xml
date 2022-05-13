@@ -34,8 +34,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="511dp"
-        android:text="Browse products"
-        android:textSize="10sp" />
+        android:text="@string/edit_browse_products"
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/actionsPM"
@@ -45,5 +45,26 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="170dp"
         android:layout_marginBottom="579dp"
-        android:text="Actions Available:" />
+        android:text="@string/actions_available" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="161dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="449dp"
+        android:text="@string/add_new_product"
+        android:textSize="11sp" />
+
+    <Button
+        android:id="@+id/logoutPM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="179dp"
+        android:layout_marginBottom="72dp"
+        android:text="Logout" />
 </RelativeLayout>

@@ -25,4 +25,7 @@
     <string name="priceAddProduct">Price</string>
     <string name="descriptionAddProduct">Description</string>
     <string name="nameAddProduct">Name</string>
+    <string name="edit_browse_products">Edit(Browse) products</string>
+    <string name="actions_available">Actions Available:</string>
+    <string name="add_new_product">Add new product</string>
 </resources>
