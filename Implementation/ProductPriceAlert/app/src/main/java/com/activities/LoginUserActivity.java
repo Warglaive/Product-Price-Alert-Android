@@ -15,6 +15,7 @@ import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.util.List;
+import java.util.Objects;
 
 public class LoginUserActivity extends AppCompatActivity {
     private UserStorageService userStorageService;
@@ -48,19 +49,29 @@ public class LoginUserActivity extends AppCompatActivity {
                 //Useless at the moment, but good for extendability
             }
 
+            /**
+             *
+             * @param userData
+             */
             @Override
             public void responseWaitSingle(UserData userData) {
+                System.out.println(userData.getRole());
+                //Check if role == "Product Manager" -> redirect to corresponding view
+                if (Objects.equals(userData.getRole(), "Product Manager")) {
+                    //TODO: redirect
+                    System.out.println("1");
+                }
+                // TODO: Get data from login fields and find user by Email
+                //TODO: Take logged in user's data and pass it to new logged in view depending on Role
+                //TODO: 1. Get current user's data from DB Using LB4
+                //TODO: 2. Check if role is "Product Manager" and startActivity
+
+
                 userData.getPassword().equals(password);
+                //
             }
         });
-        //Check if role == "Product Manager" -> redirect to corresponding view
-      /*  if (user.getRole().equals("Product Manager")) {
-            //TODO: redirect
-        }*/
-        // TODO: Get data from login fields and find user by Email
-        //TODO: Take logged in user's data and pass it to new logged in view depending on Role
-        //TODO: 1. Get current user's data from DB Using LB4
-        //TODO: 2. Check if role is "Product Manager" and startActivity
+
     }
 
     /**

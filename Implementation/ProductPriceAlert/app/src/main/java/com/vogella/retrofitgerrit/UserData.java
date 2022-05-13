@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
  * Used ONLY to communicate with the LB4
  */
 public class UserData {
-  //  @SerializedName(value = "name")
+    //  @SerializedName(value = "name")
     private String name;
-   // @SerializedName(value = "email")
+    // @SerializedName(value = "email")
     private String email;
-   // @SerializedName(value = "password")
+    // @SerializedName(value = "password")
     private String password;
-   // @SerializedName(value = "role")
+    // @SerializedName(value = "role")
     private String role;
 
     public String getName() {
