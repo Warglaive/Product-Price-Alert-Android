@@ -1,69 +1,56 @@
 package com.activities;
 
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.models.Product;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
-import com.vogella.retrofitgerrit.ResponseWaitImpl;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
-public class BrowseProducts extends AppCompatActivity {
+public class ShowFilteredProductsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_browse_products);
+        setContentView(R.layout.activity_filtered_products);
 
         ProductStorageService service = new ProductStorageService();
-
-        Context currentContext = this;
-
-        final ListView listview = (ListView) findViewById(R.id.listview);
-
-        final ArrayList<String> list = new ArrayList<String>();
-
+        TextView textView = findViewById(R.id.textViewFilter);
+        ListView listview = findViewById(R.id.filterList);
+        List<String> list = new ArrayList<>();
         Context context = this;
 
-        Button filter = findViewById(R.id.filter);
-        Button popular = findViewById(R.id.popular);
+        Bundle extras = getIntent().getExtras();
+        String searchTerm = extras.getString("key");
 
-        service.getAllProducts(new ResponseWait() {
+        service.filterProducts("string", new ResponseWait() {
             @Override
             public void responseWaitArray(List response) {
-                for (Object t: response) {
+                for (Object t : response) {
                     ProductData data = (ProductData) t;
                     list.add(data.getName());
                 }
 
-                final StableArrayAdapter adapter = new StableArrayAdapter(currentContext,
-                        android.R.layout.simple_list_item_1, list);
+                final ShowFilteredProductsActivity.StableArrayAdapter adapter = new ShowFilteredProductsActivity.StableArrayAdapter
+                        (context, android.R.layout.simple_list_item_1, list);
                 listview.setAdapter(adapter);
-
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
-                    public void onItemClick(AdapterView<?> parent, final View view,
-                                            int position, long id) {
+                    public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                         final String item = (String) parent.getItemAtPosition(position);
                         view.animate().setDuration(1000).alpha(0)
                                 .withEndAction(new Runnable() {
@@ -80,15 +67,9 @@ public class BrowseProducts extends AppCompatActivity {
                 });
             }
         });
-
-        filter(filter);
-        popular(popular);
-
-
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
-
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 
         public StableArrayAdapter(Context context, int textViewResourceId,
@@ -109,20 +90,5 @@ public class BrowseProducts extends AppCompatActivity {
         public boolean hasStableIds() {
             return true;
         }
-
     }
-
-    public Intent intent() {
-        return new Intent(this, ProductDetailsActivity.class);
-    }
-
-    public void filter(Button filter){
-        Intent intent = new Intent(this, FilterProductsActivity.class);
-        filter.setOnClickListener(view1 -> startActivity(intent));
-    }
-
-    public void popular(Button popular){
-
-    }
-
 }

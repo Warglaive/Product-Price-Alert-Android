@@ -148,7 +148,7 @@ export class ProductController {
     await this.productRepository.deleteById(id);
   }
 
-  @get('/users/searchBy/{searchTerm}')
+  @get('/products/searchBy/{searchTerm}')
   @response(200, {
     description: 'Product model instance',
     content: {

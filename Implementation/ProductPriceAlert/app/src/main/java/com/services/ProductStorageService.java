@@ -49,15 +49,13 @@ public class ProductStorageService {
     }
 
     public void getAllProducts(ResponseWait callback) {
-
         Call<List<ProductData>> callProduct = this.restAPI.getAllProducts();
         callProduct.enqueue(new Callback<List<ProductData>>() {
             @Override
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
                 if(response.isSuccessful()){
                     List<ProductData> productData = response.body();
-                    for (ProductData data: productData
-                    ) {
+                    for (ProductData data: productData) {
                         System.out.println(data.toString());
                     }
                     callback.responseWaitArray(productData);
@@ -81,6 +79,9 @@ public class ProductStorageService {
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
                 if(response.isSuccessful()){
                     List<ProductData> filterResult = response.body();
+                    for (ProductData data: filterResult) {
+                        System.out.println(data.toString());
+                    }
                     callback.responseWaitArray(filterResult);
                 } else{
                     System.out.println(response.errorBody());

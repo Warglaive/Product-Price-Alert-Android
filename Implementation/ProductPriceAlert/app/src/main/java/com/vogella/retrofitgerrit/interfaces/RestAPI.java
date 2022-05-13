@@ -13,6 +13,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestAPI {
+
     @GET("http://192.168.0.116:3000/users/")
     Call<List<UserData>> getAllUsers();
 
