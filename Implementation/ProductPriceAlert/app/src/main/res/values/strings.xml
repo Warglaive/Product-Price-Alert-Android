@@ -22,4 +22,7 @@
     <string name="input">Your input:</string>
     <string name="please_enter_your_login_details">Please enter your login details</string>
     <string name="showFilter">The results of your search:</string>
+    <string name="priceAddProduct">Price</string>
+    <string name="descriptionAddProduct">Description</string>
+    <string name="nameAddProduct">Name</string>
 </resources>
