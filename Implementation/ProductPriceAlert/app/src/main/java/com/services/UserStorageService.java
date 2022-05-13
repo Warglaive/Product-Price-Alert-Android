@@ -84,12 +84,12 @@ public class UserStorageService {
     }
 
     /**
-     * get a User instance from DB by name
+     * get a User instance from DB by email and password
      *
      * @return
      */
-    public User findByEmail(String email) {
-        Call<UserData> callUser = this.restAPI.findByEmail(email);
+    public User findByLoginCredentials(String email, String password) {
+        Call<UserData> callUser = this.restAPI.findByEmail(email, password);
         callUser.enqueue(new Callback<UserData>() {
                              @Override
                              public void onResponse(Call<UserData> call, Response<UserData> response) {
