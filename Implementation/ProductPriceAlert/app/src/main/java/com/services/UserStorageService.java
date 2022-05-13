@@ -84,16 +84,17 @@ public class UserStorageService {
     }
 
     /**
-     * get a User instance from DB by name
+     * get a User instance from DB by email and password
      *
      * @return
      */
-    public User findByEmail(String email) {
+    public User findByLoginCredentials(String email, String password) {
         Call<UserData> callUser = this.restAPI.findByEmail(email);
         callUser.enqueue(new Callback<UserData>() {
                              @Override
                              public void onResponse(Call<UserData> call, Response<UserData> response) {
                                  response.body();
+                                 System.out.println(response.body().getEmail());
                              }
 
                              @Override
@@ -102,6 +103,9 @@ public class UserStorageService {
                              }
                          }
         );
+
+
+        //TODO: Verify password before proceeding to new activity
         return null;
     }
 }
