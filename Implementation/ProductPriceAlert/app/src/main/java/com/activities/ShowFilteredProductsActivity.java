@@ -36,7 +36,7 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String searchTerm = extras.getString("key");
 
-        service.filterProducts(searchTerm, new ResponseWait() {
+        service.filterProducts("string", new ResponseWait() {
             @Override
             public void responseWaitArray(List response) {
                 for (Object t : response) {
@@ -44,17 +44,15 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
                     list.add(data.getName());
                 }
 
-                final ShowFilteredProductsActivity.StableArrayAdapter adapter = new ShowFilteredProductsActivity.StableArrayAdapter(context,
-                        android.R.layout.simple_list_item_1, list);
+                final ShowFilteredProductsActivity.StableArrayAdapter adapter = new ShowFilteredProductsActivity.StableArrayAdapter
+                        (context, android.R.layout.simple_list_item_1, list);
                 listview.setAdapter(adapter);
-
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
-                    public void onItemClick(AdapterView<?> parent, final View view,
-                                            int position, long id) {
+                    public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                         final String item = (String) parent.getItemAtPosition(position);
-                        view.animate().setDuration(2000).alpha(0)
+                        view.animate().setDuration(1000).alpha(0)
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {

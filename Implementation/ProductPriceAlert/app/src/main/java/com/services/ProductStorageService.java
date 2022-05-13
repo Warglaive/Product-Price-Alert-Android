@@ -55,8 +55,7 @@ public class ProductStorageService {
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
                 if(response.isSuccessful()){
                     List<ProductData> productData = response.body();
-                    for (ProductData data: productData
-                    ) {
+                    for (ProductData data: productData) {
                         System.out.println(data.toString());
                     }
                     callback.responseWaitArray(productData);
@@ -80,6 +79,9 @@ public class ProductStorageService {
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
                 if(response.isSuccessful()){
                     List<ProductData> filterResult = response.body();
+                    for (ProductData data: filterResult) {
+                        System.out.println(data.toString());
+                    }
                     callback.responseWaitArray(filterResult);
                 } else{
                     System.out.println(response.errorBody());
