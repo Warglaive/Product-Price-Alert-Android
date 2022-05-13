@@ -152,7 +152,7 @@ export class UserController {
     await this.userRepository.deleteById(id);
   }
 
-  @get('/users/login/{email}{password}')
+  @get('/users/login/{email}')
   @response(200, {
     description: 'User model instance',
     content: {
@@ -164,10 +164,9 @@ export class UserController {
 
   async login(
     @param.path.string('email') email: string,
-    @param.path.string('password') password: string,
     // @param.filter(User, {exclude: 'where'}) filter?: Where<User>
   ): Promise<User> {
-    return this.userRepository.login(email, password);
+    return this.userRepository.login(email);
   }
 }
 //getId, getIdObject, toJSON, toObject

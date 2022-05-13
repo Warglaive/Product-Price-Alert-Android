@@ -89,11 +89,12 @@ public class UserStorageService {
      * @return
      */
     public User findByLoginCredentials(String email, String password) {
-        Call<UserData> callUser = this.restAPI.findByEmail(email, password);
+        Call<UserData> callUser = this.restAPI.findByEmail(email);
         callUser.enqueue(new Callback<UserData>() {
                              @Override
                              public void onResponse(Call<UserData> call, Response<UserData> response) {
                                  response.body();
+                                 System.out.println(response.body().getEmail());
                              }
 
                              @Override
@@ -103,6 +104,9 @@ public class UserStorageService {
                          }
 
         );
+
+
+        //TODO: Verify password before proceeding to new activity
         return null;
     }
 }

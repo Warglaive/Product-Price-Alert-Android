@@ -9,12 +9,11 @@ export class UserRepository extends DefaultCrudRepository<User, typeof User.prot
   ) {
     super(User, dataSource);
   }
-  //Find by Email custom method
-  login(email: string, password: string): User | PromiseLike<User> {
+  //custom login 
+  login(email: string): User | PromiseLike<User> {
     const user = this.findOne({
       where: {
-        email: email,
-        password: password
+        email: email
       }
     }) as unknown as User
     return user;
