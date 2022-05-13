@@ -20,15 +20,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductDetailsActivity extends AppCompatActivity {
-    private ProductStorageService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
-        this.service = new ProductStorageService();
-
+        ProductStorageService service = new ProductStorageService();
         Bundle extras = getIntent().getExtras();
         String productName = extras.getString("key");
 
@@ -40,7 +38,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
-        this.service.getAllProducts(new ResponseWait() {
+        service.getAllProducts(new ResponseWait() {
             @Override
             public void responseWaitArray(List response) {
                 for (Object t : response) {

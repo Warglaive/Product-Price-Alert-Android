@@ -36,7 +36,7 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String searchTerm = extras.getString("key");
 
-        service.filterProducts("string", new ResponseWait() {
+        service.filterProducts(searchTerm, new ResponseWait() {
             @Override
             public void responseWaitArray(List response) {
                 for (Object t : response) {
