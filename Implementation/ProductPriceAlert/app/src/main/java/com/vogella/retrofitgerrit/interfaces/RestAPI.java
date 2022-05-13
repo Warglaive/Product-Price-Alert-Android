@@ -27,6 +27,6 @@ public interface RestAPI {
     @GET("http://192.168.0.116:3000/products/")
     Call<List<ProductData>> getFilteredProducts(@Query("$filter") String filter);
 
-    @GET("http://192.168.0.116:3000/users/findByEmail/")
+    @GET("http://192.168.0.116:3000/users/login/")
     Call<UserData> findByEmail(@Query("email") String email, @Query("password") String password);
 }
