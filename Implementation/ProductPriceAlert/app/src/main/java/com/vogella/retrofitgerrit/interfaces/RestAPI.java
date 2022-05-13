@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestAPI {
@@ -24,8 +25,8 @@ public interface RestAPI {
     @POST("http://192.168.0.117:3000/products/")
     Call<ProductData> postProduct(@Body ProductData productData);
 
-    @GET("http://192.168.0.117:3000/products/searchBy/")
-    Call<List<ProductData>> getFilteredProducts(@Query("$filter") String filter);
+    @GET("http://192.168.0.117:3000/products/searchBy/{searchTerm}")
+    Call<List<ProductData>> getFilteredProducts(@Path("searchTerm") String searchTerm);
 
     @GET("http://192.168.0.117:3000/users/findByEmail/")
     Call<UserData> findByEmail(@Query("email") String email);
