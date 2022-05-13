@@ -17,6 +17,11 @@ public class ResponseWaitImpl implements ResponseWait {
         this.list = response;
     }
 
+    @Override
+    public void responseWaitSingle(UserData userData) {
+
+    }
+
     public List getList(){
         return this.list;
     }

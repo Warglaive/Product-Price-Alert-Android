@@ -20,6 +20,7 @@ import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.ResponseWaitImpl;
+import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.util.ArrayList;
@@ -78,6 +79,11 @@ public class BrowseProducts extends AppCompatActivity {
                     }
 
                 });
+            }
+
+            @Override
+            public void responseWaitSingle(UserData userData) {
+
             }
         });
 

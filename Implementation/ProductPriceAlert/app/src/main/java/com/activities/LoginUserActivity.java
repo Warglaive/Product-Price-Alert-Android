@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.models.User;
 import com.productpricealert.R;
 import com.services.UserStorageService;
+import com.vogella.retrofitgerrit.UserData;
+import com.vogella.retrofitgerrit.interfaces.ResponseWait;
+
+import java.util.List;
 
 public class LoginUserActivity extends AppCompatActivity {
     private UserStorageService userStorageService;
@@ -38,11 +42,21 @@ public class LoginUserActivity extends AppCompatActivity {
         String password = this.passwordField.getText().toString();
 
         this.userStorageService = new UserStorageService();
-        User user = this.userStorageService.findByLoginCredentials(email, password);
+        this.userStorageService.findByLoginCredentials(email, password, new ResponseWait<UserData>() {
+            @Override
+            public void responseWaitArray(List response) {
+                //Useless at the moment, but good for extendability
+            }
+
+            @Override
+            public void responseWaitSingle(UserData userData) {
+                userData.getPassword().equals(password);
+            }
+        });
         //Check if role == "Product Manager" -> redirect to corresponding view
-        if (user.getRole().equals("Product Manager")){
+      /*  if (user.getRole().equals("Product Manager")) {
             //TODO: redirect
-        }
+        }*/
         // TODO: Get data from login fields and find user by Email
         //TODO: Take logged in user's data and pass it to new logged in view depending on Role
         //TODO: 1. Get current user's data from DB Using LB4
