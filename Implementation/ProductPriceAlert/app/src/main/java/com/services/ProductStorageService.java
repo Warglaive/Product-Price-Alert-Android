@@ -22,7 +22,6 @@ public class ProductStorageService {
         this.restAPI = RestClient.getClient();
     }
 
-
     public boolean registerProduct(Product product) {
         this.product = product;
         //Make ProductData from User and use LB4 to add it to the DB
@@ -48,7 +47,6 @@ public class ProductStorageService {
         });
         return isSuccessful;
     }
-    public List<ProductData> getAllProducts() {
 
     public void getAllProducts(ResponseWait callback) {
 

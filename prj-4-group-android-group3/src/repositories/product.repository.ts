@@ -13,4 +13,13 @@ export class ProductRepository extends DefaultCrudRepository<
   ) {
     super(Product, dataSource);
   }
+
+  findBySearchTerm(searchTerm: string) : Product | PromiseLike<Product> {
+    const product = this.findOne({
+      where: {
+        name : searchTerm 
+      }
+    }) as unknown as Product
+    return product;
+  }
 }

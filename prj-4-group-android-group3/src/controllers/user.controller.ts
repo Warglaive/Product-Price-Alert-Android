@@ -1,3 +1,4 @@
+//import { User } from '@loopback/authentication-jwt/dist/models';
 import {
   Count,
   CountSchema,
@@ -150,8 +151,8 @@ export class UserController {
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.userRepository.deleteById(id);
   }
-  //Find by Email NOT WORKING
-  @get('/users/{email}')
+  
+  @get('/users/findByEmail/{email}')
   @response(200, {
     description: 'User model instance',
     content: {
@@ -163,8 +164,9 @@ export class UserController {
  
   async findByEmail(
     @param.path.string('email') email: string, 
-    @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>
+   // @param.filter(User, {exclude: 'where'}) filter?: Where<User>
   ): Promise<User> {
-    return this.userRepository.find(filter);
+    return this.userRepository.findByEmail(email);
   }
 }
+//getId, getIdObject, toJSON, toObject
