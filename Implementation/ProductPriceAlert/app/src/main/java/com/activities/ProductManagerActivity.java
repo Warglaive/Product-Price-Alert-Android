@@ -29,24 +29,28 @@ public class ProductManagerActivity extends AppCompatActivity {
         //Get current PM Data
         Gson gson = new Gson();
         UserData userData = gson.fromJson(getIntent().getStringExtra(UserDataKey), UserData.class);
-        //Find fields
         findFieldsById();
-        //set fields initial values
         DisplayUserData(userData);
-        //
-       
+        //TODO: 1. Make browseProductsPM redirect to appropriate Activity;
+        //TODO: 2. Make addNewPRBtn redirect to appropriate Activity;
+        //TODO: 3. Make Logout redirect to mainActivity
     }
 
+    /**
+     * set fields initial values
+     */
     private void DisplayUserData(UserData userData) {
         String welcomeMessage = "Welcome " + userData.getName();
         this.welcomeNamePM.setText(welcomeMessage);
         this.welcomeNamePM.setTextColor(Color.parseColor("#2596be"));
-        //
         String roleDisplay = "Your Role is: " + userData.getRole();
         this.showRolePM.setText(roleDisplay);
         this.showRolePM.setTextColor(Color.parseColor("#2596be"));
     }
 
+    /**
+     * Find fields
+     */
     private void findFieldsById() {
         this.welcomeNamePM = findViewById(R.id.welcomeNamePM);
         this.showRolePM = findViewById(R.id.showRolePM);
