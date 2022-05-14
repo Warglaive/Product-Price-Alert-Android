@@ -16,7 +16,7 @@ public class ProductManagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_user);
+        setContentView(R.layout.activity_product_manager);
 
         Gson gson = new Gson();
         UserData userData = gson.fromJson(getIntent().getStringExtra(UserDataKey), UserData.class);

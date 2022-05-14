@@ -49,7 +49,7 @@ public class LoginUserActivity extends AppCompatActivity {
         this.userStorageService = new UserStorageService();
         this.userStorageService.findByLoginCredentials(email, password, new ResponseWait<UserData>() {
             @Override
-            public void responseWaitArray(List response) {
+            public void responseWaitArray(List<UserData> response) {
                 //Useless at the moment, but good for extendability
             }
 
