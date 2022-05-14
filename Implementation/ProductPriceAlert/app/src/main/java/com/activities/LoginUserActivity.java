@@ -8,8 +8,6 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.activities.ProductManagerActivities.BrowseProductsProductManagerActivity;
-import com.activities.ProductManagerActivities.ProductManagerActivity;
 import com.google.gson.Gson;
 import com.productpricealert.R;
 import com.services.UserStorageService;

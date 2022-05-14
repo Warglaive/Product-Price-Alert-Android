@@ -1,4 +1,4 @@
-package com.activities.CustomerActivities;
+package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.activities.ProductManagerActivities.BrowseProductsProductManagerActivity;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 

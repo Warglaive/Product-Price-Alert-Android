@@ -1,4 +1,4 @@
-package com.activities.ProductManagerActivities;
+package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
