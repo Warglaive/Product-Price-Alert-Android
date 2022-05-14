@@ -11,9 +11,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="37dp"
-        android:layout_marginEnd="312dp"
-        android:layout_marginBottom="520dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginEnd="306dp"
+        android:layout_marginBottom="513dp"
         android:text="@string/welcomePM" />
 
     <TextView
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="327dp"
-        android:layout_marginBottom="298dp"
+        android:layout_marginEnd="288dp"
+        android:layout_marginBottom="303dp"
         android:text="@string/your_role_is_PM" />
 
     <Button
