@@ -1,7 +1,9 @@
 package com.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -34,6 +36,12 @@ public class ProductManagerActivity extends AppCompatActivity {
         //TODO: 1. Make browseProductsPM redirect to appropriate Activity;
         //TODO: 2. Make addNewPRBtn redirect to appropriate Activity;
         //TODO: 3. Make Logout redirect to mainActivity
+        this.browseProductsPM.setOnClickListener(this::browseProductsActivity);
+    }
+
+    private void browseProductsActivity(View view) {
+        Intent intent = new Intent(view.getContext(), BrowseProducts.class);
+        startActivity(intent);
     }
 
     /**
