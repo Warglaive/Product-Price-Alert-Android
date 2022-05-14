@@ -11,9 +11,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="63dp"
-        android:layout_marginEnd="286dp"
-        android:layout_marginBottom="669dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="312dp"
+        android:layout_marginBottom="520dp"
         android:text="@string/welcomePM" />
 
     <TextView
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="276dp"
-        android:layout_marginBottom="615dp"
+        android:layout_marginEnd="327dp"
+        android:layout_marginBottom="298dp"
         android:text="@string/your_role_is_PM" />
 
     <Button
@@ -32,8 +32,8 @@
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="511dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="379dp"
         android:text="@string/edit_browse_products"
         android:textSize="11sp" />
 
@@ -43,8 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="170dp"
-        android:layout_marginBottom="579dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="491dp"
         android:text="@string/actions_available" />
 
     <Button
@@ -53,8 +53,8 @@
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="449dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="285dp"
         android:text="@string/add_new_product"
         android:textSize="11sp" />
 
