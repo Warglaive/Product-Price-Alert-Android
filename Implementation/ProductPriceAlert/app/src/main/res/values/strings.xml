@@ -28,4 +28,7 @@
     <string name="edit_browse_products">Edit(Browse) products</string>
     <string name="actions_available">Actions Available:</string>
     <string name="add_new_product">Add new product</string>
+    <string name="welcomePM">Welcome</string>
+    <string name="your_role_is_PM">Your role is:</string>
+    <string name="logout">Logout</string>
 </resources>

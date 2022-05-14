@@ -2,6 +2,7 @@ package com.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,14 +12,27 @@ import com.productpricealert.R;
 import com.vogella.retrofitgerrit.UserData;
 
 public class ProductManagerActivity extends AppCompatActivity {
+    //Constants
     private final String UserDataKey = "userDataKey";
+    //
+    private TextView welcomeNamePM;
+    private TextView showRolePM;
+    private Button browseProductsPM;
+    private Button addNewPRBtn;
+    private Button logoutPM;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_manager);
-
+        //Get current PM Data
         Gson gson = new Gson();
         UserData userData = gson.fromJson(getIntent().getStringExtra(UserDataKey), UserData.class);
+        //Find fields
+        this.welcomeNamePM = findViewById(R.id.welcomeNamePM);
+        this.showRolePM = findViewById(R.id.showRolePM);
+        this.browseProductsPM = findViewById(R.id.browseProductsPM);
+        this.addNewPRBtn = findViewById(R.id.addNewPRBtn);
+        this.logoutPM = findViewById(R.id.logoutPM);
     }
 }

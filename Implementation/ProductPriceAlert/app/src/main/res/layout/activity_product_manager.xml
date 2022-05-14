@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/wlcmNamePM"
+        android:id="@+id/welcomeNamePM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -14,7 +14,7 @@
         android:layout_marginStart="63dp"
         android:layout_marginEnd="286dp"
         android:layout_marginBottom="669dp"
-        android:text="Welcome " />
+        android:text="@string/welcomePM" />
 
     <TextView
         android:id="@+id/showRolePM"
@@ -24,7 +24,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="276dp"
         android:layout_marginBottom="615dp"
-        android:text="Your role is: " />
+        android:text="@string/your_role_is_PM" />
 
     <Button
         android:id="@+id/browseProductsPM"
@@ -48,7 +48,7 @@
         android:text="@string/actions_available" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/addNewPRBtn"
         android:layout_width="161dp"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
@@ -66,5 +66,5 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="179dp"
         android:layout_marginBottom="72dp"
-        android:text="Logout" />
+        android:text="@string/logout" />
 </RelativeLayout>
