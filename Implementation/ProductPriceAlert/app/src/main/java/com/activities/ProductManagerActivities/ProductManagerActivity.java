@@ -11,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.activities.MainActivity;
-import com.activities.ProductManagerActivities.AddProductProductManagerActivity;
-import com.activities.ProductManagerActivities.BrowseProductsProductManagerActivity;
 import com.google.gson.Gson;
 import com.productpricealert.R;
 import com.vogella.retrofitgerrit.UserData;
@@ -36,9 +34,6 @@ public class ProductManagerActivity extends AppCompatActivity {
         UserData userData = gson.fromJson(getIntent().getStringExtra(UserDataKey), UserData.class);
         findFieldsById();
         DisplayUserData(userData);
-        //TODO: 1. Make browseProductsPM redirect to appropriate Activity;
-        //TODO: 2. Make addNewPRBtn redirect to appropriate Activity;
-        //TODO: 3. Make Logout redirect to mainActivity
         this.browseProductsPM.setOnClickListener(this::browseProductsActivity);
         this.addNewPRBtn.setOnClickListener(this::addNewProductActivity);
         this.logoutPM.setOnClickListener(this::logout);
@@ -49,11 +44,22 @@ public class ProductManagerActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * start new activity
+     *
+     * @param view
+     */
     private void addNewProductActivity(View view) {
+        //TODO: won't load the activity for some reason
         Intent intent = new Intent(view.getContext(), AddProductProductManagerActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * start new activity
+     *
+     * @param view
+     */
     private void browseProductsActivity(View view) {
         Intent intent = new Intent(view.getContext(), BrowseProductsProductManagerActivity.class);
         startActivity(intent);

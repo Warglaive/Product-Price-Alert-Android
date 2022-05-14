@@ -1,8 +1,6 @@
 package com.models;
 
 
-import android.media.Image;
-
 public class Product {
     private String name;
     private double price;

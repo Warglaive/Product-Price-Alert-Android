@@ -1,7 +1,5 @@
 package com.vogella.retrofitgerrit;
 
-import android.media.Image;
-
 public class ProductData {
     private String name;
     private double price;

@@ -1,6 +1,5 @@
 package com.services;
 
-import com.exceptions.WrongPasswordException;
 import com.models.User;
 import com.vogella.retrofitgerrit.RestClient;
 import com.vogella.retrofitgerrit.UserData;

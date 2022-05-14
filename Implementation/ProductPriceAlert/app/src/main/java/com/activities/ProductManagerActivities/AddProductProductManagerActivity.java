@@ -1,11 +1,9 @@
 package com.activities.ProductManagerActivities;
 
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,10 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.models.Product;
-import com.models.User;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
-import com.services.UserStorageService;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
