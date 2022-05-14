@@ -1,4 +1,4 @@
-package com.activities;
+package com.activities.CustomerActivities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.activities.ProductManagerActivities.ProductDetailsProductManagerActivity;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ShowFilteredProductsActivity extends AppCompatActivity {
+public class ShowFilteredProductsCustomerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
                     list.add(data.getName());
                 }
 
-                final ShowFilteredProductsActivity.StableArrayAdapter adapter = new ShowFilteredProductsActivity.StableArrayAdapter
+                final ShowFilteredProductsCustomerActivity.StableArrayAdapter adapter = new ShowFilteredProductsCustomerActivity.StableArrayAdapter
                         (context, android.R.layout.simple_list_item_1, list);
                 listview.setAdapter(adapter);
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,7 +59,7 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         String p = (String) parent.getItemAtPosition(position);
-                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
+                                        Intent intent = new Intent(context, ProductDetailsProductManagerActivity.class);
                                         intent.putExtra("key", p);
                                         startActivity(intent);
                                     }

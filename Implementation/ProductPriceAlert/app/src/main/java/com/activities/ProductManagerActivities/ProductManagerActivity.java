@@ -1,4 +1,4 @@
-package com.activities;
+package com.activities.ProductManagerActivities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.activities.MainActivity;
+import com.activities.ProductManagerActivities.AddProductProductManagerActivity;
+import com.activities.ProductManagerActivities.BrowseProductsProductManagerActivity;
 import com.google.gson.Gson;
 import com.productpricealert.R;
 import com.vogella.retrofitgerrit.UserData;
@@ -47,12 +50,12 @@ public class ProductManagerActivity extends AppCompatActivity {
     }
 
     private void addNewProductActivity(View view) {
-        Intent intent = new Intent(view.getContext(), AddProductActivity.class);
+        Intent intent = new Intent(view.getContext(), AddProductProductManagerActivity.class);
         startActivity(intent);
     }
 
     private void browseProductsActivity(View view) {
-        Intent intent = new Intent(view.getContext(), BrowseProducts.class);
+        Intent intent = new Intent(view.getContext(), BrowseProductsProductManagerActivity.class);
         startActivity(intent);
     }
 

@@ -1,11 +1,9 @@
-package com.activities;
+package com.activities.ProductManagerActivities;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,21 +13,18 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.models.Product;
+import com.activities.CustomerActivities.FilterProductsCustomerActivity;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
-import com.vogella.retrofitgerrit.ResponseWaitImpl;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
-public class BrowseProducts extends AppCompatActivity {
+public class BrowseProductsProductManagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +66,7 @@ public class BrowseProducts extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         String p = (String) parent.getItemAtPosition(position);
-                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
+                                        Intent intent = new Intent(context, ProductDetailsProductManagerActivity.class);
                                         intent.putExtra("key", p);
                                         startActivity(intent);
                                     }
@@ -119,11 +114,11 @@ public class BrowseProducts extends AppCompatActivity {
     }
 
     public Intent intent() {
-        return new Intent(this, ProductDetailsActivity.class);
+        return new Intent(this, ProductDetailsProductManagerActivity.class);
     }
 
     public void filter(Button filter) {
-        Intent intent = new Intent(this, FilterProductsActivity.class);
+        Intent intent = new Intent(this, FilterProductsCustomerActivity.class);
         filter.setOnClickListener(view1 -> startActivity(intent));
     }
 

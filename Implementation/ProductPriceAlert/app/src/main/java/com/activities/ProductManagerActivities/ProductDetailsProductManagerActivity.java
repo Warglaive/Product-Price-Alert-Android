@@ -1,26 +1,24 @@
-package com.activities;
+package com.activities.ProductManagerActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.activities.ProductManagerActivities.BrowseProductsProductManagerActivity;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
-import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class ProductDetailsActivity extends AppCompatActivity {
+public class ProductDetailsProductManagerActivity extends AppCompatActivity {
     private ProductStorageService service;
 
     @Override
@@ -73,7 +71,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
 
     public void backToBrowse(Button button) {
-        Intent intent = new Intent(this, BrowseProducts.class);
+        Intent intent = new Intent(this, BrowseProductsProductManagerActivity.class);
         button.setOnClickListener(view1 -> startActivity(intent));
     }
 }

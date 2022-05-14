@@ -2,22 +2,20 @@ package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.exceptions.WrongPasswordException;
+import com.activities.ProductManagerActivities.BrowseProductsProductManagerActivity;
+import com.activities.ProductManagerActivities.ProductManagerActivity;
 import com.google.gson.Gson;
-import com.models.User;
 import com.productpricealert.R;
 import com.services.UserStorageService;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,7 +67,7 @@ public class LoginUserActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if (isRoleCustomer(userData)) {
-                    Intent intent = new Intent(LoginUserActivity.this, BrowseProducts.class);
+                    Intent intent = new Intent(LoginUserActivity.this, BrowseProductsProductManagerActivity.class);
                     //Pass the object as JSON
                     Gson gson = new Gson();
                     String userDataJSON = gson.toJson(userData);

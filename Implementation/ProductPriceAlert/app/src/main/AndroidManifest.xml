@@ -31,22 +31,22 @@
             android:exported="true" />
         <activity android:name="com.activities.LoginUserActivity" />
         <activity
-            android:name="com.activities.ProductDetailsActivity"
+            android:name="com.activities.ProductManagerActivities.ProductDetailsProductManagerActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.BrowseProducts"
+            android:name="com.activities.ProductManagerActivities.BrowseProductsProductManagerActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.AddProductActivity"
+            android:name="com.activities.ProductManagerActivities.AddProductProductManagerActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.FilterProductsActivity"
+            android:name="com.activities.CustomerActivities.FilterProductsCustomerActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.ShowFilteredProductsActivity"
+            android:name="com.activities.CustomerActivities.ShowFilteredProductsCustomerActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.ProductManagerActivity"
+            android:name="com.activities.ProductManagerActivities.ProductManagerActivity"
             android:exported="true" />
     </application>
 

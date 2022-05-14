@@ -1,4 +1,4 @@
-package com.activities;
+package com.activities.ProductManagerActivities;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -27,7 +27,7 @@ import com.services.UserStorageService;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class AddProductActivity extends AppCompatActivity {
+public class AddProductProductManagerActivity extends AppCompatActivity {
     private Button takePhotoButton;
     private Button addGallery;
     private Button addButton;
