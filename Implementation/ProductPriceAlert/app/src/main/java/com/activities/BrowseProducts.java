@@ -51,7 +51,7 @@ public class BrowseProducts extends AppCompatActivity {
         service.getAllProducts(new ResponseWait() {
             @Override
             public void responseWaitArray(List response) {
-                for (Object t: response) {
+                for (Object t : response) {
                     ProductData data = (ProductData) t;
                     list.add(data.getName());
                 }
@@ -122,12 +122,12 @@ public class BrowseProducts extends AppCompatActivity {
         return new Intent(this, ProductDetailsActivity.class);
     }
 
-    public void filter(Button filter){
+    public void filter(Button filter) {
         Intent intent = new Intent(this, FilterProductsActivity.class);
         filter.setOnClickListener(view1 -> startActivity(intent));
     }
 
-    public void popular(Button popular){
+    public void popular(Button popular) {
 
     }
 

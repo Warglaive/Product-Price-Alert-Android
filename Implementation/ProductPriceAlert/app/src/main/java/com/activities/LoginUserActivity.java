@@ -42,7 +42,7 @@ public class LoginUserActivity extends AppCompatActivity {
     /**
      * redirect to corresponding login view with respect to role
      */
-    private void login()  {
+    private void login() {
         String email = this.emailField.getText().toString();
         String password = this.passwordField.getText().toString();
 
@@ -55,14 +55,21 @@ public class LoginUserActivity extends AppCompatActivity {
 
             /**
              *
-             * @param userData
              */
             @Override
             public void responseWaitSingle(UserData userData) {
                 //Check if role == "Product Manager" -> redirect to corresponding view
                 if (isRoleProductManager(userData)) {
-                    //TODO: redirect to new Customer Manager view to display User Data
                     Intent intent = new Intent(LoginUserActivity.this, ProductManagerActivity.class);
+                    //Pass the object as JSON
+                    Gson gson = new Gson();
+                    String userDataJSON = gson.toJson(userData);
+
+                    intent.putExtra("userDataKey", userDataJSON);
+                    startActivity(intent);
+                }
+                if (isRoleCustomer(userData)) {
+                    Intent intent = new Intent(LoginUserActivity.this, BrowseProducts.class);
                     //Pass the object as JSON
                     Gson gson = new Gson();
                     String userDataJSON = gson.toJson(userData);
@@ -73,6 +80,10 @@ public class LoginUserActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean isRoleCustomer(UserData userData) {
+        return Objects.equals(userData.getRole(), "Customer");
     }
 
     private boolean isRoleProductManager(UserData userData) {
