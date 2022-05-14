@@ -37,6 +37,12 @@ public class ProductManagerActivity extends AppCompatActivity {
         //TODO: 2. Make addNewPRBtn redirect to appropriate Activity;
         //TODO: 3. Make Logout redirect to mainActivity
         this.browseProductsPM.setOnClickListener(this::browseProductsActivity);
+        this.addNewPRBtn.setOnClickListener(this::addNewProductActivity);
+    }
+
+    private void addNewProductActivity(View view) {
+        Intent intent = new Intent(view.getContext(), AddProductActivity.class);
+        startActivity(intent);
     }
 
     private void browseProductsActivity(View view) {
