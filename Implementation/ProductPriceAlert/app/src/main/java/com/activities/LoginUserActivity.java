@@ -2,18 +2,22 @@ package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.exceptions.WrongPasswordException;
+import com.google.gson.Gson;
 import com.models.User;
 import com.productpricealert.R;
 import com.services.UserStorageService;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,7 +42,7 @@ public class LoginUserActivity extends AppCompatActivity {
     /**
      * redirect to corresponding login view with respect to role
      */
-    private void login() {
+    private void login()  {
         String email = this.emailField.getText().toString();
         String password = this.passwordField.getText().toString();
 
@@ -56,17 +60,23 @@ public class LoginUserActivity extends AppCompatActivity {
             @Override
             public void responseWaitSingle(UserData userData) {
                 //Check if role == "Product Manager" -> redirect to corresponding view
-                if (Objects.equals(userData.getRole(), "Product Manager")) {
+                if (isRoleProductManager(userData)) {
                     //TODO: redirect to new Customer Manager view to display User Data
-                    System.out.println("1");
+                    Intent intent = new Intent(LoginUserActivity.this, ProductManagerActivity.class);
+                    //Pass the object as JSON
+                    Gson gson = new Gson();
+                    String userDataJSON = gson.toJson(userData);
+
+                    intent.putExtra("userDataKey", userDataJSON);
+                    startActivity(intent);
                 }
-
-
-                userData.getPassword().equals(password);
-                //
             }
         });
 
+    }
+
+    private boolean isRoleProductManager(UserData userData) {
+        return Objects.equals(userData.getRole(), "Product Manager");
     }
 
     /**

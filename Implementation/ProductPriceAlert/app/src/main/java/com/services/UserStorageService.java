@@ -1,5 +1,6 @@
 package com.services;
 
+import com.exceptions.WrongPasswordException;
 import com.models.User;
 import com.vogella.retrofitgerrit.RestClient;
 import com.vogella.retrofitgerrit.UserData;
@@ -17,6 +18,7 @@ import retrofit2.Response;
  * CRUD and more for the User
  */
 public class UserStorageService {
+    private final String wrongPasswordExceptionMessage = "Wrong password, try again.";
     public RestAPI restAPI;
     private User user;
     //may be useless
@@ -90,9 +92,17 @@ public class UserStorageService {
     public void findByLoginCredentials(String email, String password, ResponseWait<UserData> callback) {
         Call<UserData> callUser = this.restAPI.findByEmail(email);
         callUser.enqueue(new Callback<UserData>() {
+            /**
+             * Get user from the DB and check if password is valid.
+             * Get response in LoginActivity
+             */
                              @Override
                              public void onResponse(Call<UserData> call, Response<UserData> response) {
-                                 callback.responseWaitSingle(response.body());
+                                 if (isPasswordValid(response, password)) {
+                                     callback.responseWaitSingle(response.body());
+                                 } else {
+                                     System.out.println(wrongPasswordExceptionMessage);
+                                 }
                              }
 
                              @Override
@@ -101,8 +111,15 @@ public class UserStorageService {
                              }
                          }
         );
+    }
 
-
-        //TODO: Verify password before proceeding to new activity
+    /**
+     * Check if password is valid
+     * @param response
+     * @param password
+     * @return
+     */
+    private boolean isPasswordValid(Response<UserData> response, String password) {
+        return response.body().getPassword().equals(password);
     }
 }
