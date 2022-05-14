@@ -3,6 +3,7 @@ package com.services;
 import com.models.User;
 import com.vogella.retrofitgerrit.RestClient;
 import com.vogella.retrofitgerrit.UserData;
+import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
 import java.util.ArrayList;
@@ -84,16 +85,14 @@ public class UserStorageService {
     }
 
     /**
-     * get a User instance from DB by name
-     *
-     * @return
+     * get a User instance from DB by email and password
      */
-    public User findByEmail(String email) {
+    public void findByLoginCredentials(String email, String password, ResponseWait<UserData> callback) {
         Call<UserData> callUser = this.restAPI.findByEmail(email);
         callUser.enqueue(new Callback<UserData>() {
                              @Override
                              public void onResponse(Call<UserData> call, Response<UserData> response) {
-                                 response.body();
+                                 callback.responseWaitSingle(response.body());
                              }
 
                              @Override
@@ -101,8 +100,9 @@ public class UserStorageService {
                                  t.printStackTrace();
                              }
                          }
-
         );
-        return null;
+
+
+        //TODO: Verify password before proceeding to new activity
     }
 }

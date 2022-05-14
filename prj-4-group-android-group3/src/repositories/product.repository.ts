@@ -15,7 +15,7 @@ export class ProductRepository extends DefaultCrudRepository<
   }
 
   findBySearchTerm(searchTerm: string) : Product | PromiseLike<Product> {
-    const product = this.findOne({
+    const product = this.find({
       where: {
         name : searchTerm 
       }

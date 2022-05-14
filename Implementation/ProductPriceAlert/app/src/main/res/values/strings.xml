@@ -21,5 +21,11 @@
     <string name="enter">Enter your filter input below:</string>
     <string name="input">Your input:</string>
     <string name="please_enter_your_login_details">Please enter your login details</string>
-    <string name="mapbox_access_token">sk.eyJ1IjoicmFyZWhhbGYiLCJhIjoiY2wzNXJ4d3JiMDhhbjNqbnUzZG42NmZ2bCJ9.rL21k8QVcJmwaJG--fLvmw</string>
+    <string name="showFilter">The results of your search:</string>
+    <string name="priceAddProduct">Price</string>
+    <string name="descriptionAddProduct">Description</string>
+    <string name="nameAddProduct">Name</string>
+    <string name="edit_browse_products">Edit(Browse) products</string>
+    <string name="actions_available">Actions Available:</string>
+    <string name="add_new_product">Add new product</string>
 </resources>

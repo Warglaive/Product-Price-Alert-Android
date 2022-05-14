@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterProductsActivity extends AppCompatActivity {
+    private EditText input;
+    private TextView enter;
+    private String search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,39 +28,20 @@ public class FilterProductsActivity extends AppCompatActivity {
 
         ProductStorageService service = new ProductStorageService();
         Button filterfil = findViewById(R.id.filterfil);
-        TextView enter = findViewById(R.id.enter);
-        EditText input = findViewById(R.id.input);
         Button backp = findViewById(R.id.backp);
-        List<ProductData> list = new ArrayList<>();
 
-        String search = input.getText().toString();
+        this.enter = findViewById(R.id.enter);
+        this.input = findViewById(R.id.input);
+        this.search = input.getText().toString();
 
         filter(filterfil);
         backToBrowse(backp);
-
-        service.filterProducts(search, new ResponseWait() {
-            @Override
-            public void responseWaitArray(List response) {
-                for (Object t : response) {
-                    ProductData data = (ProductData) t;
-                    list.add(data);
-                }
-
-                
-
-                /*ProductData product = new ProductData();
-                for (ProductData p : list) {
-                    if (p.getName().equals(productName)) {
-                        product = p;
-                        break;
-                    }
-                }*/
-            }
-        });
     }
 
     public void filter(Button filter){
-
+        Intent intent = new Intent(this, ShowFilteredProductsActivity.class);
+        intent.putExtra("key", this.search);
+        filter.setOnClickListener(view1 -> startActivity(intent));
     }
 
     public void backToBrowse(Button backp){
