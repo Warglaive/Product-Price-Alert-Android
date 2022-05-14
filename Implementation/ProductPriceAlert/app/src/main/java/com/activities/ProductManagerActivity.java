@@ -38,6 +38,12 @@ public class ProductManagerActivity extends AppCompatActivity {
         //TODO: 3. Make Logout redirect to mainActivity
         this.browseProductsPM.setOnClickListener(this::browseProductsActivity);
         this.addNewPRBtn.setOnClickListener(this::addNewProductActivity);
+        this.logoutPM.setOnClickListener(this::logout);
+    }
+
+    private void logout(View view) {
+        Intent intent = new Intent(view.getContext(), MainActivity.class);
+        startActivity(intent);
     }
 
     private void addNewProductActivity(View view) {
@@ -72,5 +78,4 @@ public class ProductManagerActivity extends AppCompatActivity {
         this.addNewPRBtn = findViewById(R.id.addNewPRBtn);
         this.logoutPM = findViewById(R.id.logoutPM);
     }
-
 }
