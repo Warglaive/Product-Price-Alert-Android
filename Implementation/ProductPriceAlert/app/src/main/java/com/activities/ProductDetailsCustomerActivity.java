@@ -1,6 +1,8 @@
 package com.activities;
 
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,13 +16,16 @@ import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDetailsActivity extends AppCompatActivity implements ProductDetailsActivityInterface {
+public class ProductDetailsCustomerActivity extends AppCompatActivity implements ProductDetailsActivityInterface {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
@@ -34,11 +39,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         TextView description = (TextView) findViewById(R.id.descriptionGet);
         ImageView image = findViewById(R.id.image);
         Button button = findViewById(R.id.button);
+        Button purchase = null;
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
         service.getAllProducts(new ResponseWait() {
             @Override
-            public void responseWaitArray(List response) {
+            public void responseWaitArray(List response) throws IOException {
                 for (Object t : response) {
                     ProductData data = (ProductData) t;
                     list.add(data);
@@ -54,7 +60,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
 
                 name.setText(product.getName());
                 price.setText(String.valueOf(product.getPrice()));
-                description.setText(product.getDescription());
+                if(product.hasDescription()) {
+                    description.setText(product.getDescription());
+                }
+                if(product.hasImage()) {
+                    URL url = new URL(product.getImage());
+                    Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection() .getInputStream());
+                    image.setImageBitmap(bitmap);
+                }
             }
 
             @Override
@@ -64,12 +77,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         });
 
         backToBrowse(button);
+        purchaseProduct(purchase);
     }
 
     @Override
     public void backToBrowse(Button button) {
-        Intent intent = new Intent(this, BrowseProducts.class);
-        button.setOnClickListener(view1 -> startActivity(intent));
+
     }
 
     @Override
