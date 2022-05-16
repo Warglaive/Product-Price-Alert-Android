@@ -6,7 +6,6 @@ import com.vogella.retrofitgerrit.RestClient;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;

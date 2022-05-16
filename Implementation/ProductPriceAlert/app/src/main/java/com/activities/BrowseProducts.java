@@ -1,11 +1,9 @@
 package com.activities;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,18 +13,15 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.models.Product;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
-import com.vogella.retrofitgerrit.ResponseWaitImpl;
+import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
 public class BrowseProducts extends AppCompatActivity {
     @Override
@@ -50,7 +45,7 @@ public class BrowseProducts extends AppCompatActivity {
         service.getAllProducts(new ResponseWait() {
             @Override
             public void responseWaitArray(List response) {
-                for (Object t: response) {
+                for (Object t : response) {
                     ProductData data = (ProductData) t;
                     list.add(data.getName());
                 }
@@ -78,6 +73,11 @@ public class BrowseProducts extends AppCompatActivity {
                     }
 
                 });
+            }
+
+            @Override
+            public void responseWaitSingle(UserData userData) {
+
             }
         });
 
@@ -116,12 +116,12 @@ public class BrowseProducts extends AppCompatActivity {
         return new Intent(this, ProductDetailsActivity.class);
     }
 
-    public void filter(Button filter){
+    public void filter(Button filter) {
         Intent intent = new Intent(this, FilterProductsActivity.class);
         filter.setOnClickListener(view1 -> startActivity(intent));
     }
 
-    public void popular(Button popular){
+    public void popular(Button popular) {
 
     }
 

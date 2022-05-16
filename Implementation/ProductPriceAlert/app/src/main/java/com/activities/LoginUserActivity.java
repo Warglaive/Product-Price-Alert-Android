@@ -8,9 +8,14 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.models.User;
+import com.google.gson.Gson;
 import com.productpricealert.R;
 import com.services.UserStorageService;
+import com.vogella.retrofitgerrit.UserData;
+import com.vogella.retrofitgerrit.interfaces.ResponseWait;
+
+import java.util.List;
+import java.util.Objects;
 
 public class LoginUserActivity extends AppCompatActivity {
     private UserStorageService userStorageService;
@@ -38,15 +43,47 @@ public class LoginUserActivity extends AppCompatActivity {
         String password = this.passwordField.getText().toString();
 
         this.userStorageService = new UserStorageService();
-        User user = this.userStorageService.findByLoginCredentials(email, password);
-        //Check if role == "Product Manager" -> redirect to corresponding view
-        if (user.getRole().equals("Product Manager")){
-            //TODO: redirect
-        }
-        // TODO: Get data from login fields and find user by Email
-        //TODO: Take logged in user's data and pass it to new logged in view depending on Role
-        //TODO: 1. Get current user's data from DB Using LB4
-        //TODO: 2. Check if role is "Product Manager" and startActivity
+        this.userStorageService.findByLoginCredentials(email, password, new ResponseWait<UserData>() {
+            @Override
+            public void responseWaitArray(List<UserData> response) {
+                //Useless at the moment, but good for extendability
+            }
+
+            /**
+             *
+             */
+            @Override
+            public void responseWaitSingle(UserData userData) {
+                //Check if role == "Product Manager" -> redirect to corresponding view
+                if (isRoleProductManager(userData)) {
+                    Intent intent = new Intent(LoginUserActivity.this, ProductManagerActivity.class);
+                    //Pass the object as JSON
+                    Gson gson = new Gson();
+                    String userDataJSON = gson.toJson(userData);
+
+                    intent.putExtra("userDataKey", userDataJSON);
+                    startActivity(intent);
+                }
+                if (isRoleCustomer(userData)) {
+                    Intent intent = new Intent(LoginUserActivity.this, BrowseProducts.class);
+                    //Pass the object as JSON
+                    Gson gson = new Gson();
+                    String userDataJSON = gson.toJson(userData);
+
+                    intent.putExtra("userDataKey", userDataJSON);
+                    startActivity(intent);
+                }
+            }
+        });
+
+    }
+
+    private boolean isRoleCustomer(UserData userData) {
+        return Objects.equals(userData.getRole(), "Customer");
+    }
+
+    private boolean isRoleProductManager(UserData userData) {
+        return Objects.equals(userData.getRole(), "Product Manager");
     }
 
     /**

@@ -2,7 +2,6 @@ package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,12 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
+import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
-import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 
@@ -57,6 +55,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 name.setText(product.getName());
                 price.setText(String.valueOf(product.getPrice()));
                 description.setText(product.getDescription());
+            }
+
+            @Override
+            public void responseWaitSingle(UserData userData) {
+
             }
         });
 

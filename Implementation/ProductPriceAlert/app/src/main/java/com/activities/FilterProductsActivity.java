@@ -11,11 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.productpricealert.R;
 import com.services.ProductStorageService;
-import com.vogella.retrofitgerrit.ProductData;
-import com.vogella.retrofitgerrit.interfaces.ResponseWait;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FilterProductsActivity extends AppCompatActivity {
     private EditText input;

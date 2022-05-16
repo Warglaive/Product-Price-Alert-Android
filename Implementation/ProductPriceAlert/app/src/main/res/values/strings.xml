@@ -22,5 +22,14 @@
     <string name="input">Your input:</string>
     <string name="please_enter_your_login_details">Please enter your login details</string>
     <string name="showFilter">The results of your search:</string>
+    <string name="priceAddProduct">Price</string>
+    <string name="descriptionAddProduct">Description</string>
+    <string name="nameAddProduct">Name</string>
+    <string name="edit_browse_products">Edit(Browse) products</string>
+    <string name="actions_available">Actions Available:</string>
+    <string name="add_new_product">Add new product</string>
+    <string name="welcomePM">Welcome</string>
+    <string name="your_role_is_PM">Your role is:</string>
+    <string name="logout">Logout</string>
     <string name="backToAll">back to all products</string>
 </resources>
