@@ -32,13 +32,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         Bundle extras = getIntent().getExtras();
         String productName = extras.getString("key");
 
-
         TextView name = (TextView) findViewById(R.id.nameGet);
         TextView price = (TextView) findViewById(R.id.priceGet);
         TextView description = (TextView) findViewById(R.id.descriptionGet);
         ImageView image = findViewById(R.id.image);
         Button button = findViewById(R.id.button);
-        Button edit = null;
+        Button edit = findViewById(R.id.edit);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
         service.getAllProducts(new ResponseWait() {

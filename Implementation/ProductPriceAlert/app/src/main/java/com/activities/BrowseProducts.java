@@ -13,6 +13,7 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
@@ -24,10 +25,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BrowseProducts extends AppCompatActivity implements BrowseProductsActivityInterface {
+    private UserData user;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_products);
+
+        Gson gson = new Gson();
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
 
         ProductStorageService service = new ProductStorageService();
         Context currentContext = this;
@@ -80,6 +86,10 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
     @Override
     public void filter(Button filter) {
         Intent intent = new Intent(this, FilterProductsActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(this.user);
+
+        intent.putExtra("userDataKey", userDataJSON);
         filter.setOnClickListener(view1 -> startActivity(intent));
     }
 

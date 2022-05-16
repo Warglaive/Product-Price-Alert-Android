@@ -34,11 +34,11 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
         final ListView listview = (ListView) findViewById(R.id.listviewC);
         final ArrayList<String> list = new ArrayList<String>();
         Gson gson = new Gson();
-        UserData userData = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
-        this.user = userData;
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
 
         Button filter = findViewById(R.id.filterC);
         Button popular = findViewById(R.id.popularC);
+        Button logOut = findViewById(R.id.logOut);
 
         service.getAllProducts(new ResponseWait() {
             @Override
@@ -76,6 +76,7 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
 
         filter(filter);
         popular(popular);
+        logOut.setOnClickListener(this::logout);
     }
 
     @Override
@@ -91,5 +92,10 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
     @Override
     public void popular(Button popular) {
 
+    }
+
+    private void logout(View view) {
+        Intent intent = new Intent(view.getContext(), MainActivity.class);
+        startActivity(intent);
     }
 }

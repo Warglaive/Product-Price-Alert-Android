@@ -34,16 +34,23 @@
             tools:layout_editor_absoluteY="27dp" />
 
         <Button
+            android:id="@+id/logOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/logout" />
+
+        <Button
             android:id="@+id/popularC"
-            android:text="@string/popular"
-            tools:ignore="ButtonStyle,MissingConstraints"
-            tools:layout_editor_absoluteX="244dp"
-            tools:layout_editor_absoluteY="27dp"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="@string/popular"
+            tools:ignore="ButtonStyle,MissingConstraints"
+            tools:layout_editor_absoluteX="244dp"
+            tools:layout_editor_absoluteY="27dp" />
 
     </LinearLayout>
 

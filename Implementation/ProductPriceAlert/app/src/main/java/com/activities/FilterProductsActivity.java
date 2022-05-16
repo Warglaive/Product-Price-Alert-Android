@@ -26,8 +26,7 @@ public class FilterProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filter_products);
 
         Gson gson = new Gson();
-        UserData userData = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
-        this.user = userData;
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
 
         Button filterfil = findViewById(R.id.filterfil);
         Button backp = findViewById(R.id.backp);
@@ -47,12 +46,12 @@ public class FilterProductsActivity extends AppCompatActivity {
     }
 
     public void backToBrowse(Button backp){
+        Intent intent;
         if(this.user.getRole().equals("Product Manager")){
-            Intent intent = new Intent(this, BrowseProducts.class);
-            backp.setOnClickListener(view1 -> startActivity(intent));
+            intent = new Intent(this, BrowseProducts.class);
         } else {
-            Intent intent = new Intent(this, BrowseProductsCustomerActivity.class);
-            backp.setOnClickListener(view1 -> startActivity(intent));
+            intent = new Intent(this, BrowseProductsCustomerActivity.class);
         }
+        backp.setOnClickListener(view1 -> startActivity(intent));
     }
 }
