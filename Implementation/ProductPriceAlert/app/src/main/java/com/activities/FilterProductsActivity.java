@@ -2,6 +2,7 @@ package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,22 +22,22 @@ public class FilterProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_products);
 
-        ProductStorageService service = new ProductStorageService();
         Button filterfil = findViewById(R.id.filterfil);
         Button backp = findViewById(R.id.backp);
 
         this.enter = findViewById(R.id.enter);
         this.input = findViewById(R.id.input);
-        this.search = input.getText().toString();
 
-        filter(filterfil);
+        filterfil.setOnClickListener(this::filter);
         backToBrowse(backp);
     }
 
-    public void filter(Button filter){
+    public void filter(View view){
+        this.search = this.input.getText().toString();
         Intent intent = new Intent(this, ShowFilteredProductsActivity.class);
         intent.putExtra("key", this.search);
-        filter.setOnClickListener(view1 -> startActivity(intent));
+        startActivity(intent);
+
     }
 
     public void backToBrowse(Button backp){

@@ -78,9 +78,6 @@ public class ProductStorageService {
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
                 if(response.isSuccessful()){
                     List<ProductData> filterResult = response.body();
-                    for (ProductData data: filterResult) {
-                        System.out.println(data.toString());
-                    }
                     callback.responseWaitArray(filterResult);
                 } else{
                     System.out.println(response.errorBody());

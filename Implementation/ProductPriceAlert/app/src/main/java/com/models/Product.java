@@ -6,6 +6,7 @@ public class Product {
     private double price;
     private String image;
     private String description;
+    private String location;
 
     public Product(String name, double price) {
         this.name = name;
@@ -23,6 +24,14 @@ public class Product {
         this.price = price;
         this.description = description;
         this.image = image;
+    }
+
+    public Product(String name, double price, String description, String image, String location){
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.image = image;
+        this.location = location;
     }
 
     public String getName() {
@@ -55,5 +64,9 @@ public class Product {
 
     public void setImage(String image){
         this.image = image;
+    }
+
+    public String getLocation(){
+        return this.location;
     }
 }
