@@ -9,18 +9,25 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
+import com.vogella.retrofitgerrit.UserData;
 
 public class FilterProductsActivity extends AppCompatActivity {
     private EditText input;
     private TextView enter;
     private String search;
+    private UserData user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_products);
+
+        Gson gson = new Gson();
+        UserData userData = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
+        this.user = userData;
 
         Button filterfil = findViewById(R.id.filterfil);
         Button backp = findViewById(R.id.backp);
@@ -40,7 +47,12 @@ public class FilterProductsActivity extends AppCompatActivity {
     }
 
     public void backToBrowse(Button backp){
-        Intent intent = new Intent(this, BrowseProducts.class);
-        backp.setOnClickListener(view1 -> startActivity(intent));
+        if(this.user.getRole().equals("Product Manager")){
+            Intent intent = new Intent(this, BrowseProducts.class);
+            backp.setOnClickListener(view1 -> startActivity(intent));
+        } else {
+            Intent intent = new Intent(this, BrowseProductsCustomerActivity.class);
+            backp.setOnClickListener(view1 -> startActivity(intent));
+        }
     }
 }

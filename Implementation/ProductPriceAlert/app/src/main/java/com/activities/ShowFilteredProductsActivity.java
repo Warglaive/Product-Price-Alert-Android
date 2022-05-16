@@ -29,7 +29,6 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filtered_products);
 
         ProductStorageService service = new ProductStorageService();
-        TextView textView = findViewById(R.id.textViewFilter);
         ListView listview = findViewById(R.id.filterList);
         List<String> list = new ArrayList<>();
         Context context = this;
@@ -45,14 +44,13 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
                     list.add(data.getName());
                 }
 
-                final ShowFilteredProductsActivity.StableArrayAdapter adapter = new ShowFilteredProductsActivity.StableArrayAdapter
+                final StableArrayAdapter adapter = new StableArrayAdapter
                         (context, android.R.layout.simple_list_item_1, list);
+
                 listview.setAdapter(adapter);
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                     @Override
                     public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-                        final String item = (String) parent.getItemAtPosition(position);
                         view.animate().setDuration(1000).alpha(0)
                                 .withEndAction(new Runnable() {
                                     @Override
@@ -64,37 +62,10 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
                                     }
                                 });
                     }
-
                 });
             }
-
             @Override
-            public void responseWaitSingle(UserData userData) {
-
-            }
+            public void responseWaitSingle(UserData userData) {}
         });
-    }
-
-    private class StableArrayAdapter extends ArrayAdapter<String> {
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
     }
 }

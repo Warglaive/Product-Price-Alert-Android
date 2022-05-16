@@ -22,6 +22,8 @@ import java.util.List;
 import com.google.gson.Gson;
 
 public class BrowseProductsCustomerActivity extends AppCompatActivity implements BrowseProductsActivityInterface {
+    private UserData user;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
         final ArrayList<String> list = new ArrayList<String>();
         Gson gson = new Gson();
         UserData userData = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
+        this.user = userData;
 
         Button filter = findViewById(R.id.filterC);
         Button popular = findViewById(R.id.popularC);
@@ -78,6 +81,10 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
     @Override
     public void filter(Button filter) {
         Intent intent = new Intent(this, FilterProductsActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(this.user);
+
+        intent.putExtra("userDataKey", userDataJSON);
         filter.setOnClickListener(view1 -> startActivity(intent));
     }
 

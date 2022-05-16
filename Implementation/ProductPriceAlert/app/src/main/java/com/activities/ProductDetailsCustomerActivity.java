@@ -40,7 +40,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         TextView description = (TextView) findViewById(R.id.descriptionGetC);
         ImageView image = findViewById(R.id.imageC);
         Button button = findViewById(R.id.buttonC);
-        Button purchase = null;
+        Button purchase = findViewById(R.id.purchase);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
         service.getAllProducts(new ResponseWait() {

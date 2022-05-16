@@ -32,4 +32,5 @@
     <string name="your_role_is_PM">Your role is:</string>
     <string name="logout">Logout</string>
     <string name="backToAll">back to all products</string>
+    <string name="purchase">purchase</string>
 </resources>
