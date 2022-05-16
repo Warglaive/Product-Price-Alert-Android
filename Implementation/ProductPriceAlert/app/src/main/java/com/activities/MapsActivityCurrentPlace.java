@@ -42,12 +42,14 @@ import com.productpricealert.R;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * An activity that displays a map showing the place at the device's current location.
+ */
+public class MapsActivityCurrentPlace extends AppCompatActivity
+        implements OnMapReadyCallback {
 
-public class LocationActivity extends AppCompatActivity implements OnMapReadyCallback {
-
-    private static final String TAG = LocationActivity.class.getSimpleName();
-    private GoogleMap mMap;
-
+    private static final String TAG = MapsActivityCurrentPlace.class.getSimpleName();
+    private GoogleMap map;
     private CameraPosition cameraPosition;
 
     // The entry point to the Places API.
@@ -56,9 +58,9 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
 
-    // A default location (New York, USA) and default zoom to use when location permission is
+    // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng defaultLocation = new LatLng(40.451682,-74.415803);
+    private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
@@ -68,8 +70,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     private Location lastKnownLocation;
 
     // Keys for storing activity state.
+    // [START maps_current_place_state_keys]
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
+    // [END maps_current_place_state_keys]
 
     // Used for selecting the current place.
     private static final int M_MAX_ENTRIES = 5;
@@ -78,18 +82,25 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
 
+    // [START maps_current_place_on_create]
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // [START_EXCLUDE silent]
+        // [START maps_current_place_on_create_save_instance_state]
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
+        // [END maps_current_place_on_create_save_instance_state]
+        // [END_EXCLUDE]
 
-        setContentView(R.layout.activity_location);
+        // Retrieve the content view that renders the map.
+        setContentView(R.layout.activity_maps);
 
+        // [START_EXCLUDE silent]
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
         placesClient = Places.createClient(this);
@@ -98,22 +109,28 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Build the map.
+        // [START maps_current_place_map_fragment]
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        // [END maps_current_place_map_fragment]
+        // [END_EXCLUDE]
     }
+    // [END maps_current_place_on_create]
+
     /**
      * Saves the state of the map when the activity is paused.
      */
+    // [START maps_current_place_on_save_instance_state]
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if (mMap != null) {
-            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
+        if (map != null) {
+            outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, lastKnownLocation);
         }
         super.onSaveInstanceState(outState);
     }
+    // [END maps_current_place_on_save_instance_state]
 
     /**
      * Sets up the options menu.
@@ -131,6 +148,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
      * @param item The menu item to handle.
      * @return Boolean.
      */
+    // [START maps_current_place_on_options_item_selected]
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.option_get_place) {
@@ -138,18 +156,22 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
         return true;
     }
+    // [END maps_current_place_on_options_item_selected]
 
     /**
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
      */
+    // [START maps_current_place_on_map_ready]
     @Override
     public void onMapReady(GoogleMap map) {
-        this.mMap = map;
+        this.map = map;
 
+        // [START_EXCLUDE]
+        // [START map_current_place_set_info_window_adapter]
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
-        this.mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+        this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
             @Override
             // Return null here, so that getInfoContents() is called next.
@@ -172,9 +194,11 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                 return infoWindow;
             }
         });
+        // [END map_current_place_set_info_window_adapter]
 
         // Prompt the user for permission.
         getLocationPermission();
+        // [END_EXCLUDE]
 
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
@@ -182,10 +206,12 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
     }
+    // [END maps_current_place_on_map_ready]
 
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
+    // [START maps_current_place_get_device_location]
     private void getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
@@ -201,16 +227,16 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                             // Set the map's camera position to the current location of the device.
                             lastKnownLocation = task.getResult();
                             if (lastKnownLocation != null) {
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
-                            mMap.moveCamera(CameraUpdateFactory
+                            map.moveCamera(CameraUpdateFactory
                                     .newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
-                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                            map.getUiSettings().setMyLocationButtonEnabled(false);
                         }
                     }
                 });
@@ -219,10 +245,12 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             Log.e("Exception: %s", e.getMessage(), e);
         }
     }
+    // [END maps_current_place_get_device_location]
 
     /**
      * Prompts the user for permission to use the device location.
      */
+    // [START maps_current_place_location_permission]
     private void getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
@@ -239,19 +267,21 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
+    // [END maps_current_place_location_permission]
 
     /**
      * Handles the result of the request for location permissions.
      */
+    // [START maps_current_place_on_request_permissions_result]
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         locationPermissionGranted = false;
         if (requestCode
-                == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
+            == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 locationPermissionGranted = true;
             }
         } else {
@@ -259,13 +289,15 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
         updateLocationUI();
     }
+    // [END maps_current_place_on_request_permissions_result]
 
     /**
      * Prompts the user to select the current place from a list of likely places, and shows the
      * current place on the map - provided the user has granted location permission.
      */
+    // [START maps_current_place_show_current_place]
     private void showCurrentPlace() {
-        if (mMap == null) {
+        if (map == null) {
             return;
         }
 
@@ -319,7 +351,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
 
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
-                        LocationActivity.this.openPlacesDialog();
+                        MapsActivityCurrentPlace.this.openPlacesDialog();
                     }
                     else {
                         Log.e(TAG, "Exception: %s", task.getException());
@@ -331,7 +363,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             Log.i(TAG, "The user did not grant location permission.");
 
             // Add a default marker, because the user hasn't selected a place.
-            mMap.addMarker(new MarkerOptions()
+            map.addMarker(new MarkerOptions()
                     .title(getString(R.string.default_info_title))
                     .position(defaultLocation)
                     .snippet(getString(R.string.default_info_snippet)));
@@ -340,10 +372,12 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             getLocationPermission();
         }
     }
+    // [END maps_current_place_show_current_place]
 
     /**
      * Displays a form allowing the user to select a place from a list of likely places.
      */
+    // [START maps_current_place_open_places_dialog]
     private void openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -358,13 +392,13 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
 
                 // Add a marker for the selected place, with an info window
                 // showing information about that place.
-                mMap.addMarker(new MarkerOptions()
+                map.addMarker(new MarkerOptions()
                         .title(likelyPlaceNames[which])
                         .position(markerLatLng)
                         .snippet(markerSnippet));
 
                 // Position the map's camera at the location of the marker.
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLatLng,
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLatLng,
                         DEFAULT_ZOOM));
             }
         };
@@ -375,22 +409,24 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                 .setItems(likelyPlaceNames, listener)
                 .show();
     }
+    // [END maps_current_place_open_places_dialog]
 
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
+    // [START maps_current_place_update_location_ui]
     @SuppressLint("MissingPermission")
     private void updateLocationUI() {
-        if (mMap == null) {
+        if (map == null) {
             return;
         }
         try {
             if (locationPermissionGranted) {
-                mMap.setMyLocationEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                map.setMyLocationEnabled(true);
+                map.getUiSettings().setMyLocationButtonEnabled(true);
             } else {
-                mMap.setMyLocationEnabled(false);
-                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                map.setMyLocationEnabled(false);
+                map.getUiSettings().setMyLocationButtonEnabled(false);
                 lastKnownLocation = null;
                 getLocationPermission();
             }
@@ -398,8 +434,5 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             Log.e("Exception: %s", e.getMessage());
         }
     }
-
-    private void displayInfo(){
-
-    }
+    // [END maps_current_place_update_location_ui]
 }
