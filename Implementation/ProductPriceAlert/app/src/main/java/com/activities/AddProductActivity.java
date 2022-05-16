@@ -28,7 +28,7 @@ import com.services.ProductStorageService;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
-public class AddProductProductManagerActivity extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity {
     private Button takePhotoButton;
     private Button addGallery;
     private Button addButton;
@@ -62,7 +62,7 @@ public class AddProductProductManagerActivity extends AppCompatActivity {
         this.homeButton = findViewById(R.id.homeButton);
        // this.text1 = findViewById(R.id.text1);
 
-        ActivityCompat.requestPermissions(AddProductProductManagerActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        ActivityCompat.requestPermissions(AddProductActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
         //TODO ask for permission of camera upon first launch of application
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -76,7 +76,7 @@ public class AddProductProductManagerActivity extends AppCompatActivity {
         this.homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddProductProductManagerActivity.this, MainActivity.class));
+                startActivity(new Intent(AddProductActivity.this, MainActivity.class));
             }
         });
 

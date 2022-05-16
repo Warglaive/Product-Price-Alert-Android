@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ShowFilteredProductsCustomerActivity extends AppCompatActivity {
+public class ShowFilteredProductsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class ShowFilteredProductsCustomerActivity extends AppCompatActivity {
                     list.add(data.getName());
                 }
 
-                final ShowFilteredProductsCustomerActivity.StableArrayAdapter adapter = new ShowFilteredProductsCustomerActivity.StableArrayAdapter
+                final ShowFilteredProductsActivity.StableArrayAdapter adapter = new ShowFilteredProductsActivity.StableArrayAdapter
                         (context, android.R.layout.simple_list_item_1, list);
                 listview.setAdapter(adapter);
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,7 +58,7 @@ public class ShowFilteredProductsCustomerActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         String p = (String) parent.getItemAtPosition(position);
-                                        Intent intent = new Intent(context, ProductDetailsProductManagerActivity.class);
+                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
                                         intent.putExtra("key", p);
                                         startActivity(intent);
                                     }

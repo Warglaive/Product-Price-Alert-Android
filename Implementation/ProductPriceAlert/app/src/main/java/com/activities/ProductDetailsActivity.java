@@ -17,7 +17,7 @@ import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDetailsProductManagerActivity extends AppCompatActivity {
+public class ProductDetailsActivity extends AppCompatActivity {
     private ProductStorageService service;
 
     @Override
@@ -70,7 +70,7 @@ public class ProductDetailsProductManagerActivity extends AppCompatActivity {
 
 
     public void backToBrowse(Button button) {
-        Intent intent = new Intent(this, BrowseProductsProductManagerActivity.class);
+        Intent intent = new Intent(this, BrowseProducts.class);
         button.setOnClickListener(view1 -> startActivity(intent));
     }
 }

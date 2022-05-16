@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/purple_50"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.activities.FilterProductsCustomerActivity">
+    tools:context="com.activities.FilterProductsActivity">
 
     <Button
         android:id="@+id/filterfil"

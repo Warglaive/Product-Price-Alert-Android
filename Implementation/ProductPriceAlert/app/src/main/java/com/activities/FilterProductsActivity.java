@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 
-public class FilterProductsCustomerActivity extends AppCompatActivity {
+public class FilterProductsActivity extends AppCompatActivity {
     private EditText input;
     private TextView enter;
     private String search;
@@ -34,13 +34,13 @@ public class FilterProductsCustomerActivity extends AppCompatActivity {
     }
 
     public void filter(Button filter){
-        Intent intent = new Intent(this, ShowFilteredProductsCustomerActivity.class);
+        Intent intent = new Intent(this, ShowFilteredProductsActivity.class);
         intent.putExtra("key", this.search);
         filter.setOnClickListener(view1 -> startActivity(intent));
     }
 
     public void backToBrowse(Button backp){
-        Intent intent = new Intent(this, BrowseProductsProductManagerActivity.class);
+        Intent intent = new Intent(this, BrowseProducts.class);
         backp.setOnClickListener(view1 -> startActivity(intent));
     }
 }

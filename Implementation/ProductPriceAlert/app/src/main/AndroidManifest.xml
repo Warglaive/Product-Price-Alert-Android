@@ -31,19 +31,19 @@
             android:exported="true" />
         <activity android:name="com.activities.LoginUserActivity" />
         <activity
-            android:name="com.activities.ProductDetailsProductManagerActivity"
+            android:name="com.activities.ProductDetailsActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.BrowseProductsProductManagerActivity"
+            android:name="com.activities.BrowseProducts"
             android:exported="true" />
         <activity
-            android:name="com.activities.AddProductProductManagerActivity"
+            android:name="com.activities.AddProductActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.FilterProductsCustomerActivity"
+            android:name="com.activities.FilterProductsActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.ShowFilteredProductsCustomerActivity"
+            android:name="com.activities.ShowFilteredProductsActivity"
             android:exported="true" />
         <activity
             android:name="com.activities.ProductManagerActivity"

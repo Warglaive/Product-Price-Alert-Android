@@ -65,7 +65,7 @@ public class LoginUserActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if (isRoleCustomer(userData)) {
-                    Intent intent = new Intent(LoginUserActivity.this, BrowseProductsProductManagerActivity.class);
+                    Intent intent = new Intent(LoginUserActivity.this, BrowseProducts.class);
                     //Pass the object as JSON
                     Gson gson = new Gson();
                     String userDataJSON = gson.toJson(userData);

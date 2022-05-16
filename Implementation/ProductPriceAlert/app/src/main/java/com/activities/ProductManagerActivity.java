@@ -50,7 +50,7 @@ public class ProductManagerActivity extends AppCompatActivity {
      */
     private void addNewProductActivity(View view) {
         //TODO: won't load the activity for some reason
-        Intent intent = new Intent(view.getContext(), AddProductProductManagerActivity.class);
+        Intent intent = new Intent(view.getContext(), AddProductActivity.class);
         startActivity(intent);
     }
 
@@ -60,7 +60,7 @@ public class ProductManagerActivity extends AppCompatActivity {
      * @param view
      */
     private void browseProductsActivity(View view) {
-        Intent intent = new Intent(view.getContext(), BrowseProductsProductManagerActivity.class);
+        Intent intent = new Intent(view.getContext(), BrowseProducts.class);
         startActivity(intent);
     }
 

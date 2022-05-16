@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class BrowseProductsProductManagerActivity extends AppCompatActivity {
+public class BrowseProducts extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +65,7 @@ public class BrowseProductsProductManagerActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         String p = (String) parent.getItemAtPosition(position);
-                                        Intent intent = new Intent(context, ProductDetailsProductManagerActivity.class);
+                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
                                         intent.putExtra("key", p);
                                         startActivity(intent);
                                     }
@@ -113,11 +113,11 @@ public class BrowseProductsProductManagerActivity extends AppCompatActivity {
     }
 
     public Intent intent() {
-        return new Intent(this, ProductDetailsProductManagerActivity.class);
+        return new Intent(this, ProductDetailsActivity.class);
     }
 
     public void filter(Button filter) {
-        Intent intent = new Intent(this, FilterProductsCustomerActivity.class);
+        Intent intent = new Intent(this, FilterProductsActivity.class);
         filter.setOnClickListener(view1 -> startActivity(intent));
     }
 
