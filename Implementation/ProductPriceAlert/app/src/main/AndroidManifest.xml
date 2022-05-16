@@ -35,6 +35,8 @@
             android:exported="true" />
         <activity
             android:name="com.activities.BrowseProducts"
+            android:exported="true" /><activity
+            android:name="com.activities.LocationActivity"
             android:exported="true" />
 
 

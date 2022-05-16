@@ -28,4 +28,5 @@
     <string name="edit_browse_products">Edit(Browse) products</string>
     <string name="actions_available">Actions Available:</string>
     <string name="add_new_product">Add new product</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoicmFyZWhhbGYiLCJhIjoiY2tvNnV2b2RuMDFjNzJvczJwb2VhaGJ0ZCJ9.TTHv3_KWBDY03QRzilKHKQ</string>
 </resources>
