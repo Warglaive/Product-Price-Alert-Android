@@ -37,7 +37,6 @@ public class FilterProductsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ShowFilteredProductsActivity.class);
         intent.putExtra("key", this.search);
         startActivity(intent);
-
     }
 
     public void backToBrowse(Button backp){

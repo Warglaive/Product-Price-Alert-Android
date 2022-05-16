@@ -1,5 +1,6 @@
 package com.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -27,18 +28,18 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_details);
+        setContentView(R.layout.activity_product_details_customer);
 
         ProductStorageService service = new ProductStorageService();
         Bundle extras = getIntent().getExtras();
         String productName = extras.getString("key");
 
 
-        TextView name = (TextView) findViewById(R.id.nameGet);
-        TextView price = (TextView) findViewById(R.id.priceGet);
-        TextView description = (TextView) findViewById(R.id.descriptionGet);
-        ImageView image = findViewById(R.id.image);
-        Button button = findViewById(R.id.button);
+        TextView name = (TextView) findViewById(R.id.nameGetC);
+        TextView price = (TextView) findViewById(R.id.priceGetC);
+        TextView description = (TextView) findViewById(R.id.descriptionGetC);
+        ImageView image = findViewById(R.id.imageC);
+        Button button = findViewById(R.id.buttonC);
         Button purchase = null;
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
@@ -82,7 +83,8 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
     @Override
     public void backToBrowse(Button button) {
-
+        Intent intent = new Intent(this, BrowseProducts.class);
+        button.setOnClickListener(view1 -> startActivity(intent));
     }
 
     @Override

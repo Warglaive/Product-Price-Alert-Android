@@ -23,21 +23,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class BrowseProducts extends AppCompatActivity {
+public class BrowseProducts extends AppCompatActivity implements BrowseProductsActivityInterface {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_products);
 
         ProductStorageService service = new ProductStorageService();
-
         Context currentContext = this;
-
         final ListView listview = (ListView) findViewById(R.id.listview);
-
         final ArrayList<String> list = new ArrayList<String>();
-
-        Context context = this;
 
         Button filter = findViewById(R.id.filter);
         Button popular = findViewById(R.id.popular);
@@ -59,70 +54,37 @@ public class BrowseProducts extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, final View view,
                                             int position, long id) {
-                        final String item = (String) parent.getItemAtPosition(position);
                         view.animate().setDuration(1000).alpha(0)
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
                                         String p = (String) parent.getItemAtPosition(position);
-                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
+                                        Intent intent = new Intent(currentContext, ProductDetailsActivity.class);
                                         intent.putExtra("key", p);
                                         startActivity(intent);
                                     }
                                 });
                     }
-
                 });
             }
 
             @Override
-            public void responseWaitSingle(UserData userData) {
+            public void responseWaitSingle(UserData userData) {}
 
-            }
         });
 
         filter(filter);
         popular(popular);
-
-
     }
 
-    private class StableArrayAdapter extends ArrayAdapter<String> {
-
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-    }
-
-    public Intent intent() {
-        return new Intent(this, ProductDetailsActivity.class);
-    }
-
+    @Override
     public void filter(Button filter) {
         Intent intent = new Intent(this, FilterProductsActivity.class);
         filter.setOnClickListener(view1 -> startActivity(intent));
     }
 
+    @Override
     public void popular(Button popular) {
 
     }
-
 }

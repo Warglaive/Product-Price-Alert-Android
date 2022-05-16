@@ -48,6 +48,12 @@
         <activity
             android:name="com.activities.ProductManagerActivity"
             android:exported="true" />
+        <activity
+            android:name="com.activities.ProductDetailsCustomerActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.activities.BrowseProductsCustomerActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
