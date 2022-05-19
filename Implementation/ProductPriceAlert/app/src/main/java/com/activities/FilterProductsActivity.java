@@ -2,66 +2,56 @@ package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
-import com.vogella.retrofitgerrit.ProductData;
-import com.vogella.retrofitgerrit.interfaces.ResponseWait;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.vogella.retrofitgerrit.UserData;
 
 public class FilterProductsActivity extends AppCompatActivity {
+    private EditText input;
+    private TextView enter;
+    private String search;
+    private UserData user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_products);
 
-        ProductStorageService service = new ProductStorageService();
+        Gson gson = new Gson();
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
+
         Button filterfil = findViewById(R.id.filterfil);
-        TextView enter = findViewById(R.id.enter);
-        EditText input = findViewById(R.id.input);
         Button backp = findViewById(R.id.backp);
-        List<ProductData> list = new ArrayList<>();
 
-        String search = input.getText().toString();
+        this.enter = findViewById(R.id.enter);
+        this.input = findViewById(R.id.input);
 
-        filter(filterfil);
+        filterfil.setOnClickListener(this::filter);
         backToBrowse(backp);
-
-        service.filterProducts(search, new ResponseWait() {
-            @Override
-            public void responseWaitArray(List response) {
-                for (Object t : response) {
-                    ProductData data = (ProductData) t;
-                    list.add(data);
-                }
-
-                
-
-                /*ProductData product = new ProductData();
-                for (ProductData p : list) {
-                    if (p.getName().equals(productName)) {
-                        product = p;
-                        break;
-                    }
-                }*/
-            }
-        });
     }
 
-    public void filter(Button filter){
-
+    public void filter(View view){
+        this.search = this.input.getText().toString();
+        Intent intent = new Intent(this, ShowFilteredProductsActivity.class);
+        intent.putExtra("key", this.search);
+        startActivity(intent);
     }
 
     public void backToBrowse(Button backp){
-        Intent intent = new Intent(this, BrowseProducts.class);
+        Intent intent;
+        if(this.user.getRole().equals("Product Manager")){
+            intent = new Intent(this, BrowseProducts.class);
+        } else {
+            intent = new Intent(this, BrowseProductsCustomerActivity.class);
+        }
         backp.setOnClickListener(view1 -> startActivity(intent));
     }
 }

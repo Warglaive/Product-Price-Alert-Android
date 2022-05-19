@@ -4,10 +4,10 @@
     android:id="@+id/browseActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.activities.BrowseProducts">
+    tools:context="com.activities.BrowseProductsCustomerActivity">
 
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/listviewC"
         android:layout_width="match_parent"
         android:layout_height="616dp"
         android:layout_alignParentBottom="true"
@@ -22,28 +22,35 @@
         tools:ignore="MissingConstraints">
 
         <Button
-            android:id="@+id/filter"
+            android:id="@+id/filterC"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="2dp"
             android:layout_weight="1"
             android:text="@string/filter"
-            tools:ignore="MissingConstraints"
+            tools:ignore="ButtonStyle,MissingConstraints"
             tools:layout_editor_absoluteX="62dp"
             tools:layout_editor_absoluteY="27dp" />
 
         <Button
-            android:id="@+id/popular"
-            android:text="@string/popular"
-            tools:ignore="ButtonStyle,MissingConstraints"
-            tools:layout_editor_absoluteX="244dp"
-            tools:layout_editor_absoluteY="27dp"
+            android:id="@+id/logOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/logout" />
+
+        <Button
+            android:id="@+id/popularC"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="@string/popular"
+            tools:ignore="ButtonStyle,MissingConstraints"
+            tools:layout_editor_absoluteX="244dp"
+            tools:layout_editor_absoluteY="27dp" />
 
     </LinearLayout>
 
