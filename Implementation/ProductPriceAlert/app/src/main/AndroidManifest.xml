@@ -19,7 +19,7 @@
         android:theme="@style/Theme.ProductPriceAlert"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
+            android:name="com.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,26 +27,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterUserActivity"
+            android:name="com.activities.RegisterUserActivity"
             android:exported="true" />
-        <activity android:name=".LoginUserActivity" />
+        <activity android:name="com.activities.LoginUserActivity" />
         <activity
-            android:name=".ProductDetailsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".BrowseProducts"
+            android:name="com.activities.ProductDetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".AddProductActivity"
+            android:name="com.activities.BrowseProducts"
             android:exported="true" />
         <activity
-            android:name=".FilterProductsActivity"
+            android:name="com.activities.AddProductActivity"
             android:exported="true" />
         <activity
-            android:name=".ShowFilteredProductsActivity"
+            android:name="com.activities.FilterProductsActivity"
             android:exported="true" />
         <activity
-            android:name=".ProductManagerActivity"
+            android:name="com.activities.ShowFilteredProductsActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.activities.ProductManagerActivity"
             android:exported="true" />
         <service android:name="com.services.PushNotificationService" android:exported="false">
             <intent-filter>

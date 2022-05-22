@@ -1,4 +1,4 @@
-package com.ProductPriceAlert;
+package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.ProductPriceAlert.R;
 
 
 public class FilterProductsActivity extends AppCompatActivity {
