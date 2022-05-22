@@ -3,12 +3,15 @@ package com.activities;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -39,6 +42,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.productpricealert.BuildConfig;
 import com.productpricealert.R;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,6 +55,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     private static final String TAG = MapsActivityCurrentPlace.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
+
+    Geocoder geocoder;
+    EditText addressField;
 
     // The entry point to the Places API.
     private PlacesClient placesClient;
@@ -99,6 +106,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
+
+        // Construct a Geocoder instance and assign it to the local variable
+        geocoder = new Geocoder(this);
+        // link the addressField to the one in the xml
+        this.addressField = findViewById(R.id.addressField);
 
         // [START_EXCLUDE silent]
         // Construct a PlacesClient
@@ -434,5 +446,29 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Log.e("Exception: %s", e.getMessage());
         }
     }
+    private Address coordinatesToAddress(double longtitude, double latitude) throws IOException {
+        Address address = geocoder.getFromLocation(longtitude,latitude,1).get(0);
+        return address;
+    }
+    public void AddressToCoordinates(View view) throws IOException {
+
+String addressFieldText = addressField.getText().toString();
+
+Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
+        System.out.println(addres.getAddressLine(0));
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(addres.getLatitude(),
+                        addres.getLongitude()), DEFAULT_ZOOM));
+
+
+    }
+
+    private Address AddressToCoordinates(String address) throws IOException {
+
+        Address addres = geocoder.getFromLocationName(address,1).get(0);
+        return addres;
+    }
+
     // [END maps_current_place_update_location_ui]
 }

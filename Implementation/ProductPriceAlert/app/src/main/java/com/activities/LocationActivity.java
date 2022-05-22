@@ -88,7 +88,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
 
-        setContentView(R.layout.activity_location);
+        setContentView(R.layout.activity_maps);
 
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
