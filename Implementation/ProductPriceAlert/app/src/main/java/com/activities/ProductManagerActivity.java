@@ -42,6 +42,10 @@ public class ProductManagerActivity extends AppCompatActivity {
         this.browseProductsPM.setOnClickListener(this::browseProductsActivity);
         this.addNewPRBtn.setOnClickListener(this::addNewProductActivity);
         this.logoutPM.setOnClickListener(this::logout);
+        successfulLoginMessage();
+    }
+
+    private void successfulLoginMessage() {
         Context context = getApplicationContext();
         CharSequence text = "Logged in successfully!";
         int duration = Toast.LENGTH_LONG;
