@@ -1,7 +1,5 @@
 package com.vogella.retrofitgerrit;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Used ONLY to communicate with the LB4
  */

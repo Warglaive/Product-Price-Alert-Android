@@ -1,12 +1,11 @@
 package com.vogella.retrofitgerrit;
 
-import android.media.Image;
-
 public class ProductData {
     private String name;
     private double price;
     private String image;
     private String description;
+    private String location;
 
     public String getName() {
         return this.name;
@@ -40,6 +39,18 @@ public class ProductData {
         this.image = image;
     }
 
+    public String getLocation(){
+        return this.location;
+    }
+
+    public boolean hasDescription(){
+        return this.description != null;
+    }
+
+    public boolean hasImage(){
+        return this.image != null;
+    }
+
     @Override
     public String toString() {
         return "ProductData{" +
@@ -47,6 +58,7 @@ public class ProductData {
                 ", price=" + price +
                 ", image='" + image + '\'' +
                 ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 }

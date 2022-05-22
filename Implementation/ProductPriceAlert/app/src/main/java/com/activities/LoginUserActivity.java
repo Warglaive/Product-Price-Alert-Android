@@ -8,7 +8,7 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.models.User;
+import com.google.gson.Gson;
 import com.productpricealert.R;
 import com.services.UserStorageService;
 import com.vogella.retrofitgerrit.UserData;
@@ -45,28 +45,45 @@ public class LoginUserActivity extends AppCompatActivity {
         this.userStorageService = new UserStorageService();
         this.userStorageService.findByLoginCredentials(email, password, new ResponseWait<UserData>() {
             @Override
-            public void responseWaitArray(List response) {
+            public void responseWaitArray(List<UserData> response) {
                 //Useless at the moment, but good for extendability
             }
 
             /**
              *
-             * @param userData
              */
             @Override
             public void responseWaitSingle(UserData userData) {
                 //Check if role == "Product Manager" -> redirect to corresponding view
-                if (Objects.equals(userData.getRole(), "Product Manager")) {
-                    //TODO: redirect to new Customer Manager view to display User Data
-                    System.out.println("1");
+                if (isRoleProductManager(userData)) {
+                    Intent intent = new Intent(LoginUserActivity.this, ProductManagerActivity.class);
+                    //Pass the object as JSON
+                    Gson gson = new Gson();
+                    String userDataJSON = gson.toJson(userData);
+
+                    intent.putExtra("userDataKey", userDataJSON);
+                    startActivity(intent);
                 }
+                if (isRoleCustomer(userData)) {
+                    Intent intent = new Intent(LoginUserActivity.this, BrowseProductsCustomerActivity.class);
+                    //Pass the object as JSON
+                    Gson gson = new Gson();
+                    String userDataJSON = gson.toJson(userData);
 
-
-                userData.getPassword().equals(password);
-                //
+                    intent.putExtra("userDataKey", userDataJSON);
+                    startActivity(intent);
+                }
             }
         });
 
+    }
+
+    private boolean isRoleCustomer(UserData userData) {
+        return Objects.equals(userData.getRole(), "Customer");
+    }
+
+    private boolean isRoleProductManager(UserData userData) {
+        return Objects.equals(userData.getRole(), "Product Manager");
     }
 
     /**

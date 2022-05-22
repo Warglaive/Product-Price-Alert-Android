@@ -24,10 +24,10 @@ public interface RestAPI {
     @POST("http://172.25.80.1:3000/products/")
     Call<ProductData> postProduct(@Body ProductData productData);
 
-    @GET("http://192.168.0.117:3000/products/")
-    Call<List<ProductData>> getFilteredProducts(@Query("$filter") String filter);
+    @GET("http://192.168.0.117:3000/products/searchBy/{searchTerm}")
+    Call<List<ProductData>> getFilteredProducts(@Path("searchTerm") String searchTerm);
 
-    @GET("http://127.0.0.1:3000/users/findByEmail/")
-    Call<UserData> findByEmail(@Query("email") String email);
+    @GET("http://192.168.0.117:3000/users/login/{email}")
+    Call<UserData> findByEmail(@Path("email") String email);
 
 }

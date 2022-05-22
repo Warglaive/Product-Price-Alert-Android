@@ -6,7 +6,7 @@ import com.vogella.retrofitgerrit.RestClient;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,7 +58,11 @@ public class ProductStorageService {
                     for (ProductData data: productData) {
                         System.out.println(data.toString());
                     }
-                    callback.responseWaitArray(productData);
+                    try {
+                        callback.responseWaitArray(productData);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     System.out.println(response.errorBody());
                 }
@@ -79,10 +83,11 @@ public class ProductStorageService {
             public void onResponse(Call<List<ProductData>> call, Response<List<ProductData>> response) {
                 if(response.isSuccessful()){
                     List<ProductData> filterResult = response.body();
-                    for (ProductData data: filterResult) {
-                        System.out.println(data.toString());
+                    try {
+                        callback.responseWaitArray(filterResult);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    callback.responseWaitArray(filterResult);
                 } else{
                     System.out.println(response.errorBody());
                 }

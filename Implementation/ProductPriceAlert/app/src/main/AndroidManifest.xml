@@ -49,9 +49,22 @@
             android:name="com.activities.FilterProductsActivity"
 
             android:exported="true" />
-        <meta-data
+        <activity
+            android:name="com.activities.ShowFilteredProductsActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.activities.ProductManagerActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.activities.ProductDetailsCustomerActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.activities.BrowseProductsCustomerActivity"
+            android:exported="true" />
+<meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
+
     </application>
 
 </manifest>
