@@ -87,7 +87,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
     @Override
     public void backToBrowse(Button button) {
-        Intent intent = new Intent(this, BrowseProducts.class);
+        Intent intent = new Intent(this, BrowseProductsCustomerActivity.class);
         Gson gson = new Gson();
         String userDataJSON = gson.toJson(user);
         intent.putExtra("userDataKey", userDataJSON);
