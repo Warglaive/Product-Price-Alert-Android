@@ -101,8 +101,8 @@ public class ProductStorageService {
         });
     }
 
-    public void updatePrice(String id, ResponseWait callback){
-        Call<ProductData> callUpdate = this.restAPI.updatePrice(id);
+    public void updatePrice(String id, String price, ResponseWait callback){
+        Call<ProductData> callUpdate = this.restAPI.updatePrice(id, price);
         callUpdate.enqueue(new Callback<ProductData>() {
             @Override
             public void onResponse(Call<ProductData> call, Response<ProductData> response) {
