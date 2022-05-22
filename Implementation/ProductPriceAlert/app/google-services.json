@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "1070874906066",
-    "project_id": "prj4-6e73d",
-    "storage_bucket": "prj4-6e73d.appspot.com"
+    "project_number": "772164322332",
+    "project_id": "prj4-53710",
+    "storage_bucket": "prj4-53710.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1070874906066:android:1db6c09f98ac6b5a118c0b",
+        "mobilesdk_app_id": "1:772164322332:android:bb5aa099eb258c320b8bd9",
         "android_client_info": {
-          "package_name": "com.productpricealert"
+          "package_name": "com.ProductPriceAlert"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1070874906066-4jqmcq00ru09aqbp5vrc58ev0luqc1j6.apps.googleusercontent.com",
+          "client_id": "772164322332-3utnec9bbneljdl31kgrs5qovbkr5k42.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.productpricealert",
+            "package_name": "com.ProductPriceAlert",
             "certificate_hash": "3a38877cedd730caaf4c6fe16e7eb36026de5537"
           }
         },
         {
-          "client_id": "1070874906066-r63m74dmq6b564f2aehmri11ds02soul.apps.googleusercontent.com",
+          "client_id": "772164322332-dgvl9o319p2hako5j66qeagq6334p0c0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDyP1XwBIwWh8rwRikWp6G0eeu_G_zkGCg"
+          "current_key": "AIzaSyADXvg2qb2DB6wl_VTl0DI-38_C-1pN4rk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1070874906066-r63m74dmq6b564f2aehmri11ds02soul.apps.googleusercontent.com",
+              "client_id": "772164322332-dgvl9o319p2hako5j66qeagq6334p0c0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
