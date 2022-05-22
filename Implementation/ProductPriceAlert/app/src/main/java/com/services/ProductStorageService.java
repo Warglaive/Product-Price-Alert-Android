@@ -101,6 +101,27 @@ public class ProductStorageService {
         });
     }
 
+    public void updatePrice(String id, ResponseWait callback){
+        Call<ProductData> callUpdate = this.restAPI.updatePrice(id);
+        callUpdate.enqueue(new Callback<ProductData>() {
+            @Override
+            public void onResponse(Call<ProductData> call, Response<ProductData> response) {
+                if(response.isSuccessful()) {
+                    ProductData productToUpdate = response.body();
+                    callback.responseWaitSingle(productToUpdate);
+                } else {
+                    System.out.println(response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductData> call, Throwable t) {
+                System.out.println("Failure!");
+                t.printStackTrace();
+            }
+        });
+    }
+
     public Product getProduct() {
         return product;
     }

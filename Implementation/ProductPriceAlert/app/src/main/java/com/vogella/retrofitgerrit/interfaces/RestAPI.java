@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -30,4 +31,7 @@ public interface RestAPI {
 
     @GET("http://192.168.0.117:3000/users/login/{email}")
     Call<UserData> findByEmail(@Path("email") String email);
+
+    @PATCH("http://192.168.0.117:3000/products/{id}")
+    Call<ProductData> updatePrice(@Body String id);
 }

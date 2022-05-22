@@ -98,7 +98,8 @@ public class UserStorageService {
                              @Override
                              public void onResponse(Call<UserData> call, Response<UserData> response) {
                                  if (isPasswordValid(response, password)) {
-                                     callback.responseWaitSingle(response.body());
+                                     UserData userData = response.body();
+                                     callback.responseWaitSingle(userData);
                                  } else {
                                      System.out.println(wrongPasswordExceptionMessage);
                                  }
