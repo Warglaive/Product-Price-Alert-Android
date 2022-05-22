@@ -1,4 +1,4 @@
-package com.productpricealert;
+package com.ProductPriceAlert;
 
 import static org.junit.Assert.assertEquals;
 

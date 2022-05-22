@@ -21,8 +21,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.ProductPriceAlert.R;
 import com.models.Product;
-import com.productpricealert.R;
 import com.services.ProductStorageService;
 
 import java.io.FileDescriptor;

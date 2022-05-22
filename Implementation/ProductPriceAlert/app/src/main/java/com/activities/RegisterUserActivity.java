@@ -9,8 +9,9 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ProductPriceAlert.R;
 import com.models.User;
-import com.productpricealert.R;
+
 import com.services.UserStorageService;
 
 public class RegisterUserActivity extends AppCompatActivity {
