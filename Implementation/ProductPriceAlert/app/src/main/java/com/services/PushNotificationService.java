@@ -11,11 +11,13 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.ProductPriceAlert.R;
 
+import java.util.Objects;
+
 
 public class PushNotificationService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
-        String title = message.getNotification().getTitle();
+        String title = Objects.requireNonNull(message.getNotification()).getTitle();
         String text = message.getNotification().getBody();
         final String CHANNEL_ID = "HEADS_UP_NOTIFICATION";
         final String channelName = "Heads up notification";
