@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ProductPriceAlert.R;
 
 import com.google.gson.Gson;
-import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.UserData;
 

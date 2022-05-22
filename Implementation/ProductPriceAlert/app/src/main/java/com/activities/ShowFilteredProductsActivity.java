@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ProductPriceAlert.R;
 import com.google.gson.Gson;
 import com.models.User;
-import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
@@ -82,6 +81,12 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
                     }
                 });
             }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
+            }
+
             @Override
             public void responseWaitSingle(UserData userData) {}
         });

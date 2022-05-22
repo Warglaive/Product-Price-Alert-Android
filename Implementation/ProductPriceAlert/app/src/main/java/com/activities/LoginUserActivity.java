@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ProductPriceAlert.R;
 import com.google.gson.Gson;
 import com.services.UserStorageService;
+import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
@@ -47,6 +48,11 @@ public class LoginUserActivity extends AppCompatActivity {
             @Override
             public void responseWaitArray(List<UserData> response) {
                 //Useless at the moment, but good for extendability
+            }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
             }
 
             /**

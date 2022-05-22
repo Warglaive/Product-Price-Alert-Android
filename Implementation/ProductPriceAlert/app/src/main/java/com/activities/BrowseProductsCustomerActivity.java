@@ -11,7 +11,7 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.productpricealert.R;
+import com.ProductPriceAlert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
@@ -70,6 +70,11 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
                                 });
                     }
                 });
+            }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
             }
 
             @Override
