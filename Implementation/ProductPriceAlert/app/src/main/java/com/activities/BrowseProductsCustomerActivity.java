@@ -62,6 +62,9 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
                                         String p = (String) parent.getItemAtPosition(position);
                                         Intent intent = new Intent(currentContext, ProductDetailsCustomerActivity.class);
                                         intent.putExtra("key", p);
+                                        Gson gson = new Gson();
+                                        String userDataJSON = gson.toJson(user);
+                                        intent.putExtra("userDataKey", userDataJSON);
                                         startActivity(intent);
                                     }
                                 });

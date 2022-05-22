@@ -42,16 +42,29 @@ public class FilterProductsActivity extends AppCompatActivity {
         this.search = this.input.getText().toString();
         Intent intent = new Intent(this, ShowFilteredProductsActivity.class);
         intent.putExtra("key", this.search);
+
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("userDataKey", userDataJSON);
+
         startActivity(intent);
     }
 
     public void backToBrowse(Button backp){
         Intent intent;
+
         if(this.user.getRole().equals("Product Manager")){
             intent = new Intent(this, BrowseProducts.class);
+            Gson gson = new Gson();
+            String userDataJSON = gson.toJson(user);
+            intent.putExtra("userDataKey", userDataJSON);
         } else {
             intent = new Intent(this, BrowseProductsCustomerActivity.class);
+            Gson gson = new Gson();
+            String userDataJSON = gson.toJson(user);
+            intent.putExtra("userDataKey", userDataJSON);
         }
+
         backp.setOnClickListener(view1 -> startActivity(intent));
     }
 }

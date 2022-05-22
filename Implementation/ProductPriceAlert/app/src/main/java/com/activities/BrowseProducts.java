@@ -42,6 +42,7 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
 
         Button filter = findViewById(R.id.filter);
         Button popular = findViewById(R.id.popular);
+        Button backToWelcome = findViewById(R.id.backBPPM);
 
         service.getAllProducts(new ResponseWait() {
             @Override
@@ -66,6 +67,9 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
                                     public void run() {
                                         String p = (String) parent.getItemAtPosition(position);
                                         Intent intent = new Intent(currentContext, ProductDetailsActivity.class);
+                                        Gson gson = new Gson();
+                                        String userDataJSON = gson.toJson(user);
+                                        intent.putExtra("userDataKey", userDataJSON);
                                         intent.putExtra("key", p);
                                         startActivity(intent);
                                     }
@@ -81,6 +85,15 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
 
         filter(filter);
         popular(popular);
+        backToWelcome(backToWelcome);
+    }
+
+    public void backToWelcome(Button backToWelcome){
+        Intent intent = new Intent(this, ProductManagerActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(this.user);
+        intent.putExtra("userDataKey", userDataJSON);
+        backToWelcome.setOnClickListener(view1 -> startActivity(intent));
     }
 
     @Override

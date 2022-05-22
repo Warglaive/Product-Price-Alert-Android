@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
@@ -24,12 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDetailsCustomerActivity extends AppCompatActivity implements ProductDetailsActivityInterface {
+    private UserData user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details_customer);
 
+        Gson gson = new Gson();
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
         ProductStorageService service = new ProductStorageService();
         Bundle extras = getIntent().getExtras();
         String productName = extras.getString("key");
@@ -84,6 +88,9 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     @Override
     public void backToBrowse(Button button) {
         Intent intent = new Intent(this, BrowseProducts.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("userDataKey", userDataJSON);
         button.setOnClickListener(view1 -> startActivity(intent));
     }
 
