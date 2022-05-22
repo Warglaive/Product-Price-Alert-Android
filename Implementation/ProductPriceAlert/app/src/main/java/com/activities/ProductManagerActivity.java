@@ -24,6 +24,7 @@ public class ProductManagerActivity extends AppCompatActivity {
     private Button browseProductsPM;
     private Button addNewPRBtn;
     private Button logoutPM;
+    private UserData user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class ProductManagerActivity extends AppCompatActivity {
         //Get current PM Data
         Gson gson = new Gson();
         UserData userData = gson.fromJson(getIntent().getStringExtra(UserDataKey), UserData.class);
+        this.user = userData;
+
         findFieldsById();
         DisplayUserData(userData);
         this.browseProductsPM.setOnClickListener(this::browseProductsActivity);
@@ -62,6 +65,10 @@ public class ProductManagerActivity extends AppCompatActivity {
      */
     private void browseProductsActivity(View view) {
         Intent intent = new Intent(view.getContext(), BrowseProducts.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(this.user);
+
+        intent.putExtra("userDataKey", userDataJSON);
         startActivity(intent);
     }
 

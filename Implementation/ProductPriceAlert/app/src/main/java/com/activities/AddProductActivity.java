@@ -76,7 +76,7 @@ public class AddProductActivity extends AppCompatActivity {
         this.homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddProductActivity.this, MainActivity.class));
+                startActivity(new Intent(AddProductActivity.this, ProductManagerActivity.class));
             }
         });
 
@@ -121,7 +121,9 @@ public class AddProductActivity extends AppCompatActivity {
                 Product product = CreateProduct(pName,pPrice, pDescription, pImage);
                 //if Register is successful redirect to login, else ->
                 if (RegisterProduct(product)) {
-                    startActivity(new Intent(view.getContext(), LoginUserActivity.class));
+                    Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
+                    intent.putExtra("key", product.getName());
+                    startActivity(intent);
                 } else {
                     System.out.println("Registration failed");
                 }

@@ -43,6 +43,14 @@ public class ProductData {
         return this.location;
     }
 
+    public boolean hasDescription(){
+        return this.description != null;
+    }
+
+    public boolean hasImage(){
+        return this.image != null;
+    }
+
     @Override
     public String toString() {
         return "ProductData{" +

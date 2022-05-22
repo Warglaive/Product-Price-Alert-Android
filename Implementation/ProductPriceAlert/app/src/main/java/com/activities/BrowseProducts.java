@@ -13,8 +13,10 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.ProductPriceAlert.R;
+import com.google.gson.Gson;
+import com.models.User;
+import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
@@ -24,24 +26,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class BrowseProducts extends AppCompatActivity {
+public class BrowseProducts extends AppCompatActivity implements BrowseProductsActivityInterface {
+    private UserData user;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_products);
 
+        Gson gson = new Gson();
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
+
         ProductStorageService service = new ProductStorageService();
-
         Context currentContext = this;
-
         final ListView listview = (ListView) findViewById(R.id.listview);
-
         final ArrayList<String> list = new ArrayList<String>();
-
-        Context context = this;
 
         Button filter = findViewById(R.id.filter);
         Button popular = findViewById(R.id.popular);
+        Button backToWelcome = findViewById(R.id.backBPPM);
 
         service.getAllProducts(new ResponseWait() {
             @Override
@@ -60,70 +63,56 @@ public class BrowseProducts extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, final View view,
                                             int position, long id) {
-                        final String item = (String) parent.getItemAtPosition(position);
                         view.animate().setDuration(1000).alpha(0)
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
                                         String p = (String) parent.getItemAtPosition(position);
-                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
+                                        Intent intent = new Intent(currentContext, ProductDetailsActivity.class);
+                                        Gson gson = new Gson();
+                                        String userDataJSON = gson.toJson(user);
+                                        intent.putExtra("userDataKey", userDataJSON);
                                         intent.putExtra("key", p);
                                         startActivity(intent);
                                     }
                                 });
                     }
-
                 });
             }
 
             @Override
-            public void responseWaitSingle(UserData userData) {
+            public void responseWaitSingle(ProductData productData) {}
 
-            }
+            @Override
+            public void responseWaitSingle(UserData userData) {}
+
         });
 
         filter(filter);
         popular(popular);
-
-
+        backToWelcome(backToWelcome);
     }
 
-    private class StableArrayAdapter extends ArrayAdapter<String> {
-
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
+    public void backToWelcome(Button backToWelcome){
+        Intent intent = new Intent(this, ProductManagerActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(this.user);
+        intent.putExtra("userDataKey", userDataJSON);
+        backToWelcome.setOnClickListener(view1 -> startActivity(intent));
     }
 
-    public Intent intent() {
-        return new Intent(this, ProductDetailsActivity.class);
-    }
-
+    @Override
     public void filter(Button filter) {
         Intent intent = new Intent(this, FilterProductsActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(this.user);
+
+        intent.putExtra("userDataKey", userDataJSON);
         filter.setOnClickListener(view1 -> startActivity(intent));
     }
 
+    @Override
     public void popular(Button popular) {
 
     }
-
 }

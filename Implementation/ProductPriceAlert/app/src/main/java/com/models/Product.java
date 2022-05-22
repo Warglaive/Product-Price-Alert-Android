@@ -34,6 +34,14 @@ public class Product {
         this.location = location;
     }
 
+    public boolean hasDescription(){
+        return this.description != null;
+    }
+
+    public boolean hasImage(){
+        return this.image != null;
+    }
+
     public String getName() {
         return this.name;
     }
