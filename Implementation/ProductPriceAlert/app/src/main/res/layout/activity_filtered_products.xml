@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/purple_50"
     android:layout_height="match_parent"
-    tools:context="com.activities.ShowFilteredProductsActivity">
+    tools:context="com.ProductPriceAlert.ShowFilteredProductsActivity">
 
     <ListView
         android:id="@+id/filterList"

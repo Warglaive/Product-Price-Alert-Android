@@ -1,4 +1,4 @@
-package com.activities;
+package com.ProductPriceAlert;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.models.User;
-import com.productpricealert.R;
+
 import com.services.UserStorageService;
 
 public class RegisterUserActivity extends AppCompatActivity {

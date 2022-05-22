@@ -1,4 +1,4 @@
-package com.activities;
+package com.ProductPriceAlert;
 
 
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.productpricealert.R;
+
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;

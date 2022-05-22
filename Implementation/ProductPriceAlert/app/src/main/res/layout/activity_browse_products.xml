@@ -4,7 +4,7 @@
     android:id="@+id/browseActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.activities.BrowseProducts">
+    tools:context="com.ProductPriceAlert.BrowseProducts">
 
 
     <ListView

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.productpricealert">
+    package="com.ProductPriceAlert">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -19,7 +19,7 @@
         android:theme="@style/Theme.ProductPriceAlert"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.activities.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,26 +27,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.activities.RegisterUserActivity"
+            android:name=".RegisterUserActivity"
             android:exported="true" />
-        <activity android:name="com.activities.LoginUserActivity" />
+        <activity android:name=".LoginUserActivity" />
         <activity
-            android:name="com.activities.ProductDetailsActivity"
-            android:exported="true" />
-        <activity
-            android:name="com.activities.BrowseProducts"
+            android:name=".ProductDetailsActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.AddProductActivity"
+            android:name=".BrowseProducts"
             android:exported="true" />
         <activity
-            android:name="com.activities.FilterProductsActivity"
+            android:name=".AddProductActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.ShowFilteredProductsActivity"
+            android:name=".FilterProductsActivity"
             android:exported="true" />
         <activity
-            android:name="com.activities.ProductManagerActivity"
+            android:name=".ShowFilteredProductsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ProductManagerActivity"
             android:exported="true" />
         <service android:name="com.services.PushNotificationService" android:exported="false">
             <intent-filter>
@@ -55,15 +55,15 @@
                 </action>
             </intent-filter>
         </service>
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-             See README(https://goo.gl/l4GJaQ) for more. -->
+      <!--  &lt;!&ndash; Set custom default icon. This is used when no icon is set for incoming notification messages.
+             See README(https://goo.gl/l4GJaQ) for more. &ndash;&gt;
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_ic_notification" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        &lt;!&ndash; Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. &ndash;&gt;
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/common_google_signin_btn_text_dark" />
+            android:resource="@color/common_google_signin_btn_text_dark" />-->
     </application>
 </manifest>

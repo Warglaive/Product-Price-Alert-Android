@@ -1,4 +1,4 @@
-package com.activities;
+package com.ProductPriceAlert;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.models.Product;
-import com.productpricealert.R;
 import com.services.ProductStorageService;
 
 import java.io.FileDescriptor;

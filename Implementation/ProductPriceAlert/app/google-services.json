@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1070874906066:android:1db6c09f98ac6b5a118c0b",
         "android_client_info": {
-          "package_name": "com.activities"
+          "package_name": "com.productpricealert"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "1070874906066-4jqmcq00ru09aqbp5vrc58ev0luqc1j6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.activities",
+            "package_name": "com.productpricealert",
             "certificate_hash": "3a38877cedd730caaf4c6fe16e7eb36026de5537"
           }
         },

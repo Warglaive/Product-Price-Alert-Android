@@ -1,4 +1,4 @@
-package com.activities;
+package com.ProductPriceAlert;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
-import com.productpricealert.R;
+
 import com.vogella.retrofitgerrit.UserData;
 
 public class ProductManagerActivity extends AppCompatActivity {
