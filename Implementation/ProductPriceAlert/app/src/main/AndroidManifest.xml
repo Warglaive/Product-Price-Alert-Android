@@ -48,16 +48,17 @@
         <activity
             android:name="com.activities.ProductManagerActivity"
             android:exported="true" />
-        <service android:name="com.services.PushNotificationService" android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT">
         <activity
             android:name="com.activities.ProductDetailsCustomerActivity"
             android:exported="true" />
         <activity
             android:name="com.activities.BrowseProductsCustomerActivity"
             android:exported="true" />
-    </application>
+        <service android:name="com.services.PushNotificationService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT">
+
+
 
                 </action>
             </intent-filter>

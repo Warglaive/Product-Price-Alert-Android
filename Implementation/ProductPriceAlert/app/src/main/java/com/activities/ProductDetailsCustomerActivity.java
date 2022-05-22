@@ -12,11 +12,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
-import com.productpricealert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
+import com.ProductPriceAlert.R;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -73,6 +73,11 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
                     Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection() .getInputStream());
                     image.setImageBitmap(bitmap);
                 }
+            }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
             }
 
             @Override

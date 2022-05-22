@@ -31,6 +31,6 @@ public interface RestAPI {
     @GET("http://192.168.0.116:3000/users/login/{email}")
     Call<UserData> findByEmail(@Path("email") String email);
 
-    @PATCH("http://192.168.0.117:3000/products/{id}")
+    @PATCH("http://192.168.0.116:3000/products/{id}")
     Call<ProductData> updatePrice(@Body String id);
 }
