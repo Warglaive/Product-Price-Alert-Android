@@ -25,6 +25,7 @@ import java.util.List;
 
 public class ProductDetailsActivity extends AppCompatActivity implements ProductDetailsActivityInterface {
     private UserData user;
+    private ProductData productData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
                         break;
                     }
                 }
-
+                productData = product;
                 name.setText(product.getName());
                 price.setText(String.valueOf(product.getPrice()));
 
@@ -100,7 +101,13 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
 
     @Override
     public void editProduct(Button button) {
-
+        Intent intent = new Intent(this, EditPriceActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("userDataKey", userDataJSON);
+        String productDataJSON = gson.toJson(productData);
+        intent.putExtra("productDataKey", productDataJSON);
+        button.setOnClickListener(view1 -> startActivity(intent));
     }
 
     @Override
