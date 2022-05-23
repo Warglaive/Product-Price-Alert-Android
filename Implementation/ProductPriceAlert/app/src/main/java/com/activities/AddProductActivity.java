@@ -36,6 +36,7 @@ public class AddProductActivity extends AppCompatActivity {
     private EditText productName;
     private EditText productPrice;
     private EditText productDes;
+    private EditText productLocation;
     private ImageView imageView;
     private TextView text1;
 
@@ -58,6 +59,7 @@ public class AddProductActivity extends AppCompatActivity {
         this.productName = findViewById(R.id.productName);
         this.productPrice = findViewById(R.id.productPrice);
         this.productDes = findViewById(R.id.productDes);
+        this.productLocation = findViewById(R.id.locationField);
         this.imageView = findViewById(R.id.imageView);
         this.homeButton = findViewById(R.id.homeButton);
        // this.text1 = findViewById(R.id.text1);
@@ -118,7 +120,8 @@ public class AddProductActivity extends AppCompatActivity {
                 Double pPrice = Double.parseDouble(productPrice.getText().toString());
                 String pDescription = productDes.getText().toString();
                 String pImage = imagePath;
-                Product product = CreateProduct(pName,pPrice, pDescription, pImage);
+                String pLocation = productLocation.getText().toString();
+                Product product = CreateProduct(pName,pPrice, pDescription, pImage,pLocation);
                 //if Register is successful redirect to login, else ->
                 if (RegisterProduct(product)) {
                     Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
@@ -215,6 +218,11 @@ public class AddProductActivity extends AppCompatActivity {
     private Product CreateProduct(String name, Double price, String description, String image) {
         //Call storage service to store it.
         return new Product(name,price,description,image);
+    }
+
+    private Product CreateProduct(String name, Double price, String description, String image, String location) {
+        //Call storage service to store it.
+        return new Product(name,price,description,image,location);
     }
 
     private boolean RegisterProduct(Product product) {

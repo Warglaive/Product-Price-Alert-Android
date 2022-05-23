@@ -24,6 +24,7 @@
     <string name="showFilter">The results of your search:</string>
     <string name="priceAddProduct">Price</string>
     <string name="descriptionAddProduct">Description</string>
+    <string name="locationAddProduct">Location Address</string>
     <string name="nameAddProduct">Name</string>
     <string name="edit_browse_products">Edit(Browse) products</string>
     <string name="actions_available">Actions Available:</string>
