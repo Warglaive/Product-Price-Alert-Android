@@ -13,8 +13,9 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ProductPriceAlert.R;
 import com.google.gson.Gson;
-import com.productpricealert.R;
+import com.models.User;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
@@ -42,6 +43,7 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
 
         Button filter = findViewById(R.id.filter);
         Button popular = findViewById(R.id.popular);
+        Button backToWelcome = findViewById(R.id.backBPPM);
 
         service.getAllProducts(new ResponseWait() {
             @Override
@@ -66,6 +68,9 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
                                     public void run() {
                                         String p = (String) parent.getItemAtPosition(position);
                                         Intent intent = new Intent(currentContext, ProductDetailsActivity.class);
+                                        Gson gson = new Gson();
+                                        String userDataJSON = gson.toJson(user);
+                                        intent.putExtra("userDataKey", userDataJSON);
                                         intent.putExtra("key", p);
                                         startActivity(intent);
                                     }
@@ -75,12 +80,24 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
             }
 
             @Override
+            public void responseWaitSingle(ProductData productData) {}
+
+            @Override
             public void responseWaitSingle(UserData userData) {}
 
         });
 
         filter(filter);
         popular(popular);
+        backToWelcome(backToWelcome);
+    }
+
+    public void backToWelcome(Button backToWelcome){
+        Intent intent = new Intent(this, ProductManagerActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(this.user);
+        intent.putExtra("userDataKey", userDataJSON);
+        backToWelcome.setOnClickListener(view1 -> startActivity(intent));
     }
 
     @Override

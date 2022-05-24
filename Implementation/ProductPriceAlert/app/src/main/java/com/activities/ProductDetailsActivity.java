@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.productpricealert.R;
+
+import com.ProductPriceAlert.R;
+import com.google.gson.Gson;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
@@ -22,12 +24,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDetailsActivity extends AppCompatActivity implements ProductDetailsActivityInterface {
+    private UserData user;
+    private ProductData productData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
+        Gson gson = new Gson();
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
         ProductStorageService service = new ProductStorageService();
         Bundle extras = getIntent().getExtras();
         String productName = extras.getString("key");
@@ -55,7 +61,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
                         break;
                     }
                 }
-
+                productData = product;
                 name.setText(product.getName());
                 price.setText(String.valueOf(product.getPrice()));
 
@@ -67,6 +73,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
                     Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection() .getInputStream());
                     image.setImageBitmap(bitmap);
                 }
+            }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
             }
 
             @Override
@@ -82,12 +93,21 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
     @Override
     public void backToBrowse(Button button) {
         Intent intent = new Intent(this, BrowseProducts.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("userDataKey", userDataJSON);
         button.setOnClickListener(view1 -> startActivity(intent));
     }
 
     @Override
     public void editProduct(Button button) {
-
+        Intent intent = new Intent(this, EditPriceActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("userDataKey", userDataJSON);
+        String productDataJSON = gson.toJson(productData);
+        intent.putExtra("productDataKey", productDataJSON);
+        button.setOnClickListener(view1 -> startActivity(intent));
     }
 
     @Override

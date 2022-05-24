@@ -18,6 +18,11 @@ public class ResponseWaitImpl implements ResponseWait {
     }
 
     @Override
+    public void responseWaitSingle(ProductData productData) {
+
+    }
+
+    @Override
     public void responseWaitSingle(UserData userData) {
 
     }

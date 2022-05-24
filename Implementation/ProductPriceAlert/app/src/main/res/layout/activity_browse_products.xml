@@ -4,7 +4,7 @@
     android:id="@+id/browseActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.activities.BrowseProducts">
+    tools:context="com.ProductPriceAlert.com.activities.BrowseProducts">
 
     <ListView
         android:id="@+id/listview"
@@ -32,6 +32,13 @@
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="62dp"
             tools:layout_editor_absoluteY="27dp" />
+
+        <Button
+            android:id="@+id/backBPPM"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/backBtn" />
 
         <Button
             android:id="@+id/popular"
