@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     public void loginOrRegister(View view) {
         //Build intent so the 2 activities can bind
         //view.GetContext() can be replaced by "MainActivity.class" or just "this" if current activity is passed
-        Intent registerIntent = new Intent(view.getContext(), BrowseProducts.class);
-        Intent loginIntent = new Intent(view.getContext(), MapsActivityCurrentPlace.class);
+        Intent registerIntent = new Intent(view.getContext(), MapsActivityCurrentPlace.class);
+        Intent loginIntent = new Intent(view.getContext(), BrowseProductsCustomerActivity.class);
         //Intent intent = new Intent(view.getContext(), BrowseProducts.class);
         // Do something in response to button
         //TODO: Add login view connection

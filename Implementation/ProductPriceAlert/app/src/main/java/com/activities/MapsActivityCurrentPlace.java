@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.ProductPriceAlert.BuildConfig;
+import com.ProductPriceAlert.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,8 +41,6 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.productpricealert.BuildConfig;
-import com.productpricealert.R;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -94,8 +94,12 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // [START_EXCLUDE silent]
-        // [START maps_current_place_on_create_save_instance_state]
+        // Construct a Geocoder instance and assign it to the local variable
+        geocoder = new Geocoder(this);
+
+        Bundle extras = getIntent().getExtras();
+
+
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -107,12 +111,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
 
-        // Construct a Geocoder instance and assign it to the local variable
-        geocoder = new Geocoder(this);
         // link the addressField to the one in the xml
         this.addressField = findViewById(R.id.addressField);
 
-        // [START_EXCLUDE silent]
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
         placesClient = Places.createClient(this);
@@ -121,12 +122,24 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Build the map.
-        // [START maps_current_place_map_fragment]
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        // [END maps_current_place_map_fragment]
-        // [END_EXCLUDE]
+
+        if (!extras.isEmpty()) {
+            if (!extras.getString("location").isEmpty()) {
+                String productAddress = extras.getString("location");
+                try {
+                    System.out.println("Product Address: " + productAddress);
+                    Address addres = geocoder.getFromLocationName(productAddress, 1).get(0);
+                    System.out.println(addres.getAddressLine(0));
+                        setLocation(addres);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        getIntent().removeExtra("location");
     }
     // [END maps_current_place_on_create]
 
@@ -179,8 +192,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
-        // [START_EXCLUDE]
-        // [START map_current_place_set_info_window_adapter]
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
         this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -219,6 +230,22 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         getDeviceLocation();
     }
     // [END maps_current_place_on_map_ready]
+
+
+    private void setLocation(Address address){
+        try {
+
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(address.getLatitude(),
+                                address.getLongitude()), DEFAULT_ZOOM));
+                System.out.println("Setting Location to: " + address.getAddressLine(0));
+
+
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage(), e);
+        }
+
+    }
 
     /**
      * Gets the current location of the device, and positions the map's camera.

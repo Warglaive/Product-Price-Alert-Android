@@ -7,6 +7,14 @@ public class ProductData {
     private String description;
     private String location;
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -45,6 +53,9 @@ public class ProductData {
 
     public boolean hasDescription(){
         return this.description != null;
+    }
+    public boolean hasLocation(){
+        return this.location != null;
     }
 
     public boolean hasImage(){

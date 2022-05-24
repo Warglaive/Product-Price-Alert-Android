@@ -24,16 +24,16 @@ public interface RestAPI {
     @GET("http://192.168.100.17:3000/products/")
     Call<List<ProductData>> getAllProducts();
 
-    @POST("http://172.25.80.1:3000/products/")
+    @POST("http://192.168.100.17:3000/products/")
     Call<ProductData> postProduct(@Body ProductData productData);
 
-    @GET("http://192.168.0.117:3000/products/searchBy/{searchTerm}")
+    @GET("http://192.168.100.17:3000/products/searchBy/{searchTerm}")
     Call<List<ProductData>> getFilteredProducts(@Path("searchTerm") String searchTerm);
 
-    @GET("http://192.168.0.117:3000/users/login/{email}")
+    @GET("http://192.168.100.17:3000/users/login/{email}")
     Call<UserData> findByEmail(@Path("email") String email);
 
     @FormUrlEncoded
-    @PATCH("http://192.168.0.117:3000/products/{id}")
+    @PATCH("http://192.168.100.17:3000/products/{id}")
     Call<ProductData> updatePrice(@Path("id") String id, @Field("price") String price);
 }

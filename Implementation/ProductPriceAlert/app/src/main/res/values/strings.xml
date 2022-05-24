@@ -39,6 +39,7 @@
     <string name="your_role_is_PM">Your role is:</string>
     <string name="logout">Logout</string>
     <string name="backToAll">back to all products</string>
+    <string name="Location">Location:</string>
     <string name="purchase">purchase</string>
     <string name="editWel">You can edit the price below:</string>
     <string name="editView">The current price:</string>
