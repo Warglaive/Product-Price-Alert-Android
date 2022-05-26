@@ -9,6 +9,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ProductPriceAlert.R;
+import com.services.PushNotificationService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         this.loginButton = findViewById(R.id.loginButton);
 
         loginOrRegister(findViewById(R.id.mainActivity).getRootView());
+        //TODO: Test notifications
+
     }
 
     /**

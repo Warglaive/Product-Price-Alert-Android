@@ -51,6 +51,7 @@ public class PushNotificationService extends FirebaseMessagingService {
 
     private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.
+        //Call Retrofit to send token to LB4
 
     }
 
