@@ -38,4 +38,5 @@
     <string name="editNew">The new price:</string>
     <string name="edit">edit price</string>
     <string name="request">request price alerts</string>
+    <string name="msg_token_fmt">regToken</string>
 </resources>
