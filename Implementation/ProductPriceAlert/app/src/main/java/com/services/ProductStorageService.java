@@ -114,7 +114,6 @@ public class ProductStorageService {
                 if(response.isSuccessful()) {
                     ProductData productToUpdate = response.body();
                     callback.responseWaitSingle(productToUpdate);
-                    System.out.println(productToUpdate.getName());
                 } else {
                     System.out.println(response.errorBody());
                 }
