@@ -39,4 +39,7 @@
     <string name="edit">edit price</string>
     <string name="request">request price alerts</string>
     <string name="msg_token_fmt">regToken</string>
+    <string name="default_notification_channel_id">com.activities</string>
+    <string name="fcm_message" >fcm Message </string>
+
 </resources>
