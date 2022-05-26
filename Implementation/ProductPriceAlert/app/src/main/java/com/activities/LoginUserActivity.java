@@ -1,9 +1,11 @@
 package com.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +36,15 @@ public class LoginUserActivity extends AppCompatActivity {
         this.emailField = findViewById(R.id.logEmail);
         this.passwordField = findViewById(R.id.logPassword);
         submitLoginBtn.setOnClickListener(v -> login());
+        Context context = getApplicationContext();
+        successfulRegistrationMessage(context);
+    }
+
+    private void successfulRegistrationMessage(Context context) {
+        CharSequence text = "Registration successful!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     /**
