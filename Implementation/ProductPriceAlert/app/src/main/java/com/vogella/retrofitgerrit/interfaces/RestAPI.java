@@ -58,7 +58,7 @@ public interface RestAPI {
 
 // @PATCH("http://145.93.116.27:3000/products/{id}")
 // Call<ProductData> updatePrice(@Path("id") String id, @Body ProductData productData);
-    @GET("http://172.28.176.1:3000/users/")
+    /*@GET("http://172.28.176.1:3000/users/")
     Call<List<UserData>> getAllUsers();
 
     @POST("http://172.28.176.1:3000/users/")
@@ -77,7 +77,7 @@ public interface RestAPI {
     Call<UserData> findByEmail(@Path("email") String email);
 
     @PATCH("http://172.28.176.1:3000/products/{id}")
-    Call<ProductData> updatePrice(@Path("id") String id, @Body ProductData productData);
+    Call<ProductData> updatePrice(@Path("id") String id, @Body ProductData productData);*/
     //Cloud messaging
   //  @Headers("Authorization : key=AAAA4Ubio1Q:APA91bGWkw84b1XX2nnnOKn8MO25U2giLRXXXTUkXidojFluZk_qKXXXlS27oMZZV5goTQdwRtpdmvI1iAPRZZDNKz6c-mpU6nvHZJ-Jg9f1fQ5NdttftqUpqwAkObLEEX26VFDDbXN8")
   //  @POST("fcm/send")

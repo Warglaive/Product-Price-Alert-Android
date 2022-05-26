@@ -95,6 +95,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
 
         editProduct(edit);
         backToBrowse(button);
+        landedOnDetails(this);
     }
 
     @Override
