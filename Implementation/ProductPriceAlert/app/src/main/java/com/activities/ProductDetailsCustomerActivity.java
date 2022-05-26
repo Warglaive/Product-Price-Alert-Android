@@ -1,5 +1,6 @@
 package com.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,6 +47,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         ImageView image = findViewById(R.id.imageC);
         Button button = findViewById(R.id.buttonC);
         Button purchase = findViewById(R.id.purchase);
+        Button request = findViewById(R.id.request);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
         service.getAllProducts(new ResponseWait() {
@@ -107,5 +110,12 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     @Override
     public void purchaseProduct(Button button) {
 
+    }
+
+    private void landedOnDetails(Context context) {
+        CharSequence text = "You got to the Product Details!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

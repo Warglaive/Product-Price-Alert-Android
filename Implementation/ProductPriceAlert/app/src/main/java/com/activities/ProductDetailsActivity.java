@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -148,5 +149,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
     @Override
     public void purchaseProduct(Button button) {
 
+    }
+
+    private void landedOnDetails(Context context) {
+        CharSequence text = "You got to the Product Details!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }
