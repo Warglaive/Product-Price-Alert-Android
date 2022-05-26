@@ -124,13 +124,16 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
                         break;
                     }
                 }
+
                 productDataa = product;
                 Intent intent = new Intent(context, EditPriceActivity.class);
                 Gson gson = new Gson();
                 String userDataJSON = gson.toJson(user);
+
                 intent.putExtra("userDataKey", userDataJSON);
                 String productDataJSON = gson.toJson(productDataa);
                 intent.putExtra("productDataKey", productDataJSON);
+
                 button.setOnClickListener(view1 -> startActivity(intent));
             }
 
