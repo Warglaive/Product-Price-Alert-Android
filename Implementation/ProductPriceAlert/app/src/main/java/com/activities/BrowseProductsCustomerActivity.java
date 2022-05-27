@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -85,6 +86,7 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
         filter(filter);
         popular(popular);
         logOut.setOnClickListener(this::logout);
+        happyBrowsing(currentContext);
     }
 
     @Override
@@ -105,5 +107,12 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
     private void logout(View view) {
         Intent intent = new Intent(view.getContext(), MainActivity.class);
         startActivity(intent);
+    }
+
+    private void happyBrowsing(Context context) {
+        CharSequence text = "You can now browse through the products!\n Happy Browsing!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

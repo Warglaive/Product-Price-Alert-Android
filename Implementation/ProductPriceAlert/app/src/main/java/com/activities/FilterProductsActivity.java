@@ -1,11 +1,13 @@
 package com.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +39,7 @@ public class FilterProductsActivity extends AppCompatActivity {
 
         filterfil.setOnClickListener(this::filter);
         backToBrowse(backp);
+        filterPossible(this);
     }
 
     public void filter(View view){
@@ -67,5 +70,12 @@ public class FilterProductsActivity extends AppCompatActivity {
         }
 
         backp.setOnClickListener(view1 -> startActivity(intent));
+    }
+
+    private void filterPossible(Context context) {
+        CharSequence text = "You can filter by product's name now!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }
