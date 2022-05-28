@@ -66,6 +66,9 @@
         <activity
             android:name="com.activities.EditPriceActivity"
             android:exported="true" />
+        <activity
+            android:name="com.activities.ProvideMaxPriceActivity"
+            android:exported="true" />
 
         <service
             android:name="com.services.PushNotificationService"
