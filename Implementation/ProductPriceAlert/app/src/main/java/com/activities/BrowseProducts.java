@@ -118,7 +118,7 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
     }
 
     private void happyBrowsing(Context context) {
-        CharSequence text = "Successful Login!\n You can now browse through the products!\n Happy Browsing!";
+        CharSequence text = "You can now browse through the products!\n Happy Browsing!";
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();

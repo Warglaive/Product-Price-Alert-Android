@@ -110,7 +110,7 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
     }
 
     private void happyBrowsing(Context context) {
-        CharSequence text = "You can now browse through the products!\n Happy Browsing!";
+        CharSequence text = "Successful Login!\nYou can now browse through the products!\n Happy Browsing!";
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
