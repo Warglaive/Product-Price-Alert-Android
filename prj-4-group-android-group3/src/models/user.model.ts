@@ -1,4 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
+import { Product } from './product.model';
 
 @model({settings: {strict: false}})
 export class User extends Entity {
@@ -28,6 +29,18 @@ export class User extends Entity {
     type: 'string',
   })
   role?: string;
+
+  @property({
+    type: 'array',
+    itemType: 'object',
+  })
+  ObjAry?: object[];
+
+  @property({
+    type: 'array',
+    itemType: 'string',
+  })
+  StrAry?: string[];
 
   // Define well-known properties here
 

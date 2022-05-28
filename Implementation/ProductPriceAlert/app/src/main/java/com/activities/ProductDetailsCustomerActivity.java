@@ -48,6 +48,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         Button button = findViewById(R.id.buttonC);
         Button purchase = findViewById(R.id.purchase);
         Button request = findViewById(R.id.request);
+        Button maxPrice = findViewById(R.id.button2);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
         service.getAllProducts(new ResponseWait() {
@@ -92,6 +93,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         backToBrowse(button);
         purchaseProduct(purchase);
         landedOnDetails(this);
+        maxPrice(maxPrice);
     }
 
     @Override
@@ -111,6 +113,14 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     @Override
     public void purchaseProduct(Button button) {
 
+    }
+
+    public void maxPrice(Button button) {
+        Intent intent = new Intent(this, ProvideMaxPriceActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("userDataKey", userDataJSON);
+        button.setOnClickListener(view1 -> startActivity(intent));
     }
 
     private void landedOnDetails(Context context) {

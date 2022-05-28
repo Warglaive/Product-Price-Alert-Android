@@ -38,8 +38,11 @@ public interface RestAPI {
     @PATCH("http://lb4-prj.herokuapp.com/products/{id}")
     Call<ProductData> updatePrice(@Path("id") String id, @Body ProductData productData);
 
+    @PATCH("http://lb4-prj.herokuapp.com/users/{id}")
+    Call<UserData> provideMaxPrice(@Path("id") String id, @Body UserData userData);
+
     //Cloud messaging
     @Headers("Authorization : key=BIIgxlXPWeoBjdULNKYB-x3VTL5opk8Vyq8Ef1vK9xJcgKmOsLCqf74jQKpR4jDWEZU7d6_kcUvtXE9w6ATjrKQ")
     @POST("fcm/send")
-    Call<ResponseBody> sendChatNotification(@Field("to") String token, @Body RequestNotification requestNotificaton);
+    Call<ResponseBody> sendChatNotification(@Field("to") String token, @Body RequestNotification requestNotification);
 }
