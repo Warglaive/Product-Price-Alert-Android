@@ -121,7 +121,7 @@ public class AddProductActivity extends AppCompatActivity {
                 String pDescription = productDes.getText().toString();
                 String pImage = imagePath;
                 Product product = CreateProduct(pName,pPrice, pDescription, pImage);
-                //if Register is successful redirect to login, else ->
+
                 if (RegisterProduct(product)) {
                     Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
                     intent.putExtra("key", product.getName());
