@@ -28,7 +28,6 @@ public class ProvideMaxPriceActivity extends AppCompatActivity {
     private UserData user;
     private ProductData productData;
     private EditText maxPriceField;
-    private ProductStorageService productStorageService;
     private UserStorageService userStorageService;
 
     @Override
@@ -36,7 +35,6 @@ public class ProvideMaxPriceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provide_maximum_price);
 
-        this.productStorageService = new ProductStorageService();
         this.userStorageService = new UserStorageService();
         TextView viewCurrent = findViewById(R.id.currentPriceTextMax);
         TextView fieldCurrent = findViewById(R.id.currentPriceFieldMax);
@@ -68,7 +66,6 @@ public class ProvideMaxPriceActivity extends AppCompatActivity {
 
     public void maxPrice(View view){
         String price = this.maxPriceField.getText().toString();
-        double newPrice = Double.parseDouble(price);
         user.setMax(price);
         user.setProduct(productData);
         this.userStorageService.maxPrice(this.user.getID(), user, new ResponseWait() {
