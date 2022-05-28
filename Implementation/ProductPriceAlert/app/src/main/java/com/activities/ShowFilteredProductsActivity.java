@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,6 +93,7 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
         });
 
         backToFilter(back);
+        gotToResult(this);
     }
 
     public void backToFilter(Button back){
@@ -100,5 +102,12 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
         String userDataJSON = gson.toJson(user);
         intent.putExtra("userDataKey", userDataJSON);
         back.setOnClickListener(view1 -> startActivity(intent));
+    }
+
+    private void gotToResult(Context context) {
+        CharSequence text = "The results from your search are ready!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

@@ -1,11 +1,13 @@
 package com.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,6 +51,7 @@ public class EditPriceActivity extends AppCompatActivity {
 
         back.setOnClickListener(this::backToDetails);
         edit.setOnClickListener(this::editPrice);
+        editPossible(this);
     }
 
     public void backToDetails(View view){
@@ -87,5 +90,12 @@ public class EditPriceActivity extends AppCompatActivity {
         intent.putExtra("userDataKey", userDataJSON);
         intent.putExtra("key", productData.getName());
         startActivity(intent);
+    }
+
+    private void editPossible(Context context) {
+        CharSequence text = "You can now edit the price of your chosen product!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

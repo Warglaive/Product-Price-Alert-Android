@@ -65,7 +65,6 @@ public class ProductManagerActivity extends AppCompatActivity {
      * @param view
      */
     private void addNewProductActivity(View view) {
-        //TODO: won't load the activity for some reason
         Intent intent = new Intent(view.getContext(), AddProductActivity.class);
         startActivity(intent);
     }
