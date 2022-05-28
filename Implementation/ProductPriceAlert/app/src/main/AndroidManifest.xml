@@ -2,14 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ProductPriceAlert">
 
-    <uses-feature
-        android:name="android.hardware.camera"
+    <uses-feature android:name="android.hardware.camera"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,18 +31,23 @@
         <activity
             android:name="com.activities.RegisterUserActivity"
             android:exported="true" />
-        <activity android:name="com.activities.LoginUserActivity" />
+        <activity android:name="com.activities.LoginUserActivity"/>
         <activity
             android:name="com.activities.ProductDetailsActivity"
             android:exported="true" />
         <activity
             android:name="com.activities.BrowseProducts"
+            android:exported="true" /><activity
+            android:name="com.activities.MapsActivityCurrentPlace"
             android:exported="true" />
+
+
         <activity
-            android:name="com.activities.AddProductActivity"
-            android:exported="true" />
+            android:name="com.activities.AddProductActivity"></activity>
+
         <activity
             android:name="com.activities.FilterProductsActivity"
+
             android:exported="true" />
         <activity
             android:name="com.activities.ShowFilteredProductsActivity"
@@ -78,6 +85,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/common_google_signin_btn_text_dark" />
+
+<meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
 
     </application>
 </manifest>

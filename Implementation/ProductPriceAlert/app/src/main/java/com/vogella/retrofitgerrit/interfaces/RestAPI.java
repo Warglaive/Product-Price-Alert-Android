@@ -17,7 +17,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface RestAPI {
-
     @GET("http://192.168.0.116:3000/users/")
     Call<List<UserData>> getAllUsers();
 
@@ -28,6 +27,7 @@ public interface RestAPI {
     Call<List<ProductData>> getAllProducts();
 
     @POST("http://192.168.0.116:3000/products/")
+
     Call<ProductData> postProduct(@Body ProductData productData);
 
     @GET("http://192.168.0.116:3000/products/searchBy/{searchTerm}")
@@ -43,6 +43,4 @@ public interface RestAPI {
     @Headers("Authorization : key=BIIgxlXPWeoBjdULNKYB-x3VTL5opk8Vyq8Ef1vK9xJcgKmOsLCqf74jQKpR4jDWEZU7d6_kcUvtXE9w6ATjrKQ")
     @POST("fcm/send")
     Call<ResponseBody> sendChatNotification(@Field("to") String token, @Body RequestNotification requestNotificaton);
-
-
 }

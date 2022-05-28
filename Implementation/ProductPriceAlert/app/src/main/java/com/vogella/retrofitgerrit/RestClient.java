@@ -12,6 +12,7 @@ public class RestClient {
     static final String baseUrl = "http://192.168.0.117:3000/";
     static final String pushNotificationsURL="https://fcm.googleapis.com/";
 
+
     //GET
     public static RestAPI getClient() {
         Gson gson = new GsonBuilder().setLenient().create();
