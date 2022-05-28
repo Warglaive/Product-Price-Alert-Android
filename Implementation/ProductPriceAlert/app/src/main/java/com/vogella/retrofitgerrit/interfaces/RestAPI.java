@@ -17,26 +17,25 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface RestAPI {
-    @GET("http://192.168.0.116:3000/users/")
+    @GET("http://lb4-prj.herokuapp.com/users/")
     Call<List<UserData>> getAllUsers();
 
-    @POST("http://192.168.0.116:3000/users/")
+    @POST("http://lb4-prj.herokuapp.com/users/")
     Call<UserData> postUser(@Body UserData userData);
 
-    @GET("http://192.168.0.116:3000/products/")
+    @GET("http://lb4-prj.herokuapp.com/products/")
     Call<List<ProductData>> getAllProducts();
 
-    @POST("http://192.168.0.116:3000/products/")
-
+    @POST("http://lb4-prj.herokuapp.com/products/")
     Call<ProductData> postProduct(@Body ProductData productData);
 
-    @GET("http://192.168.0.116:3000/products/searchBy/{searchTerm}")
+    @GET("http://lb4-prj.herokuapp.com/products/searchBy/{searchTerm}")
     Call<List<ProductData>> getFilteredProducts(@Path("searchTerm") String searchTerm);
 
-    @GET("http://192.168.0.116:3000/users/login/{email}")
+    @GET("http://lb4-prj.herokuapp.com/users/login/{email}")
     Call<UserData> findByEmail(@Path("email") String email);
 
-    @PATCH("http://192.168.0.116:3000/products/{id}")
+    @PATCH("http://lb4-prj.herokuapp.com/products/{id}")
     Call<ProductData> updatePrice(@Path("id") String id, @Body ProductData productData);
 
     //Cloud messaging
