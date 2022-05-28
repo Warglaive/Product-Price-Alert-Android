@@ -12,7 +12,7 @@
         android:layout_height="62dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="64dp"
-        android:text="@string/editWel"
+        android:text="@string/maxWel"
         android:textSize="21sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
         android:layout_height="49dp"
         android:layout_marginStart="76dp"
         android:layout_marginBottom="440dp"
-        android:text="@string/editView"
+        android:text="@string/maxView"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -44,7 +44,7 @@
         android:layout_height="49dp"
         android:layout_marginStart="76dp"
         android:layout_marginBottom="328dp"
-        android:text="@string/editNew"
+        android:text="@string/maxNew"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -65,8 +65,8 @@
         android:id="@+id/backMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="124dp"
         android:text="@string/backBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -75,9 +75,9 @@
         android:id="@+id/maxButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/edit"
+        android:layout_marginStart="152dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/max"
         app:layout_constraintBottom_toTopOf="@+id/backMax"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
