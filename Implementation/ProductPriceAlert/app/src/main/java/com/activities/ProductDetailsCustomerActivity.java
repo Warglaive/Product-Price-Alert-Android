@@ -91,6 +91,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
         backToBrowse(button);
         purchaseProduct(purchase);
+        landedOnDetails(this);
     }
 
     @Override
