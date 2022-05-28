@@ -56,11 +56,12 @@ public class RegisterUserActivity extends AppCompatActivity {
         User user = CreateUser(name, email, password, role);
         //if Register is successful redirect to login, else ->
         if (RegisterUser(user)) {
-            startActivity(new Intent(v.getContext(), LoginUserActivity.class));
+            Intent intent = new Intent(v.getContext(), LoginUserActivity.class);
+            intent.putExtra("register", "success");
+            startActivity(intent);
         } else {
             System.out.println("Registration failed");
         }
-
     }
 
     private User CreateUser(String name, String email, String password, String role) {
