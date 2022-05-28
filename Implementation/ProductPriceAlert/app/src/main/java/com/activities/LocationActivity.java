@@ -1,3 +1,4 @@
+/*
 package com.activities;
 
 import android.annotation.SuppressLint;
@@ -18,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.ProductPriceAlert.BuildConfig;
+import com.ProductPriceAlert.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,8 +39,7 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.productpricealert.BuildConfig;
-import com.productpricealert.R;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -103,9 +105,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
 
     }
-    /**
+*
      * Saves the state of the map when the activity is paused.
-     */
+
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (mMap != null) {
@@ -115,22 +118,24 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         super.onSaveInstanceState(outState);
     }
 
-    /**
+*
      * Sets up the options menu.
      * @param menu The options menu.
      * @return Boolean.
-     */
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.current_place_menu, menu);
         return true;
     }
 
-    /**
+*
      * Handles a click on the menu option to get a place.
      * @param item The menu item to handle.
      * @return Boolean.
-     */
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.option_get_place) {
@@ -139,10 +144,11 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         return true;
     }
 
-    /**
+*
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
-     */
+
+
     @Override
     public void onMapReady(GoogleMap map) {
         this.mMap = map;
@@ -183,14 +189,15 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         getDeviceLocation();
     }
 
-    /**
+*
      * Gets the current location of the device, and positions the map's camera.
-     */
+
+
     private void getDeviceLocation() {
-        /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
-         */
+
+
         try {
             if (locationPermissionGranted) {
                 @SuppressLint("MissingPermission") Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
@@ -220,15 +227,16 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-    /**
+*
      * Prompts the user for permission to use the device location.
-     */
+
+
     private void getLocationPermission() {
-        /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
-         */
+
+
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -240,9 +248,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-    /**
+*
      * Handles the result of the request for location permissions.
-     */
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -260,10 +269,11 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         updateLocationUI();
     }
 
-    /**
+*
      * Prompts the user to select the current place from a list of likely places, and shows the
      * current place on the map - provided the user has granted location permission.
-     */
+
+
     private void showCurrentPlace() {
         if (mMap == null) {
             return;
@@ -341,9 +351,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-    /**
+*
      * Displays a form allowing the user to select a place from a list of likely places.
-     */
+
+
     private void openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -376,9 +387,10 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                 .show();
     }
 
-    /**
+*
      * Updates the map's UI settings based on whether the user has granted location permission.
-     */
+
+
     @SuppressLint("MissingPermission")
     private void updateLocationUI() {
         if (mMap == null) {
@@ -403,3 +415,4 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 }
+*/

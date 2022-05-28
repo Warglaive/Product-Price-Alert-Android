@@ -41,10 +41,25 @@ public class LoginUserActivity extends AppCompatActivity {
     }
 
     private void successfulRegistrationMessage(Context context) {
-        CharSequence text = "Registration successful!";
-        int duration = Toast.LENGTH_LONG;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        Intent intent = getIntent();
+        String activity = intent.getStringExtra("register");
+
+        try {
+            if (activity.equals("success")) {
+                CharSequence text = "Registration successful!";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            } else {
+                CharSequence text = "Could not register, please try again!";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        }
+        catch (NullPointerException exception){
+            exception.printStackTrace();
+        }
     }
 
     /**

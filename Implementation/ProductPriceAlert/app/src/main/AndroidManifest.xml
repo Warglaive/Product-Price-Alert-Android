@@ -2,16 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ProductPriceAlert">
 
-    <uses-feature android:name="android.hardware.camera"
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,19 +33,19 @@
         <activity
             android:name="com.activities.RegisterUserActivity"
             android:exported="true" />
-        <activity android:name="com.activities.LoginUserActivity"/>
+        <activity android:name="com.activities.LoginUserActivity" />
         <activity
             android:name="com.activities.ProductDetailsActivity"
             android:exported="true" />
         <activity
             android:name="com.activities.BrowseProducts"
-            android:exported="true" /><activity
+            android:exported="true" />
+        <activity
             android:name="com.activities.MapsActivityCurrentPlace"
             android:exported="true" />
 
 
-        <activity
-            android:name="com.activities.AddProductActivity"></activity>
+        <activity android:name="com.activities.AddProductActivity"></activity>
 
         <activity
             android:name="com.activities.FilterProductsActivity"
@@ -64,17 +66,19 @@
         <activity
             android:name="com.activities.EditPriceActivity"
             android:exported="true" />
-        <service android:name="com.services.PushNotificationService" android:exported="false">
+
+        <service
+            android:name="com.services.PushNotificationService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT">
-                </action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
             </intent-filter>
         </service>
-     <!--   <service android:name=".FirebaseIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>-->
+        <!--   <service android:name=".FirebaseIDService">
+               <intent-filter>
+                   <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+               </intent-filter>
+           </service>-->
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data
@@ -86,9 +90,9 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/common_google_signin_btn_text_dark" />
 
-<meta-data
+       <!-- <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="${MAPS_API_KEY}" />-->
 
     </application>
 </manifest>
