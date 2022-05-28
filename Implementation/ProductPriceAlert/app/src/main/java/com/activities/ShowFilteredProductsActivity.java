@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.productpricealert.R;
+import com.ProductPriceAlert.R;
+import com.google.gson.Gson;
+import com.models.User;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
@@ -23,15 +26,21 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ShowFilteredProductsActivity extends AppCompatActivity {
+    private UserData user;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtered_products);
 
+        Gson gson = new Gson();
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
+
         ProductStorageService service = new ProductStorageService();
         ListView listview = findViewById(R.id.filterList);
         List<String> list = new ArrayList<>();
         Context context = this;
+        Button back = findViewById(R.id.backToBrowseFilter);
 
         Bundle extras = getIntent().getExtras();
         String searchTerm = extras.getString("key");
@@ -56,7 +65,15 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         String p = (String) parent.getItemAtPosition(position);
-                                        Intent intent = new Intent(context, ProductDetailsActivity.class);
+                                        Intent intent;
+                                        if(user.getRole().equals("Product Manager")) {
+                                            intent = new Intent(context, ProductDetailsActivity.class);
+                                        } else{
+                                            intent = new Intent(context, ProductDetailsCustomerActivity.class);
+                                        }
+                                        Gson gson = new Gson();
+                                        String userDataJSON = gson.toJson(user);
+                                        intent.putExtra("userDataKey", userDataJSON);
                                         intent.putExtra("key", p);
                                         startActivity(intent);
                                     }
@@ -64,8 +81,24 @@ public class ShowFilteredProductsActivity extends AppCompatActivity {
                     }
                 });
             }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
+            }
+
             @Override
             public void responseWaitSingle(UserData userData) {}
         });
+
+        backToFilter(back);
+    }
+
+    public void backToFilter(Button back){
+        Intent intent = new Intent(this, FilterProductsActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("userDataKey", userDataJSON);
+        back.setOnClickListener(view1 -> startActivity(intent));
     }
 }

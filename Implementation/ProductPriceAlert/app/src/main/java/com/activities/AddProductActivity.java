@@ -21,8 +21,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.ProductPriceAlert.R;
 import com.models.Product;
-import com.productpricealert.R;
 import com.services.ProductStorageService;
 
 import java.io.FileDescriptor;
@@ -76,7 +76,7 @@ public class AddProductActivity extends AppCompatActivity {
         this.homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddProductActivity.this, MainActivity.class));
+                startActivity(new Intent(AddProductActivity.this, ProductManagerActivity.class));
             }
         });
 

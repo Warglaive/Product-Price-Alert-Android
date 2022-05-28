@@ -7,7 +7,9 @@ import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,6 +97,30 @@ public class ProductStorageService {
 
             @Override
             public void onFailure(Call<List<ProductData>> call, Throwable t) {
+                System.out.println("Failure!");
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void updatePrice(String id, ProductData productData, ResponseWait callback){
+        /*Map<String, Double> map = new HashMap<>();
+        double p = Double.parseDouble(price);
+        map.put("price", p);*/
+        Call<ProductData> callUpdate = this.restAPI.updatePrice(id, productData);
+        callUpdate.enqueue(new Callback<ProductData>() {
+            @Override
+            public void onResponse(Call<ProductData> call, Response<ProductData> response) {
+                if(response.isSuccessful()) {
+                    ProductData productToUpdate = response.body();
+                    callback.responseWaitSingle(productToUpdate);
+                } else {
+                    System.out.println(response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductData> call, Throwable t) {
                 System.out.println("Failure!");
                 t.printStackTrace();
             }

@@ -39,5 +39,13 @@
     <string name="logout">Logout</string>
     <string name="backToAll">back to all products</string>
     <string name="purchase">purchase</string>
-    <string name="edit">Edit Price</string>
+    <string name="editWel">You can edit the price below:</string>
+    <string name="editView">The current price:</string>
+    <string name="editNew">The new price:</string>
+    <string name="edit">edit price</string>
+    <string name="request">request price alerts</string>
+    <string name="msg_token_fmt">regToken</string>
+    <string name="default_notification_channel_id">com.activities</string>
+    <string name="fcm_message" >fcm Message </string>
+
 </resources>

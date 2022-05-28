@@ -1,17 +1,20 @@
 package com.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ProductPriceAlert.R;
 import com.google.gson.Gson;
-import com.productpricealert.R;
+
 import com.vogella.retrofitgerrit.UserData;
 
 public class ProductManagerActivity extends AppCompatActivity {
@@ -39,6 +42,16 @@ public class ProductManagerActivity extends AppCompatActivity {
         this.browseProductsPM.setOnClickListener(this::browseProductsActivity);
         this.addNewPRBtn.setOnClickListener(this::addNewProductActivity);
         this.logoutPM.setOnClickListener(this::logout);
+        successfulLoginMessage();
+    }
+
+    private void successfulLoginMessage() {
+        Context context = getApplicationContext();
+        CharSequence text = "Logged in successfully!";
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     private void logout(View view) {

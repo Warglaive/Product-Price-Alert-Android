@@ -11,7 +11,7 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.productpricealert.R;
+import com.ProductPriceAlert.R;
 import com.services.ProductStorageService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
@@ -62,11 +62,19 @@ public class BrowseProductsCustomerActivity extends AppCompatActivity implements
                                         String p = (String) parent.getItemAtPosition(position);
                                         Intent intent = new Intent(currentContext, ProductDetailsCustomerActivity.class);
                                         intent.putExtra("key", p);
+                                        Gson gson = new Gson();
+                                        String userDataJSON = gson.toJson(user);
+                                        intent.putExtra("userDataKey", userDataJSON);
                                         startActivity(intent);
                                     }
                                 });
                     }
                 });
+            }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
             }
 
             @Override
