@@ -11,7 +11,7 @@
         android:id="@+id/nameC"
         android:layout_width="98dp"
         android:layout_height="40dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:text="@string/nameProduct"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,10 +28,24 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.286"
+        app:layout_constraintHorizontal_bias="0.339"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604"
+        app:layout_constraintVertical_bias="0.642"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/priceGetC"
+        android:layout_width="117dp"
+        android:layout_height="48dp"
+        android:text=""
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.758"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.642"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -50,10 +64,10 @@
         android:id="@+id/imageC"
         android:layout_width="204dp"
         android:layout_height="162dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="160dp"
         android:contentDescription="@string/imageDesc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintHorizontal_bias="0.57"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background"
@@ -82,18 +96,18 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
+
     <TextView
         android:id="@+id/locationC"
         android:layout_width="107dp"
         android:layout_height="53dp"
         android:layout_marginStart="100dp"
-        android:layout_marginBottom="164dp"
+        android:layout_marginBottom="204dp"
         android:text="@string/Location"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonC"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
-
 
     <TextView
         android:id="@+id/locationGetC"
@@ -101,26 +115,27 @@
         android:layout_height="48dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="255dp"
+        android:contentDescription="@string/Location"
         android:onClick="openMap"
         android:text=""
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.663"
+        app:layout_constraintHorizontal_bias="0.991"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604"
+        app:layout_constraintVertical_bias="0.883"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/nameGetC"
         android:layout_width="261dp"
         android:layout_height="52dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="84dp"
         android:text=""
         android:textSize="27sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.626"
+        app:layout_constraintHorizontal_bias="0.613"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -129,8 +144,8 @@
         android:id="@+id/purchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
         android:text="@string/purchase"
         app:layout_constraintStart_toEndOf="@+id/nameC"
         app:layout_constraintTop_toTopOf="parent" />
@@ -139,8 +154,8 @@
         android:id="@+id/request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="8dp"
         android:text="@string/request"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageC" />

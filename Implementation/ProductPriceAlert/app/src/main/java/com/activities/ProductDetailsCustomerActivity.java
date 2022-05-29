@@ -121,12 +121,14 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     public void purchaseProduct(Button button) {
 
     }
-    public void openMap(View view){
+    public void openMap(View view) {
         Intent intent = new Intent(currentContext, MapsActivityCurrentPlace.class);
         intent.putExtra("location", location.getText().toString());
         startActivity(intent);
 
-    private void landedOnDetails(Context context) {
+
+    }
+    private void landedOnDetails (Context context){
         CharSequence text = "You got to the Product Details!";
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);

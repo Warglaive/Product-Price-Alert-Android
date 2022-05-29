@@ -47,6 +47,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 /**
  * An activity that displays a map showing the place at the device's current location.
@@ -75,15 +79,16 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
 
+
+    private Bundle extras;
+
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location lastKnownLocation;
 
     // Keys for storing activity state.
-    // [START maps_current_place_state_keys]
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-    // [END maps_current_place_state_keys]
 
     // Used for selecting the current place.
     private static final int M_MAX_ENTRIES = 5;
@@ -92,7 +97,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
 
-    // [START maps_current_place_on_create]
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +104,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         // Construct a Geocoder instance and assign it to the local variable
         geocoder = new Geocoder(this);
 
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -126,19 +130,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        if (!extras.isEmpty()) {
-            if (!extras.getString("location").isEmpty()) {
-                String productAddress = extras.getString("location");
-                try {
-                    System.out.println("Product Address: " + productAddress);
-                    Address addres = geocoder.getFromLocationName(productAddress, 1).get(0);
-                    System.out.println(addres.getAddressLine(0));
-                        setLocation(addres);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
         getIntent().removeExtra("location");
     }
 
@@ -172,6 +163,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
+
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
@@ -207,6 +199,28 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        if (!extras.isEmpty()) {
+            if (!extras.getString("location").isEmpty()) {
+                String productAddress = extras.getString("location");
+                try {
+                    System.out.println("Product Address: " + productAddress);
+                    Address addres = geocoder.getFromLocationName(productAddress, 1).get(0);
+                    System.out.println(addres.getAddressLine(0));
+                    map.addMarker(new MarkerOptions().position(new LatLng(addres.getLatitude(),addres.getLongitude()))).setTitle("Product Location");
+                    OkHttpClient client = new OkHttpClient().newBuilder()
+                            .build();
+                    Request request = new Request.Builder()
+                            .url("https://maps.googleapis.com/maps/api/directions/json?origin=place_id%3AChIJ685WIFYViEgRHlHvBbiD5nE&destination=place_id%3AChIJA01I-8YVhkgRGJb0fW4UX7Y&key=YOUR_API_KEY")
+                            .method("GET", null)
+                            .build();
+                    Response response = client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
 
