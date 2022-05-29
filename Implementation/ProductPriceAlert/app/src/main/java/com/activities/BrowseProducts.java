@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,6 +91,7 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
         filter(filter);
         popular(popular);
         backToWelcome(backToWelcome);
+        happyBrowsing(currentContext);
     }
 
     public void backToWelcome(Button backToWelcome){
@@ -113,5 +115,12 @@ public class BrowseProducts extends AppCompatActivity implements BrowseProductsA
     @Override
     public void popular(Button popular) {
 
+    }
+
+    private void happyBrowsing(Context context) {
+        CharSequence text = "You can now browse through the products!\n Happy Browsing!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

@@ -6,6 +6,11 @@ public class ProductData {
     private String image;
     private String description;
     private String location;
+    private String id;
+
+    public String getID(){
+        return this.id;
+    }
 
     public void setPrice(double price) {
         this.price = price;

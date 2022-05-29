@@ -1,11 +1,13 @@
 package com.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +42,16 @@ public class ProductManagerActivity extends AppCompatActivity {
         this.browseProductsPM.setOnClickListener(this::browseProductsActivity);
         this.addNewPRBtn.setOnClickListener(this::addNewProductActivity);
         this.logoutPM.setOnClickListener(this::logout);
+        successfulLoginMessage();
+    }
+
+    private void successfulLoginMessage() {
+        Context context = getApplicationContext();
+        CharSequence text = "Logged in successfully!";
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     private void logout(View view) {
@@ -53,7 +65,6 @@ public class ProductManagerActivity extends AppCompatActivity {
      * @param view
      */
     private void addNewProductActivity(View view) {
-        //TODO: won't load the activity for some reason
         Intent intent = new Intent(view.getContext(), AddProductActivity.class);
         startActivity(intent);
     }

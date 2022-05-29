@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,6 +50,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         ImageView image = findViewById(R.id.imageC);
         Button button = findViewById(R.id.buttonC);
         Button purchase = findViewById(R.id.purchase);
+        Button request = findViewById(R.id.request);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
         service.getAllProducts(new ResponseWait() {
@@ -98,6 +100,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
         backToBrowse(button);
         purchaseProduct(purchase);
+        landedOnDetails(this);
     }
 
     @Override
@@ -122,5 +125,11 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         Intent intent = new Intent(currentContext, MapsActivityCurrentPlace.class);
         intent.putExtra("location", location.getText().toString());
         startActivity(intent);
+
+    private void landedOnDetails(Context context) {
+        CharSequence text = "You got to the Product Details!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

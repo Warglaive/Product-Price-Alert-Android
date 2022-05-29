@@ -2,6 +2,7 @@ package com.activities;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -132,6 +134,8 @@ public class AddProductActivity extends AppCompatActivity {
                 }
             }
         });
+
+        addingPossible(this);
     }
 
     Uri image_uri;
@@ -228,7 +232,13 @@ public class AddProductActivity extends AppCompatActivity {
     private boolean RegisterProduct(Product product) {
         ProductStorageService storageService = new ProductStorageService();
         return storageService.registerProduct(product);
+    }
 
+    private void addingPossible(Context context) {
+        CharSequence text = "You can add a new product here!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
 }

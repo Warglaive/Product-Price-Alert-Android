@@ -1,5 +1,6 @@
 package com.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,13 +21,17 @@ import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDetailsActivity extends AppCompatActivity implements ProductDetailsActivityInterface {
     private UserData user;
-    private ProductData productData;
+    private ProductData productDataa;
+    private String productName;
+    private ProductStorageService service;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +40,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
 
         Gson gson = new Gson();
         this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
-        ProductStorageService service = new ProductStorageService();
+        this.service = new ProductStorageService();
         Bundle extras = getIntent().getExtras();
-        String productName = extras.getString("key");
+        this.productName = extras.getString("key");
 
         TextView name = (TextView) findViewById(R.id.nameGet);
         TextView price = (TextView) findViewById(R.id.priceGet);
@@ -44,9 +50,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         ImageView image = findViewById(R.id.image);
         Button button = findViewById(R.id.button);
         Button edit = findViewById(R.id.edit);
+        this.context = this;
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
-        service.getAllProducts(new ResponseWait() {
+        this.service.getAllProducts(new ResponseWait() {
             @Override
             public void responseWaitArray(List response) throws IOException {
                 for (Object t : response) {
@@ -61,7 +68,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
                         break;
                     }
                 }
-                productData = product;
+
                 name.setText(product.getName());
                 price.setText(String.valueOf(product.getPrice()));
 
@@ -88,6 +95,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
 
         editProduct(edit);
         backToBrowse(button);
+        landedOnDetails(this);
     }
 
     @Override
@@ -101,17 +109,56 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
 
     @Override
     public void editProduct(Button button) {
-        Intent intent = new Intent(this, EditPriceActivity.class);
-        Gson gson = new Gson();
-        String userDataJSON = gson.toJson(user);
-        intent.putExtra("userDataKey", userDataJSON);
-        String productDataJSON = gson.toJson(productData);
-        intent.putExtra("productDataKey", productDataJSON);
-        button.setOnClickListener(view1 -> startActivity(intent));
+        List<ProductData> list = new ArrayList<>();
+        this.service.getAllProducts(new ResponseWait() {
+            @Override
+            public void responseWaitArray(List response) throws MalformedURLException, IOException {
+                for (Object t : response) {
+                    ProductData data = (ProductData) t;
+                    list.add(data);
+                }
+
+                ProductData product = new ProductData();
+                for (ProductData p : list) {
+                    if (p.getName().equals(productName)) {
+                        product = p;
+                        break;
+                    }
+                }
+
+                productDataa = product;
+                Intent intent = new Intent(context, EditPriceActivity.class);
+                Gson gson = new Gson();
+                String userDataJSON = gson.toJson(user);
+
+                intent.putExtra("userDataKey", userDataJSON);
+                String productDataJSON = gson.toJson(productDataa);
+                intent.putExtra("productDataKey", productDataJSON);
+
+                button.setOnClickListener(view1 -> startActivity(intent));
+            }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
+            }
+
+            @Override
+            public void responseWaitSingle(UserData userData) {
+
+            }
+        });
     }
 
     @Override
     public void purchaseProduct(Button button) {
 
+    }
+
+    private void landedOnDetails(Context context) {
+        CharSequence text = "You got to the Product Details!";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

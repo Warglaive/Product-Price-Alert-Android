@@ -1,3 +1,4 @@
+/*
 package com.activities;
 
 import android.annotation.SuppressLint;
@@ -46,9 +47,11 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+*/
 /**
  * An activity that displays a map showing the place at the device's current location.
- */
+ *//*
+
 public class MapsActivityCurrentPlace extends AppCompatActivity
         implements OnMapReadyCallback {
 
@@ -143,9 +146,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
     // [END maps_current_place_on_create]
 
-    /**
+    */
+/**
      * Saves the state of the map when the activity is paused.
-     */
+     *//*
+
     // [START maps_current_place_on_save_instance_state]
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -157,22 +162,26 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
     // [END maps_current_place_on_save_instance_state]
 
-    /**
+    */
+/**
      * Sets up the options menu.
      * @param menu The options menu.
      * @return Boolean.
-     */
+     *//*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.current_place_menu, menu);
         return true;
     }
 
-    /**
+    */
+/**
      * Handles a click on the menu option to get a place.
      * @param item The menu item to handle.
      * @return Boolean.
-     */
+     *//*
+
     // [START maps_current_place_on_options_item_selected]
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -183,10 +192,12 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
     // [END maps_current_place_on_options_item_selected]
 
-    /**
+    */
+/**
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
-     */
+     *//*
+
     // [START maps_current_place_on_map_ready]
     @Override
     public void onMapReady(GoogleMap map) {
@@ -249,13 +260,16 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     /**
      * Gets the current location of the device, and positions the map's camera.
-     */
+     *//*
+
     // [START maps_current_place_get_device_location]
     private void getDeviceLocation() {
-        /*
+        */
+/*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
-         */
+         *//*
+
         try {
             if (locationPermissionGranted) {
                 @SuppressLint("MissingPermission") Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
@@ -286,16 +300,20 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
     // [END maps_current_place_get_device_location]
 
-    /**
+    */
+/**
      * Prompts the user for permission to use the device location.
-     */
+     *//*
+
     // [START maps_current_place_location_permission]
     private void getLocationPermission() {
-        /*
+        */
+/*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
-         */
+         *//*
+
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -308,9 +326,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
     // [END maps_current_place_location_permission]
 
-    /**
+    */
+/**
      * Handles the result of the request for location permissions.
-     */
+     *//*
+
     // [START maps_current_place_on_request_permissions_result]
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -330,10 +350,12 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
     // [END maps_current_place_on_request_permissions_result]
 
-    /**
+    */
+/**
      * Prompts the user to select the current place from a list of likely places, and shows the
      * current place on the map - provided the user has granted location permission.
-     */
+     *//*
+
     // [START maps_current_place_show_current_place]
     private void showCurrentPlace() {
         if (map == null) {
@@ -413,9 +435,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
     // [END maps_current_place_show_current_place]
 
-    /**
+    */
+/**
      * Displays a form allowing the user to select a place from a list of likely places.
-     */
+     *//*
+
     // [START maps_current_place_open_places_dialog]
     private void openPlacesDialog() {
         // Ask the user to choose the place where they are now.
@@ -450,9 +474,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
     // [END maps_current_place_open_places_dialog]
 
-    /**
+    */
+/**
      * Updates the map's UI settings based on whether the user has granted location permission.
-     */
+     *//*
+
     // [START maps_current_place_update_location_ui]
     @SuppressLint("MissingPermission")
     private void updateLocationUI() {
@@ -499,3 +525,4 @@ Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
 
     // [END maps_current_place_update_location_ui]
 }
+*/

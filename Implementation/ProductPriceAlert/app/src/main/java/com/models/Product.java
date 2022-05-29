@@ -2,6 +2,7 @@ package com.models;
 
 
 public class Product {
+    private String id;
     private String name;
     private double price;
     private String image;
@@ -32,6 +33,10 @@ public class Product {
         this.description = description;
         this.image = image;
         this.location = location;
+    }
+
+    public String getID(){
+        return this.id;
     }
 
     public boolean hasDescription(){
