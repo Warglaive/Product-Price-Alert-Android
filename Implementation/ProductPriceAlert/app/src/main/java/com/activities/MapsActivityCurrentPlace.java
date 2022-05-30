@@ -264,7 +264,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         // Getting URL to the Google Directions API
         System.out.println("last known location lattitude: " + lastKnownLocation.getLatitude());
         System.out.println("product lattitude: " + address.getLatitude());
-        String url = getDirectionsUrl(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()), addressToCoordinates(address));
+        String url = getDirectionsUrl(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()), addressToCoordinates(address));
         Log.d("url", url + "");
         DownloadTask downloadTask = new DownloadTask();
         // Start downloading json data from Google Directions API
@@ -310,7 +310,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage(), e);
         }
     }
@@ -335,9 +335,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                            @NonNull int[] grantResults) {
         locationPermissionGranted = false;
         if (requestCode
-            == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
+                == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 locationPermissionGranted = true;
             }
         } else {
@@ -362,10 +362,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
             // Get the likely places - that is, the businesses and other points of interest that
             // are the best match for the device's current location.
-            @SuppressWarnings("MissingPermission") final
-            Task<FindCurrentPlaceResponse> placeResult =
+            @SuppressWarnings("MissingPermission") final Task<FindCurrentPlaceResponse> placeResult =
                     placesClient.findCurrentPlace(request);
-            placeResult.addOnCompleteListener (new OnCompleteListener<FindCurrentPlaceResponse>() {
+            placeResult.addOnCompleteListener(new OnCompleteListener<FindCurrentPlaceResponse>() {
                 @Override
                 public void onComplete(@NonNull Task<FindCurrentPlaceResponse> task) {
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -402,8 +401,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
                         MapsActivityCurrentPlace.this.openPlacesDialog();
-                    }
-                    else {
+                    } else {
                         Log.e(TAG, "Exception: %s", task.getException());
                     }
                 }
@@ -470,36 +468,41 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 lastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
-
-
+    
     public void addressToCoordinates(View view) throws IOException {
 
-String addressFieldText = addressField.getText().toString();
+        String addressFieldText = addressField.getText().toString();
 
-try{
-    Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
-    System.out.println(addres.getAddressLine(0));
+        try {
+            Address addres = geocoder.getFromLocationName(addressFieldText, 1).get(0);
+            System.out.println(addres.getAddressLine(0));
 
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-            addressToCoordinates(addres), DEFAULT_ZOOM));
-}catch(Exception e){
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    addressToCoordinates(addres), DEFAULT_ZOOM));
+        } catch (Exception e) {
 
-    //Display Warning Message if unsuccessful
-    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            //Display Warning Message if unsuccessful
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-    builder.setMessage("Location Not Found")
-            .setTitle("Location Error");
+            builder.setMessage("Location Not Found")
+                    .setTitle("Location Error");
 
-    AlertDialog dialog = builder.create();
-    dialog.show();
+            AlertDialog dialog = builder.create();
+            dialog.show();
 
-}
+        }
     }
 
+    /**
+     * From Address to coordinates convert
+     * @param address
+     * @return
+     * @throws IOException
+     */
     private LatLng addressToCoordinates(Address address) throws IOException {
 
 
@@ -540,7 +543,7 @@ try{
         String userDataJSON = gson.toJson(user);
         intent.putExtra("key", productName);
         intent.putExtra("userDataKey", userDataJSON);
-         startActivity(intent);
+        startActivity(intent);
     }
 
     /**
@@ -600,14 +603,14 @@ try{
 // Drawing polyline in the Google Map for the i-th route
                 map.addPolyline(lineOptions);
 
-            } catch(Exception e){
+            } catch (Exception e) {
                 //Display Warning Message if unsuccessful
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                 builder.setMessage(R.string.noPathMessage)
                         .setTitle(R.string.noPath);
 
-               AlertDialog dialog = builder.create();
+                AlertDialog dialog = builder.create();
                 dialog.show();
             }
 
