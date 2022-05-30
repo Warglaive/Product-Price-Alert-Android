@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -47,7 +48,9 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.gson.Gson;
 import com.services.DirectionsJSONParser;
+import com.vogella.retrofitgerrit.UserData;
 
 import org.json.JSONObject;
 
@@ -80,6 +83,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     Context context;
     ProgressDialog progressDialog;
 
+    private UserData user;
 
     // The entry point to the Places API.
     private PlacesClient placesClient;
@@ -117,6 +121,10 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //save User context
+        Gson gson = new Gson();
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
 
         //save Context for passing it outside the method
         context = this;
@@ -511,6 +519,15 @@ try{
         }
     }
 
+    public void backToBrowse(View view) {
+        String productName = extras.getString("key");
+        Intent intent = new Intent(this, ProductDetailsCustomerActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("key", productName);
+        intent.putExtra("userDataKey", userDataJSON);
+         startActivity(intent);
+    }
 
     /**
      * A class to parse the Google Places in JSON format

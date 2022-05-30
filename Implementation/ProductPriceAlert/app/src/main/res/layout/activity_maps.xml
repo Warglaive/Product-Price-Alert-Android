@@ -24,6 +24,19 @@
         android:text="Lookup"
         android:textSize="15sp" />
 
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="75dp"
+        android:layout_height="79dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="329dp"
+        android:layout_marginBottom="17dp"
+        android:background="@drawable/roundbutton"
+        android:onClick="backToBrowse"
+        android:text="Back"
+        android:textSize="13sp" />
+
     <EditText
         android:id="@+id/addressField"
         android:layout_width="wrap_content"

@@ -29,6 +29,8 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     private UserData user;
     Context currentContext;
     TextView location;
+    //Need it here so it can be redirected back to the same product from the map view
+    String productName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
         ProductStorageService service = new ProductStorageService();
         Bundle extras = getIntent().getExtras();
-        String productName = extras.getString("key");
+        productName = extras.getString("key");
 
 
         TextView name = (TextView) findViewById(R.id.nameGetC);
@@ -121,9 +123,15 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     public void purchaseProduct(Button button) {
 
     }
+
     public void openMap(View view) {
+
         Intent intent = new Intent(currentContext, MapsActivityCurrentPlace.class);
         intent.putExtra("location", location.getText().toString());
+        intent.putExtra("key", productName);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("userDataKey", userDataJSON);
         startActivity(intent);
 
 
