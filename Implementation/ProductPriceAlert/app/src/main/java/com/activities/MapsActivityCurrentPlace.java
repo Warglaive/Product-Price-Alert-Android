@@ -2,11 +2,15 @@
 package com.activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -34,6 +38,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -42,14 +47,20 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.services.DirectionsJSONParser;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 
 /**
@@ -66,6 +77,10 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     Geocoder geocoder;
     EditText addressField;
 
+    Context context;
+    ProgressDialog progressDialog;
+
+
     // The entry point to the Places API.
     private PlacesClient placesClient;
 
@@ -79,6 +94,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
 
+    // Address of the product
+    Address address;
 
     private Bundle extras;
 
@@ -101,9 +118,13 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //save Context for passing it outside the method
+        context = this;
+
         // Construct a Geocoder instance and assign it to the local variable
         geocoder = new Geocoder(this);
 
+        // Save the extras that are passed to the activity
         extras = getIntent().getExtras();
 
         // Retrieve location and camera position from saved instance state.
@@ -130,6 +151,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
         getIntent().removeExtra("location");
     }
 
@@ -148,8 +170,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         getMenuInflater().inflate(R.menu.current_place_menu, menu);
         return true;
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -205,22 +225,35 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 String productAddress = extras.getString("location");
                 try {
                     System.out.println("Product Address: " + productAddress);
-                    Address addres = geocoder.getFromLocationName(productAddress, 1).get(0);
-                    System.out.println(addres.getAddressLine(0));
-                    map.addMarker(new MarkerOptions().position(new LatLng(addres.getLatitude(),addres.getLongitude()))).setTitle("Product Location");
-                    OkHttpClient client = new OkHttpClient().newBuilder()
-                            .build();
-                    Request request = new Request.Builder()
-                            .url("https://maps.googleapis.com/maps/api/directions/json?origin=place_id%3AChIJ685WIFYViEgRHlHvBbiD5nE&destination=place_id%3AChIJA01I-8YVhkgRGJb0fW4UX7Y&key=YOUR_API_KEY")
-                            .method("GET", null)
-                            .build();
-                    Response response = client.newCall(request).execute();
+                    address = geocoder.getFromLocationName(productAddress, 1).get(0);
+                    System.out.println(address.getAddressLine(0));
+                    map.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(),address.getLongitude()))).setTitle("Product Location");
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
 
+
+    }
+
+    private void drawPolylines() {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Please Wait, Polyline between two locations is building.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+
+        // Checks, whether start and end locations are captured
+        // Getting URL to the Google Directions API
+        System.out.println("last known location lattitude: " + lastKnownLocation.getLatitude());
+        System.out.println("product lattitude: " + address.getLatitude());
+        String url = getDirectionsUrl(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()), new LatLng(address.getLatitude(),address.getLongitude()));
+        Log.d("url", url + "");
+        DownloadTask downloadTask = new DownloadTask();
+        // Start downloading json data from Google Directions API
+        downloadTask.execute(url);
     }
 
 
@@ -254,6 +287,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                drawPolylines();
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -453,5 +487,153 @@ Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
         return addres;
     }
 
+    private class DownloadTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+
+            String data = "";
+
+            try {
+                data = downloadUrl(url[0]);
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            ParserTask parserTask = new ParserTask();
+
+
+            parserTask.execute(result);
+
+        }
+    }
+
+
+    /**
+     * A class to parse the Google Places in JSON format
+     */
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+
+        // Parsing the data in non-ui thread
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+
+            try {
+                jObject = new JSONObject(jsonData[0]);
+                DirectionsJSONParser parser = new DirectionsJSONParser();
+
+                routes = parser.parse(jObject);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+
+            progressDialog.dismiss();
+            Log.d("result", result.toString());
+            ArrayList points = null;
+            PolylineOptions lineOptions = null;
+
+            for (int i = 0; i < result.size(); i++) {
+                points = new ArrayList();
+                lineOptions = new PolylineOptions();
+
+                List<HashMap<String, String>> path = result.get(i);
+
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
+
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat, lng);
+
+                    points.add(position);
+                }
+
+                lineOptions.addAll(points);
+                lineOptions.width(12);
+                lineOptions.color(Color.RED);
+                lineOptions.geodesic(true);
+
+            }
+
+// Drawing polyline in the Google Map for the i-th route
+            map.addPolyline(lineOptions);
+        }
+    }
+
+    private String getDirectionsUrl(LatLng origin, LatLng dest) {
+
+        // Origin of route
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+
+        // Destination of route
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+
+        // Sensor enabled
+        String sensor = "sensor=false";
+        String mode = "mode=driving";
+        // Building the parameters to the web service
+        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + mode + "&key=AIzaSyAJtKEBM3cV46VP2fmDs1sQBZ8u2fNfuCw";
+
+        // Output format
+        String output = "json";
+
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+
+        return url;
+    }
+
+    /**
+     * A method to download json data from url
+     */
+    private String downloadUrl(String strUrl) throws IOException {
+        String data = "";
+        InputStream iStream = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(strUrl);
+
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            urlConnection.connect();
+
+            iStream = urlConnection.getInputStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+
+            StringBuffer sb = new StringBuffer();
+
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+            data = sb.toString();
+
+            br.close();
+            Log.d("data", data);
+
+        } catch (Exception e) {
+            Log.d("Exception", e.toString());
+        } finally {
+            iStream.close();
+            urlConnection.disconnect();
+        }
+        return data;
+    }
 }
 
