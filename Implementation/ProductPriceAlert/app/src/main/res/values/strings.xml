@@ -48,5 +48,7 @@
     <string name="msg_token_fmt">regToken</string>
     <string name="default_notification_channel_id">com.activities</string>
     <string name="fcm_message" >fcm Message </string>
+    <string name="noPath" > No Path found</string>
+    <string name="noPathMessage" > No Path was found to the destination </string>
 
 </resources>

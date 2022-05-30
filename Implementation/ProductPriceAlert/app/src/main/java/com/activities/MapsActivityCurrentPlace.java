@@ -227,7 +227,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     System.out.println("Product Address: " + productAddress);
                     address = geocoder.getFromLocationName(productAddress, 1).get(0);
                     System.out.println(address.getAddressLine(0));
-                    map.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(),address.getLongitude()))).setTitle("Product Location");
+                    map.addMarker(new MarkerOptions().position(addressToCoordinates(address))).setTitle("Product Location");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -238,7 +238,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     }
 
-    private void drawPolylines() {
+    private void drawPolylines() throws IOException {
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Please Wait, Polyline between two locations is building.");
         progressDialog.setCancelable(false);
@@ -249,26 +249,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         // Getting URL to the Google Directions API
         System.out.println("last known location lattitude: " + lastKnownLocation.getLatitude());
         System.out.println("product lattitude: " + address.getLatitude());
-        String url = getDirectionsUrl(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()), new LatLng(address.getLatitude(),address.getLongitude()));
+        String url = getDirectionsUrl(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()), addressToCoordinates(address));
         Log.d("url", url + "");
         DownloadTask downloadTask = new DownloadTask();
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
-    }
-
-
-    private void setLocation(Address address){
-        try {
-
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(address.getLatitude(),
-                                address.getLongitude()), DEFAULT_ZOOM));
-                System.out.println("Setting Location to: " + address.getAddressLine(0));
-
-
-        } catch (SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage(), e);
-        }
 
     }
 
@@ -287,7 +272,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                                drawPolylines();
+                                try {
+                                    drawPolylines();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -463,28 +452,36 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Log.e("Exception: %s", e.getMessage());
         }
     }
-    private Address coordinatesToAddress(double longtitude, double latitude) throws IOException {
-        Address address = geocoder.getFromLocation(longtitude,latitude,1).get(0);
-        return address;
-    }
-    public void AddressToCoordinates(View view) throws IOException {
+
+
+    public void addressToCoordinates(View view) throws IOException {
 
 String addressFieldText = addressField.getText().toString();
 
-Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
-        System.out.println(addres.getAddressLine(0));
+try{
+    Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
+    System.out.println(addres.getAddressLine(0));
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(addres.getLatitude(),
-                        addres.getLongitude()), DEFAULT_ZOOM));
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+            addressToCoordinates(addres), DEFAULT_ZOOM));
+}catch(Exception e){
 
+    //Display Warning Message if unsuccessful
+    AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
+    builder.setMessage("Location Not Found")
+            .setTitle("Location Error");
+
+    AlertDialog dialog = builder.create();
+    dialog.show();
+
+}
     }
 
-    private Address AddressToCoordinates(String address) throws IOException {
+    private LatLng addressToCoordinates(Address address) throws IOException {
 
-        Address addres = geocoder.getFromLocationName(address,1).get(0);
-        return addres;
+
+        return new LatLng(address.getLatitude(), address.getLongitude());
     }
 
     private class DownloadTask extends AsyncTask<String, Void, String> {
@@ -540,37 +537,49 @@ Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
 
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+            try {
+                progressDialog.dismiss();
+                Log.d("result", result.toString());
+                ArrayList points = null;
+                PolylineOptions lineOptions = null;
 
-            progressDialog.dismiss();
-            Log.d("result", result.toString());
-            ArrayList points = null;
-            PolylineOptions lineOptions = null;
+                for (int i = 0; i < result.size(); i++) {
+                    points = new ArrayList();
+                    lineOptions = new PolylineOptions();
 
-            for (int i = 0; i < result.size(); i++) {
-                points = new ArrayList();
-                lineOptions = new PolylineOptions();
+                    List<HashMap<String, String>> path = result.get(i);
 
-                List<HashMap<String, String>> path = result.get(i);
+                    for (int j = 0; j < path.size(); j++) {
+                        HashMap<String, String> point = path.get(j);
 
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
+                        double lat = Double.parseDouble(point.get("lat"));
+                        double lng = Double.parseDouble(point.get("lng"));
+                        LatLng position = new LatLng(lat, lng);
 
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
+                        points.add(position);
+                    }
 
-                    points.add(position);
+                    lineOptions.addAll(points);
+                    lineOptions.width(12);
+                    lineOptions.color(Color.RED);
+                    lineOptions.geodesic(true);
+
                 }
 
-                lineOptions.addAll(points);
-                lineOptions.width(12);
-                lineOptions.color(Color.RED);
-                lineOptions.geodesic(true);
+// Drawing polyline in the Google Map for the i-th route
+                map.addPolyline(lineOptions);
 
+            } catch(Exception e){
+                //Display Warning Message if unsuccessful
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                builder.setMessage(R.string.noPathMessage)
+                        .setTitle(R.string.noPath);
+
+               AlertDialog dialog = builder.create();
+                dialog.show();
             }
 
-// Drawing polyline in the Google Map for the i-th route
-            map.addPolyline(lineOptions);
         }
     }
 

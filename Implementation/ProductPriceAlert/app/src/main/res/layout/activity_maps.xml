@@ -20,7 +20,7 @@
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/roundbutton"
-        android:onClick="AddressToCoordinates"
+        android:onClick="addressToCoordinates"
         android:text="Lookup"
         android:textSize="15sp" />
 
