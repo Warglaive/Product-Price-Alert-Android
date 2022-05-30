@@ -32,6 +32,7 @@ public class ProductStorageService {
         productData.setPrice(product.getPrice());
         productData.setDescription(product.getDescription());
         productData.setImage(product.getImage());
+        productData.setLocation(product.getLocation());
         //add ProductData to DB
         Call<ProductData> call = this.restAPI.postProduct(productData);
         call.enqueue(new Callback<ProductData>() {
