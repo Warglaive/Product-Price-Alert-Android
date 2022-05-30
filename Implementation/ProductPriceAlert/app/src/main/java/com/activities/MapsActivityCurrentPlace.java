@@ -237,8 +237,15 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     System.out.println(address.getAddressLine(0));
                     map.addMarker(new MarkerOptions().position(addressToCoordinates(address))).setTitle("Product Location");
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (IOException | IndexOutOfBoundsException e) {
+                    //Display Warning Message if unsuccessful
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                    builder.setMessage("Location Not Found")
+                            .setTitle("Location Error");
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             }
         }
@@ -282,8 +289,15 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                                 try {
                                     drawPolylines();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                                } catch (IOException | NullPointerException e) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                                    builder.setMessage(R.string.noPathMessage)
+                                            .setTitle(R.string.noPath);
+
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                    backToBrowse(new View(context));
                                 }
                             }
                         } else {
