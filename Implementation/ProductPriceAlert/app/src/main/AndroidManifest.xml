@@ -45,7 +45,7 @@
             android:exported="true" />
 
 
-        <activity android:name="com.activities.AddProductActivity"></activity>
+        <activity android:name="com.activities.AddProductActivity" />
 
         <activity
             android:name="com.activities.FilterProductsActivity"
@@ -79,7 +79,7 @@
             android:name="com.services.PushNotificationService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <!--   <service android:name=".FirebaseIDService">
