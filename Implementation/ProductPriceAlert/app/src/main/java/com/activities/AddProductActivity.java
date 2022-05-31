@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import com.ProductPriceAlert.R;
 import com.models.Product;
 import com.services.ProductStorageService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
@@ -40,6 +42,7 @@ public class AddProductActivity extends AppCompatActivity {
     private EditText productDes;
     private EditText productLocation;
     private ImageView imageView;
+    private String encodedStringImage;
     private TextView text1;
 
     String imagePath;
@@ -117,13 +120,13 @@ public class AddProductActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Create user
+                //Create product
                 String pName = productName.getText().toString();
                 Double pPrice = Double.parseDouble(productPrice.getText().toString());
                 String pDescription = productDes.getText().toString();
-                String pImage = imagePath;
-                String pLocation = productLocation.getText().toString();
-                Product product = CreateProduct(pName,pPrice, pDescription, pImage,pLocation);
+
+                String pImage = encodedStringImage;
+                Product product = CreateProduct(pName,pPrice, pDescription, pImage);
                 //if Register is successful redirect to login, else ->
                 if (RegisterProduct(product)) {
                     Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
@@ -162,7 +165,9 @@ public class AddProductActivity extends AppCompatActivity {
         if (requestCode == IMAGE_CAPTURE_CODE && resultCode == RESULT_OK){
             //imageView.setImageURI(image_uri);
             Bitmap bitmap = uriToBitmap(image_uri);
+            this.encodedStringImage = encodeImage(bitmap);
             imageView.setImageBitmap(bitmap);
+
 
         }
 
@@ -171,9 +176,28 @@ public class AddProductActivity extends AppCompatActivity {
             image_uri = data.getData();
             //imageView.setImageURI(image_uri);
             Bitmap bitmap = uriToBitmap(image_uri);
+            this.encodedStringImage = encodeImage(bitmap);
             imageView.setImageBitmap(bitmap);
 
         }
+    }
+
+    //encode bitmap to base64 string
+    private String encodeImage(Bitmap bm)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte[] b = baos.toByteArray();
+        String encImage = Base64.encodeToString(b, Base64.DEFAULT);
+
+        return encImage;
+    }
+
+    //decode base64 string to bitmap
+    private Bitmap decodeImageToBitmap(String encodedImage){
+        byte[] imageBytes = Base64.decode(encodedImage,Base64.DEFAULT);
+        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.length);
+        return decodedImage;
     }
 
     //TODO takes URI of the image and returns bitmap
