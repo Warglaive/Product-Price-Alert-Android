@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.ProductPriceAlert.R;
 import com.google.gson.Gson;
@@ -22,7 +22,6 @@ import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         TextView name = (TextView) findViewById(R.id.nameGet);
         TextView price = (TextView) findViewById(R.id.priceGet);
         TextView description = (TextView) findViewById(R.id.descriptionGet);
-        ImageView image = findViewById(R.id.image);
+        ImageView productImage = findViewById(R.id.productImage);
         Button button = findViewById(R.id.button);
         Button edit = findViewById(R.id.edit);
         this.context = this;
@@ -76,9 +75,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
                     description.setText(product.getDescription());
                 }
                 if(product.hasImage()) {
-                    URL url = new URL(product.getImage());
-                    Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection() .getInputStream());
-                    image.setImageBitmap(bitmap);
+                    String encodedImage = product.getImage();
+                    byte[] imageBytes = Base64.decode(encodedImage,Base64.DEFAULT);
+                    Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.length);
+                    productImage.setImageBitmap(decodedImage);
                 }
             }
 
