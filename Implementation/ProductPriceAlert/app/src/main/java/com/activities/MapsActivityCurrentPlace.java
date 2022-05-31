@@ -1,12 +1,17 @@
-/*
+
 package com.activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -34,6 +39,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -42,16 +48,27 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.gson.Gson;
+import com.services.DirectionsJSONParser;
+import com.vogella.retrofitgerrit.UserData;
 
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
-*/
+
 /**
  * An activity that displays a map showing the place at the device's current location.
- *//*
+ */
 
 public class MapsActivityCurrentPlace extends AppCompatActivity
         implements OnMapReadyCallback {
@@ -62,6 +79,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     Geocoder geocoder;
     EditText addressField;
+
+    Context context;
+    ProgressDialog progressDialog;
+
+    private UserData user;
 
     // The entry point to the Places API.
     private PlacesClient placesClient;
@@ -76,15 +98,18 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
 
+    // Address of the product
+    Address address;
+
+    private Bundle extras;
+
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location lastKnownLocation;
 
     // Keys for storing activity state.
-    // [START maps_current_place_state_keys]
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-    // [END maps_current_place_state_keys]
 
     // Used for selecting the current place.
     private static final int M_MAX_ENTRIES = 5;
@@ -93,30 +118,35 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
 
-    // [START maps_current_place_on_create]
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // [START_EXCLUDE silent]
-        // [START maps_current_place_on_create_save_instance_state]
+        //save User context
+        Gson gson = new Gson();
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
+
+        //save Context for passing it outside the method
+        context = this;
+
+        // Construct a Geocoder instance and assign it to the local variable
+        geocoder = new Geocoder(this);
+
+        // Save the extras that are passed to the activity
+        extras = getIntent().getExtras();
+
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
-        // [END maps_current_place_on_create_save_instance_state]
-        // [END_EXCLUDE]
 
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
 
-        // Construct a Geocoder instance and assign it to the local variable
-        geocoder = new Geocoder(this);
         // link the addressField to the one in the xml
         this.addressField = findViewById(R.id.addressField);
 
-        // [START_EXCLUDE silent]
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
         placesClient = Places.createClient(this);
@@ -125,21 +155,15 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Build the map.
-        // [START maps_current_place_map_fragment]
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        // [END maps_current_place_map_fragment]
-        // [END_EXCLUDE]
+
+
+        getIntent().removeExtra("location");
     }
-    // [END maps_current_place_on_create]
 
-    */
-/**
-     * Saves the state of the map when the activity is paused.
-     *//*
 
-    // [START maps_current_place_on_save_instance_state]
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (map != null) {
@@ -148,14 +172,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
         super.onSaveInstanceState(outState);
     }
-    // [END maps_current_place_on_save_instance_state]
-
-    */
-/**
-     * Sets up the options menu.
-     * @param menu The options menu.
-     * @return Boolean.
-     *//*
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -163,14 +179,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         return true;
     }
 
-    */
-/**
-     * Handles a click on the menu option to get a place.
-     * @param item The menu item to handle.
-     * @return Boolean.
-     *//*
-
-    // [START maps_current_place_on_options_item_selected]
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.option_get_place) {
@@ -178,21 +186,13 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
         return true;
     }
-    // [END maps_current_place_on_options_item_selected]
 
-    */
-/**
-     * Manipulates the map when it's available.
-     * This callback is triggered when the map is ready to be used.
-     *//*
 
-    // [START maps_current_place_on_map_ready]
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
-        // [START_EXCLUDE]
-        // [START map_current_place_set_info_window_adapter]
+
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
         this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -218,32 +218,61 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 return infoWindow;
             }
         });
-        // [END map_current_place_set_info_window_adapter]
 
         // Prompt the user for permission.
         getLocationPermission();
-        // [END_EXCLUDE]
 
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        if (!extras.isEmpty()) {
+            if (!extras.getString("location").isEmpty()) {
+                String productAddress = extras.getString("location");
+                try {
+                    System.out.println("Product Address: " + productAddress);
+                    address = geocoder.getFromLocationName(productAddress, 1).get(0);
+                    System.out.println(address.getAddressLine(0));
+                    map.addMarker(new MarkerOptions().position(addressToCoordinates(address))).setTitle("Product Location");
+
+                } catch (IOException | IndexOutOfBoundsException e) {
+                    //Display Warning Message if unsuccessful
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                    builder.setMessage("Location Not Found")
+                            .setTitle("Location Error");
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        }
+
+
     }
-    // [END maps_current_place_on_map_ready]
 
-    */
-/**
-     * Gets the current location of the device, and positions the map's camera.
-     *//*
+    private void drawPolylines() throws IOException {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Please Wait, Polyline between two locations is building.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
-    // [START maps_current_place_get_device_location]
+
+        // Checks, whether start and end locations are captured
+        // Getting URL to the Google Directions API
+        System.out.println("last known location lattitude: " + lastKnownLocation.getLatitude());
+        System.out.println("product lattitude: " + address.getLatitude());
+        String url = getDirectionsUrl(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()), addressToCoordinates(address));
+        Log.d("url", url + "");
+        DownloadTask downloadTask = new DownloadTask();
+        // Start downloading json data from Google Directions API
+        downloadTask.execute(url);
+
+    }
+
     private void getDeviceLocation() {
-        */
-/*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         *//*
 
         try {
             if (locationPermissionGranted) {
@@ -258,6 +287,18 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                try {
+                                    drawPolylines();
+                                } catch (IOException | NullPointerException e) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                                    builder.setMessage(R.string.noPathMessage)
+                                            .setTitle(R.string.noPath);
+
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                    backToBrowse(new View(context));
+                                }
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -273,21 +314,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Log.e("Exception: %s", e.getMessage(), e);
         }
     }
-    // [END maps_current_place_get_device_location]
 
-    */
-/**
-     * Prompts the user for permission to use the device location.
-     *//*
-
-    // [START maps_current_place_location_permission]
     private void getLocationPermission() {
-        */
-/*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         *//*
+
 
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -299,14 +328,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
-    // [END maps_current_place_location_permission]
 
-    */
-/**
-     * Handles the result of the request for location permissions.
-     *//*
-
-    // [START maps_current_place_on_request_permissions_result]
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -323,15 +345,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
         updateLocationUI();
     }
-    // [END maps_current_place_on_request_permissions_result]
 
-    */
-/**
-     * Prompts the user to select the current place from a list of likely places, and shows the
-     * current place on the map - provided the user has granted location permission.
-     *//*
-
-    // [START maps_current_place_show_current_place]
     private void showCurrentPlace() {
         if (map == null) {
             return;
@@ -408,14 +422,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             getLocationPermission();
         }
     }
-    // [END maps_current_place_show_current_place]
 
-    */
-/**
-     * Displays a form allowing the user to select a place from a list of likely places.
-     *//*
-
-    // [START maps_current_place_open_places_dialog]
     private void openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -447,14 +454,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 .setItems(likelyPlaceNames, listener)
                 .show();
     }
-    // [END maps_current_place_open_places_dialog]
 
-    */
-/**
-     * Updates the map's UI settings based on whether the user has granted location permission.
-     *//*
-
-    // [START maps_current_place_update_location_ui]
     @SuppressLint("MissingPermission")
     private void updateLocationUI() {
         if (map == null) {
@@ -474,30 +474,206 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Log.e("Exception: %s", e.getMessage());
         }
     }
-    private Address coordinatesToAddress(double longtitude, double latitude) throws IOException {
-        Address address = geocoder.getFromLocation(longtitude,latitude,1).get(0);
-        return address;
-    }
-    public void AddressToCoordinates(View view) throws IOException {
+
+
+    public void addressToCoordinates(View view) throws IOException {
 
 String addressFieldText = addressField.getText().toString();
 
-Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
-        System.out.println(addres.getAddressLine(0));
+try{
+    Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
+    System.out.println(addres.getAddressLine(0));
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(addres.getLatitude(),
-                        addres.getLongitude()), DEFAULT_ZOOM));
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+            addressToCoordinates(addres), DEFAULT_ZOOM));
+}catch(Exception e){
 
+    //Display Warning Message if unsuccessful
+    AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-    }
+    builder.setMessage("Location Not Found")
+            .setTitle("Location Error");
 
-    private Address AddressToCoordinates(String address) throws IOException {
+    AlertDialog dialog = builder.create();
+    dialog.show();
 
-        Address addres = geocoder.getFromLocationName(address,1).get(0);
-        return addres;
-    }
-
-    // [END maps_current_place_update_location_ui]
 }
-*/
+    }
+
+    private LatLng addressToCoordinates(Address address) throws IOException {
+
+
+        return new LatLng(address.getLatitude(), address.getLongitude());
+    }
+
+    private class DownloadTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+
+            String data = "";
+
+            try {
+                data = downloadUrl(url[0]);
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            ParserTask parserTask = new ParserTask();
+
+
+            parserTask.execute(result);
+
+        }
+    }
+
+    public void backToBrowse(View view) {
+        String productName = extras.getString("key");
+        Intent intent = new Intent(this, ProductDetailsCustomerActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(user);
+        intent.putExtra("key", productName);
+        intent.putExtra("userDataKey", userDataJSON);
+         startActivity(intent);
+    }
+
+    /**
+     * A class to parse the Google Places in JSON format
+     */
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+
+        // Parsing the data in non-ui thread
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+
+            try {
+                jObject = new JSONObject(jsonData[0]);
+                DirectionsJSONParser parser = new DirectionsJSONParser();
+
+                routes = parser.parse(jObject);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+            try {
+                progressDialog.dismiss();
+                Log.d("result", result.toString());
+                ArrayList points = null;
+                PolylineOptions lineOptions = null;
+
+                for (int i = 0; i < result.size(); i++) {
+                    points = new ArrayList();
+                    lineOptions = new PolylineOptions();
+
+                    List<HashMap<String, String>> path = result.get(i);
+
+                    for (int j = 0; j < path.size(); j++) {
+                        HashMap<String, String> point = path.get(j);
+
+                        double lat = Double.parseDouble(point.get("lat"));
+                        double lng = Double.parseDouble(point.get("lng"));
+                        LatLng position = new LatLng(lat, lng);
+
+                        points.add(position);
+                    }
+
+                    lineOptions.addAll(points);
+                    lineOptions.width(12);
+                    lineOptions.color(Color.RED);
+                    lineOptions.geodesic(true);
+
+                }
+
+// Drawing polyline in the Google Map for the i-th route
+                map.addPolyline(lineOptions);
+
+            } catch(Exception e){
+                //Display Warning Message if unsuccessful
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                builder.setMessage(R.string.noPathMessage)
+                        .setTitle(R.string.noPath);
+
+               AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+
+        }
+    }
+
+    private String getDirectionsUrl(LatLng origin, LatLng dest) {
+
+        // Origin of route
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+
+        // Destination of route
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+
+        // Sensor enabled
+        String sensor = "sensor=false";
+        String mode = "mode=driving";
+        // Building the parameters to the web service
+        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + mode + "&key=AIzaSyAJtKEBM3cV46VP2fmDs1sQBZ8u2fNfuCw";
+
+        // Output format
+        String output = "json";
+
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+
+        return url;
+    }
+
+    /**
+     * A method to download json data from url
+     */
+    private String downloadUrl(String strUrl) throws IOException {
+        String data = "";
+        InputStream iStream = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(strUrl);
+
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            urlConnection.connect();
+
+            iStream = urlConnection.getInputStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+
+            StringBuffer sb = new StringBuffer();
+
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+            data = sb.toString();
+
+            br.close();
+            Log.d("data", data);
+
+        } catch (Exception e) {
+            Log.d("Exception", e.toString());
+        } finally {
+            iStream.close();
+            urlConnection.disconnect();
+        }
+        return data;
+    }
+}
+
