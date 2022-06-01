@@ -43,8 +43,9 @@ public class AddProductActivity extends AppCompatActivity {
     private ImageView imageView;
     private String encodedStringImage;
     private TextView displayString;
+    private Button rotateButton;
 
-    String imagePath;
+
 
     // private static final int GALLERY_REQUEST = 100;
     // private static final int CAMERA_REQUEST = 200;
@@ -66,10 +67,11 @@ public class AddProductActivity extends AppCompatActivity {
         this.locationField = findViewById(R.id.locationField);
         this.imageView = findViewById(R.id.imageView);
         this.homeButton = findViewById(R.id.homeButton);
+        this.rotateButton = findViewById(R.id.rotateButton);
 
         this.displayString = findViewById(R.id.displayString);
         this.displayString.setText("hi");
-       // this.text1 = findViewById(R.id.text1);
+
 
         ActivityCompat.requestPermissions(AddProductActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
@@ -85,7 +87,14 @@ public class AddProductActivity extends AppCompatActivity {
         this.homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddProductActivity.this, ProductManagerActivity.class));
+                startActivity(new Intent(AddProductActivity.this, BrowseProducts.class));
+            }
+        });
+
+        this.rotateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rotateImage(imageView);
             }
         });
 
@@ -175,6 +184,7 @@ public class AddProductActivity extends AppCompatActivity {
 
 
 
+
         }
 
 
@@ -226,6 +236,12 @@ public class AddProductActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return  null;
+    }
+
+    private void rotateImage(ImageView imageview){
+        imageView.setPivotX(imageView.getWidth() / 2);
+        imageView.setPivotY(imageView.getHeight() / 2);
+        imageView.setRotation(90);
     }
 
 

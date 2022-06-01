@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         ImageView productImage = findViewById(R.id.productImage);
         Button button = findViewById(R.id.button);
         Button edit = findViewById(R.id.edit);
+        Button rotate = findViewById(R.id.button2);
         this.context = this;
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
@@ -96,6 +98,18 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         editProduct(edit);
         backToBrowse(button);
         landedOnDetails(this);
+        rotate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rotateImage(productImage);
+            }
+        });
+    }
+
+    private void rotateImage(ImageView image) {
+        image.setPivotX(image.getWidth() / 2);
+        image.setPivotY(image.getHeight() / 2);
+        image.setRotation(90);
     }
 
     @Override
