@@ -28,6 +28,11 @@ import java.util.List;
 
 public class ProductDetailsCustomerActivity extends AppCompatActivity implements ProductDetailsActivityInterface {
     private UserData user;
+    private ProductData product;
+    private ProductStorageService service;
+    private String productName;
+    private ProductData productDataa;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,9 +41,10 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
         Gson gson = new Gson();
         this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
-        ProductStorageService service = new ProductStorageService();
+        this.service = new ProductStorageService();
         Bundle extras = getIntent().getExtras();
-        String productName = extras.getString("key");
+        this.productName = extras.getString("key");
+        this.context = this;
 
 
         TextView name = (TextView) findViewById(R.id.nameGetC);
@@ -116,11 +122,51 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     }
 
     public void maxPrice(Button button) {
-        Intent intent = new Intent(this, ProvideMaxPriceActivity.class);
+        List<ProductData> list = new ArrayList<>();
+        this.service.getAllProducts(new ResponseWait() {
+            @Override
+            public void responseWaitArray(List response) throws MalformedURLException, IOException {
+                for (Object t : response) {
+                    ProductData data = (ProductData) t;
+                    list.add(data);
+                }
+
+                ProductData product = new ProductData();
+                for (ProductData p : list) {
+                    if (p.getName().equals(productName)) {
+                        product = p;
+                        break;
+                    }
+                }
+
+                productDataa = product;
+                Intent intent = new Intent(context, ProvideMaxPriceActivity.class);
+                Gson gson = new Gson();
+                String userDataJSON = gson.toJson(user);
+
+                intent.putExtra("userDataKey", userDataJSON);
+                String productDataJSON = gson.toJson(productDataa);
+                intent.putExtra("productDataKey", productDataJSON);
+
+                button.setOnClickListener(view1 -> startActivity(intent));
+            }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
+            }
+
+            @Override
+            public void responseWaitSingle(UserData userData) {
+
+            }
+        });
+        /*Intent intent = new Intent(this, ProvideMaxPriceActivity.class);
         Gson gson = new Gson();
         String userDataJSON = gson.toJson(user);
         intent.putExtra("userDataKey", userDataJSON);
-        button.setOnClickListener(view1 -> startActivity(intent));
+        intent.putExtra("product", this.p)
+        button.setOnClickListener(view1 -> startActivity(intent));*/
     }
 
     private void landedOnDetails(Context context) {
