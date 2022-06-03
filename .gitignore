@@ -39,3 +39,5 @@ render.experimental.xml
 # Android Profiling
 *.hprof
 Implementation/ProductPriceAlert/local.properties
+*.properties
+Implementation/ProductPriceAlert/local.properties
