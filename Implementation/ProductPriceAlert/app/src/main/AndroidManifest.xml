@@ -45,7 +45,7 @@
             android:exported="true" />
 
 
-        <activity android:name="com.activities.AddProductActivity"></activity>
+        <activity android:name="com.activities.AddProductActivity" />
 
         <activity
             android:name="com.activities.FilterProductsActivity"
@@ -79,7 +79,7 @@
             android:name="com.services.PushNotificationService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <!--   <service android:name=".FirebaseIDService">
@@ -96,6 +96,6 @@
              notification message. See README(https://goo.gl/6BKBk7) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/common_google_signin_btn_text_dark" />-->
+            android:resource="@color/common_google_signin_btn_text_dark" />
     </application>
 </manifest>
