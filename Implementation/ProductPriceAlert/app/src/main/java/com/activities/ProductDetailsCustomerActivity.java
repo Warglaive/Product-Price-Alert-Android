@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ProductPriceAlert.R;
 import com.google.gson.Gson;
 import com.services.ProductStorageService;
+import com.services.PushNotificationService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
@@ -31,6 +32,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     TextView location;
     //Need it here so it can be redirected back to the same product from the map view
     String productName;
+    private Button request;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,8 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         Button purchase = findViewById(R.id.purchase);
         Button request = findViewById(R.id.request);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
-
+        //set on click listener for product price alert
+        requestPriceAlerts();
         service.getAllProducts(new ResponseWait() {
             @Override
             public void responseWaitArray(List response) throws IOException {
@@ -73,16 +76,16 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
                 name.setText(product.getName());
                 price.setText(String.valueOf(product.getPrice()));
-                if(product.hasDescription()) {
+                if (product.hasDescription()) {
                     description.setText(product.getDescription());
                 }
-                if(product.hasLocation()){
+                if (product.hasLocation()) {
                     location.setText(product.getLocation());
                 }
 
-                if(product.hasImage()) {
+                if (product.hasImage()) {
                     URL url = new URL(product.getImage());
-                    Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection() .getInputStream());
+                    Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                     image.setImageBitmap(bitmap);
                 }
 
@@ -124,6 +127,15 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
     }
 
+
+    public void requestPriceAlerts() {
+
+        this.request.setOnClickListener(x -> {
+            PushNotificationService pushNotificationService = new PushNotificationService();
+            pushNotificationService.onNewToken("PriceAlertToken");
+        });
+    }
+
     public void openMap(View view) {
 
         Intent intent = new Intent(currentContext, MapsActivityCurrentPlace.class);
@@ -136,7 +148,8 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
 
     }
-    private void landedOnDetails (Context context){
+
+    private void landedOnDetails(Context context) {
         CharSequence text = "You got to the Product Details!";
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);

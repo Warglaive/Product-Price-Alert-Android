@@ -39,7 +39,7 @@ public interface RestAPI {
     Call<ProductData> updatePrice(@Path("id") String id, @Body ProductData productData);
 
     //Cloud messaging
-    @Headers("Authorization : key=BIIgxlXPWeoBjdULNKYB-x3VTL5opk8Vyq8Ef1vK9xJcgKmOsLCqf74jQKpR4jDWEZU7d6_kcUvtXE9w6ATjrKQ")
+    @Headers("Authorization : key=$SERVER_KEY")
     @POST("fcm/send")
-    Call<ResponseBody> sendChatNotification(@Field("to") String token, @Body RequestNotification requestNotificaton);
+    Call<ResponseBody> sendChatNotification(@Field("token") String token, @Body RequestNotification requestNotification);
 }

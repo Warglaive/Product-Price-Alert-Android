@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,18 +16,29 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.activities.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.ProductPriceAlert.R;
+import com.models.RequestNotification;
+import com.models.SendNotificationModel;
+import com.vogella.retrofitgerrit.RestClient;
+import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
 import java.util.Objects;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PushNotificationService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
+    public RestAPI restAPI;
+
+    public PushNotificationService() {
+    }
 
     /**
      * There are two scenarios when onNewToken is called:
@@ -42,35 +52,53 @@ public class PushNotificationService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String token) {
         FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        String token = task.getResult();
-
-                        // Log and toast
-                        String msg = String.format(String.valueOf(R.string.msg_token_fmt), token);
-                        Log.d(TAG, msg);
-                        Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
-                        //Send token to server
-                        Log.d(TAG, "Refreshed token: " + token);
-
-                        // If you want to send messages to this application instance or
-                        // manage this apps subscriptions on the server side, send the
-                        // FCM registration token to your app server.
-                        sendRegistrationToServer(token);
-
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                        return;
                     }
+
+                    // Get new FCM registration token
+                    String token1 = task.getResult();
+
+                    // Log and toast
+                    String msg = String.format(String.valueOf(R.string.msg_token_fmt), token1);
+                    Log.d(TAG, msg);
+                    Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+                    //Send token to server
+                    Log.d(TAG, "Refreshed token: " + token1);
+
+                    // If you want to send messages to this application instance or
+                    // manage this apps subscriptions on the server side, send the
+                    // FCM registration token to your app server.
+                    sendRegistrationToServer(token1);
+
                 });
     }
 
     private void sendRegistrationToServer(String token) {
         Log.e(TAG, "sendRegistrationToServer: " + token);
+        String notificationTitle = "Product price has dropped!";
+        String notificationBody = "Check out our app for details!";
+
+        RequestNotification requestNotification = new RequestNotification();
+        requestNotification.setToken(token);
+        SendNotificationModel notificationModel = new SendNotificationModel(notificationBody, notificationTitle);
+        requestNotification.setSendNotificationModel(notificationModel);
+        this.restAPI = RestClient.getClient();
+        //TODO: Call Retrofit enqueue
+        Call<ResponseBody> call = this.restAPI.sendChatNotification(token, requestNotification);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                //TODO:
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
     }
 
     /**
