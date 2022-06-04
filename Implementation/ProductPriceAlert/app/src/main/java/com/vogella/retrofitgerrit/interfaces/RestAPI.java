@@ -41,6 +41,6 @@ public interface RestAPI {
 
     //Cloud messaging
     @Headers({"Authorization : key=AAAAs8iUhBw:APA91bEMSHh6PCV0i27jd4q0LxRaWauVqqnBOCzZlEFyIUSwOXmt4FcAt2Un3zFsxSNUCChlipcDbcv_ZY2hXFQO0wSUHWe2VzzK552-GwNF2LZH16qHW3-qgzuGjrndsmkD_7d0xeWr", "Content-Type: application/json"})
-    @POST("https://fcm.googleapis.com/fcm/send")
+    @POST("fcm/send")
     Call<ResponseBody> sendChatNotification();
 }
