@@ -37,4 +37,13 @@
         android:layout_marginStart="74dp"
         android:layout_marginBottom="332dp"
         android:text="@string/loginButton" />
+
+    <Button
+        android:id="@+id/notifyMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="229dp"
+        android:text="@string/send_notification" />
 </RelativeLayout>

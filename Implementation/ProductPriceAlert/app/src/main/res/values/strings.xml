@@ -50,5 +50,8 @@
     <string name="fcm_message" >fcm Message </string>
     <string name="noPath" > No Path found</string>
     <string name="noPathMessage" > No Path was found to the destination </string>
+    <string name="send_notification">Send Notification</string>
+    <string name="msg_subscribed">Successfully subscribed!</string>
+    <string name="msg_subscribe_failed">Could NOT subscribe!</string>
 
 </resources>
