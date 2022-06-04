@@ -93,7 +93,6 @@ public class PushNotificationService extends FirebaseMessagingService {
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
-                //TODO:
                 System.out.println("response");
             }
 
