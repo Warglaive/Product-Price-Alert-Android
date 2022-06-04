@@ -10,6 +10,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
@@ -39,7 +40,7 @@ public interface RestAPI {
     Call<ProductData> updatePrice(@Path("id") String id, @Body ProductData productData);
 
     //Cloud messaging
-    @Headers("Authorization : key=$SERVER_KEY")
-    @POST("fcm/send")
-    Call<ResponseBody> sendChatNotification(@Field("token") String token, @Body RequestNotification requestNotification);
+    @Headers({"Authorization : key=AAAAs8iUhBw:APA91bEMSHh6PCV0i27jd4q0LxRaWauVqqnBOCzZlEFyIUSwOXmt4FcAt2Un3zFsxSNUCChlipcDbcv_ZY2hXFQO0wSUHWe2VzzK552-GwNF2LZH16qHW3-qgzuGjrndsmkD_7d0xeWr", "Content-Type: application/json"})
+    @POST("https://fcm.googleapis.com/fcm/send")
+    Call<ResponseBody> sendChatNotification();
 }

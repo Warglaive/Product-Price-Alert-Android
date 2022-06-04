@@ -86,18 +86,19 @@ public class PushNotificationService extends FirebaseMessagingService {
         requestNotification.setToken(token);
         SendNotificationModel notificationModel = new SendNotificationModel(notificationBody, notificationTitle);
         requestNotification.setSendNotificationModel(notificationModel);
-        this.restAPI = RestClient.getClient();
+        this.restAPI = RestClient.getPushNotificationClient();
         //TODO: Call Retrofit enqueue
-        Call<ResponseBody> call = this.restAPI.sendChatNotification(token, requestNotification);
+        Call<ResponseBody> call = this.restAPI.sendChatNotification();
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 //TODO:
+                System.out.println("response");
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-
+                System.out.println("fail");
             }
         });
     }
