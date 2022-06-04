@@ -54,7 +54,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         ImageView image = findViewById(R.id.imageC);
         Button button = findViewById(R.id.buttonC);
         Button purchase = findViewById(R.id.purchase);
-        Button request = findViewById(R.id.request);
+        this.request = findViewById(R.id.request);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
         //set on click listener for product price alert
         requestPriceAlerts();
