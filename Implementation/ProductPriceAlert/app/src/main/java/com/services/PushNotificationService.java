@@ -16,6 +16,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.activities.MainActivity;
+import com.activities.ProductDetailsCustomerActivity;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -64,7 +65,7 @@ public class PushNotificationService extends FirebaseMessagingService {
                     // Log and toast
                     String msg = String.format(String.valueOf(R.string.msg_token_fmt), token1);
                     Log.d(TAG, msg);
-                    Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(getBaseContext(ProductDetailsCustomerActivity.class), msg, Toast.LENGTH_SHORT).show();
                     //Send token to server
                     Log.d(TAG, "Refreshed token: " + token1);
 
