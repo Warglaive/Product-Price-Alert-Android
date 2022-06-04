@@ -10,7 +10,7 @@ tmp/*
 build/
 
 # Local configuration file (sdk path, etc)
-local.properties
+
 
 # Log/OS Files
 *.log
@@ -38,6 +38,6 @@ render.experimental.xml
 
 # Android Profiling
 *.hprof
-Implementation/ProductPriceAlert/local.properties
+*.local.properties
 *.properties
-Implementation/ProductPriceAlert/local.properties
+
