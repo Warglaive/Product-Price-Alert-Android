@@ -81,7 +81,8 @@ public class PushNotificationService extends FirebaseMessagingService {
         Log.e(TAG, "sendRegistrationToServer: " + token);
         String notificationTitle = "Product price has dropped!";
         String notificationBody = "Check out our app for details!";
-
+        //TODO: Check
+        System.out.println(token);
         RequestNotification requestNotification = new RequestNotification();
         requestNotification.setToken(token);
         SendNotificationModel notificationModel = new SendNotificationModel(notificationBody, notificationTitle);

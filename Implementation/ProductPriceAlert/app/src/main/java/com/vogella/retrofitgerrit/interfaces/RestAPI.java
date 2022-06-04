@@ -40,7 +40,7 @@ public interface RestAPI {
     Call<ProductData> updatePrice(@Path("id") String id, @Body ProductData productData);
 
     //Cloud messaging
-    @Headers({"Authorization : key=AAAAs8iUhBw:APA91bEMSHh6PCV0i27jd4q0LxRaWauVqqnBOCzZlEFyIUSwOXmt4FcAt2Un3zFsxSNUCChlipcDbcv_ZY2hXFQO0wSUHWe2VzzK552-GwNF2LZH16qHW3-qgzuGjrndsmkD_7d0xeWr", "Content-Type: application/json"})
-    @POST("fcm/send")
+    @Headers({"Authorization: key=" + "dApiJwf1S22OXMBqlzgEtt:APA91bFMmMgWBjlK0uv6rD2_duhrpQYDfn6h0MUrRDLeI_WZHixkjNmfnGl-_CpHSnUhLL_DYd-xpXgfhwHYL8UJC8utm5d1MkMQxIouegzPBJ2dMy4D7zo63Sne5F-uui-PfZOFBVjb", "Content-Type:application/json"})
+    @POST("https://fcm.googleapis.com/fcm/send")
     Call<ResponseBody> sendChatNotification();
 }
