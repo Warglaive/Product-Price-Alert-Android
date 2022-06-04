@@ -41,12 +41,32 @@ public class PushNotificationService extends FirebaseMessagingService {
      */
     @Override
     public void onNewToken(@NonNull String token) {
-        Log.d(TAG, "Refreshed token: " + token);
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
 
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // FCM registration token to your app server.
-        sendRegistrationToServer(token);
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        String msg = String.format(String.valueOf(R.string.msg_token_fmt), token);
+                        Log.d(TAG, msg);
+                        Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+                        //Send token to server
+                        Log.d(TAG, "Refreshed token: " + token);
+
+                        // If you want to send messages to this application instance or
+                        // manage this apps subscriptions on the server side, send the
+                        // FCM registration token to your app server.
+                        sendRegistrationToServer(token);
+
+                    }
+                });
     }
 
     private void sendRegistrationToServer(String token) {
@@ -110,12 +130,10 @@ public class PushNotificationService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(channelId,
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
+        NotificationChannel channel = new NotificationChannel(channelId,
+                "Channel human readable title",
+                NotificationManager.IMPORTANCE_DEFAULT);
+        notificationManager.createNotificationChannel(channel);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
