@@ -3,8 +3,12 @@ package com.activities;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import static java.security.AccessController.getContext;
+
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +22,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.services.PushNotificationService;
+import android.provider.Settings.Secure;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     //Notification test
     private Button notifyMe;
 
+  //  private String android_id = Secure.getString((ContentResolver) getContext().getDomainCombiner(),
+  //          Secure.ANDROID_ID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         loginOrRegister(findViewById(R.id.mainActivity).getRootView());
         //TODO: Test notifications
         NotificationOnClickListenerSet();
+        sendToServer();
+    }
+
+    private void sendToServer() {
+        // Fetching Android ID and storing it into a constant
     }
 
     private void NotificationOnClickListenerSet() {
@@ -56,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 Log.d(TAG, msg);
                                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                System.out.println("TOKEN1: "+msg);
+
                             }
                         });
                 // [END subscribe_topics]
@@ -87,7 +102,9 @@ public class MainActivity extends AppCompatActivity {
                                 //TODO: Ignore the warning
                                 String msg = getString(R.string.msg_token_fmt, token);
                                 Log.d(TAG, msg);
-                                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+                                System.out.println("TOKEN2: "+token);
+
                             }
                         });
                 // [END log_reg_token]
