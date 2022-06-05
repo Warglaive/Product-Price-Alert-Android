@@ -21,6 +21,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.ProductPriceAlert.R;
+import com.google.gson.Gson;
 import com.models.RequestNotification;
 import com.models.SendNotificationModel;
 import com.vogella.retrofitgerrit.RestClient;
@@ -89,7 +90,11 @@ public class PushNotificationService extends FirebaseMessagingService {
         requestNotification.setSendNotificationModel(notificationModel);
         this.restAPI = RestClient.getPushNotificationClient();
         //TODO: Call Retrofit enqueue
-        Call<ResponseBody> call = this.restAPI.sendChatNotification(notificationModel);
+        //notificationModel as Gson
+        Gson gson = new Gson();
+        String jsonModel = gson.toJson(notificationModel);
+
+        Call<ResponseBody> call = this.restAPI.sendChatNotification(jsonModel);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
