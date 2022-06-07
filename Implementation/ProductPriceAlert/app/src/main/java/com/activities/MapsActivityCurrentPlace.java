@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -292,7 +293,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                 } catch (IOException | NullPointerException e) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                                    builder.setMessage(R.string.noPathMessage)
+                                    builder.setMessage(R.string.noPathMessage + " During getting current location")
                                             .setTitle(R.string.noPath);
 
                                     AlertDialog dialog = builder.create();
@@ -483,9 +484,16 @@ String addressFieldText = addressField.getText().toString();
 try{
     Address addres = geocoder.getFromLocationName(addressFieldText,1).get(0);
     System.out.println(addres.getAddressLine(0));
+    LatLng coordinates = addressToCoordinates(addres);
 
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-            addressToCoordinates(addres), DEFAULT_ZOOM));
+            coordinates, DEFAULT_ZOOM));
+
+
+    CharSequence text = "Going to: " + coordinatesToAddress(coordinates) + "\n" + addressToCoordinates(address);
+    Toast toast = Toast.makeText(context, text,Toast.LENGTH_LONG);
+    toast.show();
+
 }catch(Exception e){
 
     //Display Warning Message if unsuccessful
@@ -504,6 +512,10 @@ try{
 
 
         return new LatLng(address.getLatitude(), address.getLongitude());
+    }
+    private String coordinatesToAddress(LatLng latLng) throws IOException {
+Address addres = geocoder.getFromLocation(latLng.latitude,latLng.longitude,2).get(0);
+return addres.getAddressLine(0);
     }
 
     private class DownloadTask extends AsyncTask<String, Void, String> {
@@ -604,7 +616,7 @@ try{
                 //Display Warning Message if unsuccessful
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                builder.setMessage(R.string.noPathMessage)
+                builder.setMessage(R.string.noPathMessage + " During on Post Execute")
                         .setTitle(R.string.noPath);
 
                AlertDialog dialog = builder.create();

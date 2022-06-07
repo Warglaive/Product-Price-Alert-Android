@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,7 +23,6 @@ import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +55,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         Button button = findViewById(R.id.buttonC);
         Button purchase = findViewById(R.id.purchase);
         this.request = findViewById(R.id.request);
+        Button rotateB = findViewById(R.id.rotateB);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
         //set on click listener for product price alert
         requestPriceAlerts();
@@ -83,10 +84,12 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
                     location.setText(product.getLocation());
                 }
 
-                if (product.hasImage()) {
-                    URL url = new URL(product.getImage());
-                    Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                    image.setImageBitmap(bitmap);
+
+                if(product.hasImage()) {
+                    String encodedImage = product.getImage();
+                    byte[] imageBytes = Base64.decode(encodedImage,Base64.DEFAULT);
+                    Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.length);
+                    image.setImageBitmap(decodedImage);
                 }
 
                 System.out.println("Does product have location? - " + product.hasLocation());
@@ -106,6 +109,12 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         backToBrowse(button);
         purchaseProduct(purchase);
         landedOnDetails(this);
+        rotateB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rotateImage(image);
+            }
+        });
     }
 
     @Override
@@ -115,6 +124,12 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         String userDataJSON = gson.toJson(user);
         intent.putExtra("userDataKey", userDataJSON);
         button.setOnClickListener(view1 -> startActivity(intent));
+    }
+
+    public void rotateImage(ImageView image){
+        image.setPivotX(image.getWidth() / 2);
+        image.setPivotY(image.getHeight() / 2);
+        image.setRotation(90);
     }
 
     @Override

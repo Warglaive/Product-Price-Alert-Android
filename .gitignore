@@ -39,5 +39,3 @@ render.experimental.xml
 # Android Profiling
 *.hprof
 *.local.properties
-*.properties
-
