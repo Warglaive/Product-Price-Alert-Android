@@ -28,7 +28,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.ProductPriceAlert.BuildConfig;
 import com.ProductPriceAlert.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -149,7 +148,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         this.addressField = findViewById(R.id.addressField);
 
         // Construct a PlacesClient
-        Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
+        Places.initialize(getApplicationContext(), "AIzaSyAJtKEBM3cV46VP2fmDs1sQBZ8u2fNfuCw");
         placesClient = Places.createClient(this);
 
         // Construct a FusedLocationProviderClient.
@@ -616,7 +615,7 @@ return addres.getAddressLine(0);
                 //Display Warning Message if unsuccessful
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                builder.setMessage(R.string.noPathMessage + " During on Post Execute")
+                builder.setMessage(R.string.noPathMessage)
                         .setTitle(R.string.noPath);
 
                AlertDialog dialog = builder.create();
