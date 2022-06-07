@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -43,13 +44,9 @@
         <activity
             android:name="com.activities.MapsActivityCurrentPlace"
             android:exported="true" />
-
-
         <activity android:name="com.activities.AddProductActivity"
             android:exported="true">
-
         </activity>
-
         <activity
             android:name="com.activities.FilterProductsActivity"
 
@@ -68,8 +65,17 @@
             android:exported="true" />
 
         <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="${MAPS_API_KEY}"/>
+            android:value="${MAPS_API_KEY}" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -77,21 +83,17 @@
         <activity
             android:name="com.activities.EditPriceActivity"
             android:exported="true" />
+        <activity
+            android:name="com.activities.ProvideMaxPriceActivity"
+            android:exported="true" />
 
         <service
             android:name="com.services.PushNotificationService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <!--   <service android:name=".FirebaseIDService">
-               <intent-filter>
-                   <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-               </intent-filter>
-           </service>-->
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-             See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_ic_notification" />
@@ -99,6 +101,6 @@
              notification message. See README(https://goo.gl/6BKBk7) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/common_google_signin_btn_text_dark" />-->
+            android:resource="@color/common_google_signin_btn_text_dark" />
     </application>
 </manifest>
