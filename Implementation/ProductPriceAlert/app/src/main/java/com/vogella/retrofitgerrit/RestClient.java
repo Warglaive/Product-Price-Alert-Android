@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient {
     //
-    static final String baseUrl = "http://lb4latest.herokuapp.com/";
+    static final String baseUrl = "http://192.168.0.117:3000/";
     static final String pushNotificationsURL="https://fcm.googleapis.com/";
 
 

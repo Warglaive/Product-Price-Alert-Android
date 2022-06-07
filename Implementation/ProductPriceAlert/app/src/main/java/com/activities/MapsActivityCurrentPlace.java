@@ -679,3 +679,4 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         return data;
     }
 }
+
