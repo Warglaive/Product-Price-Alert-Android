@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,51 +13,50 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ProductPriceAlert.R;
 import com.google.gson.Gson;
 import com.services.ProductStorageService;
-import com.services.PushNotificationService;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
+import com.ProductPriceAlert.R;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDetailsCustomerActivity extends AppCompatActivity implements ProductDetailsActivityInterface {
     private UserData user;
-    Context currentContext;
-    TextView location;
-    //Need it here so it can be redirected back to the same product from the map view
-    String productName;
-    private Button request;
+    private ProductData product;
+    private ProductStorageService service;
+    private String productName;
+    private ProductData productDataa;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details_customer);
 
-        currentContext = this;
         Gson gson = new Gson();
         this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
-        ProductStorageService service = new ProductStorageService();
+        this.service = new ProductStorageService();
         Bundle extras = getIntent().getExtras();
-        productName = extras.getString("key");
+        this.productName = extras.getString("key");
+        this.context = this;
 
 
         TextView name = (TextView) findViewById(R.id.nameGetC);
         TextView price = (TextView) findViewById(R.id.priceGetC);
         TextView description = (TextView) findViewById(R.id.descriptionGetC);
-        location = (TextView) findViewById(R.id.locationGetC);
         ImageView image = findViewById(R.id.imageC);
         Button button = findViewById(R.id.buttonC);
         Button purchase = findViewById(R.id.purchase);
-        this.request = findViewById(R.id.request);
-        Button rotateB = findViewById(R.id.rotateB);
+        Button request = findViewById(R.id.request);
+        Button maxPrice = findViewById(R.id.button2);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
-        //set on click listener for product price alert
-        requestPriceAlerts();
+
         service.getAllProducts(new ResponseWait() {
             @Override
             public void responseWaitArray(List response) throws IOException {
@@ -77,22 +75,14 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
                 name.setText(product.getName());
                 price.setText(String.valueOf(product.getPrice()));
-                if (product.hasDescription()) {
+                if(product.hasDescription()) {
                     description.setText(product.getDescription());
                 }
-                if (product.hasLocation()) {
-                    location.setText(product.getLocation());
-                }
-
-
                 if(product.hasImage()) {
-                    String encodedImage = product.getImage();
-                    byte[] imageBytes = Base64.decode(encodedImage,Base64.DEFAULT);
-                    Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.length);
-                    image.setImageBitmap(decodedImage);
+                    URL url = new URL(product.getImage());
+                    Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection() .getInputStream());
+                    image.setImageBitmap(bitmap);
                 }
-
-                System.out.println("Does product have location? - " + product.hasLocation());
             }
 
             @Override
@@ -109,12 +99,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         backToBrowse(button);
         purchaseProduct(purchase);
         landedOnDetails(this);
-        rotateB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rotateImage(image);
-            }
-        });
+        maxPrice(maxPrice);
     }
 
     @Override
@@ -124,12 +109,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         String userDataJSON = gson.toJson(user);
         intent.putExtra("userDataKey", userDataJSON);
         button.setOnClickListener(view1 -> startActivity(intent));
-    }
-
-    public void rotateImage(ImageView image){
-        image.setPivotX(image.getWidth() / 2);
-        image.setPivotY(image.getHeight() / 2);
-        image.setRotation(90);
     }
 
     @Override
@@ -142,26 +121,52 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
     }
 
+    public void maxPrice(Button button) {
+        List<ProductData> list = new ArrayList<>();
+        this.service.getAllProducts(new ResponseWait() {
+            @Override
+            public void responseWaitArray(List response) throws MalformedURLException, IOException {
+                for (Object t : response) {
+                    ProductData data = (ProductData) t;
+                    list.add(data);
+                }
 
-    public void requestPriceAlerts() {
+                ProductData product = new ProductData();
+                for (ProductData p : list) {
+                    if (p.getName().equals(productName)) {
+                        product = p;
+                        break;
+                    }
+                }
 
-        this.request.setOnClickListener(x -> {
-            PushNotificationService pushNotificationService = new PushNotificationService();
-            pushNotificationService.onNewToken("PriceAlertToken");
+                productDataa = product;
+                Intent intent = new Intent(context, ProvideMaxPriceActivity.class);
+                Gson gson = new Gson();
+                String userDataJSON = gson.toJson(user);
+
+                intent.putExtra("userDataKey", userDataJSON);
+                String productDataJSON = gson.toJson(productDataa);
+                intent.putExtra("productDataKey", productDataJSON);
+
+                button.setOnClickListener(view1 -> startActivity(intent));
+            }
+
+            @Override
+            public void responseWaitSingle(ProductData productData) {
+
+            }
+
+            @Override
+            public void responseWaitSingle(UserData userData) {
+
+            }
         });
-    }
-
-    public void openMap(View view) {
-
-        Intent intent = new Intent(currentContext, MapsActivityCurrentPlace.class);
-        intent.putExtra("location", location.getText().toString());
-        intent.putExtra("key", productName);
+        /*Intent intent = new Intent(this, ProvideMaxPriceActivity.class);
         Gson gson = new Gson();
         String userDataJSON = gson.toJson(user);
         intent.putExtra("userDataKey", userDataJSON);
-        startActivity(intent);
-
-
+        intent.putExtra("product", this.p)
+        button.setOnClickListener(view1 -> startActivity(intent));*/
     }
 
     private void landedOnDetails(Context context) {
