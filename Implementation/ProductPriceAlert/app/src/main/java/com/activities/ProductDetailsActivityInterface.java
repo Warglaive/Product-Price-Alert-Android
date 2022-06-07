@@ -9,4 +9,5 @@ public interface ProductDetailsActivityInterface {
     void editProduct(Button button);
 
     void purchaseProduct(Button button);
+  //  void requestPriceAlerts();
 }

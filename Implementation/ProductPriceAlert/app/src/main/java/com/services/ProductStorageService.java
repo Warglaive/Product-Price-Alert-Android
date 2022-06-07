@@ -7,9 +7,7 @@ import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 import com.vogella.retrofitgerrit.interfaces.RestAPI;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +30,7 @@ public class ProductStorageService {
         productData.setPrice(product.getPrice());
         productData.setDescription(product.getDescription());
         productData.setImage(product.getImage());
+        productData.setLocation(product.getLocation());
         //add ProductData to DB
         Call<ProductData> call = this.restAPI.postProduct(productData);
         call.enqueue(new Callback<ProductData>() {
@@ -58,7 +57,7 @@ public class ProductStorageService {
                 if(response.isSuccessful()){
                     List<ProductData> productData = response.body();
                     for (ProductData data: productData) {
-                        System.out.println(data.toString());
+                       // System.out.println(data.toString());
                     }
                     try {
                         callback.responseWaitArray(productData);

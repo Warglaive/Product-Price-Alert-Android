@@ -1,6 +1,6 @@
 package com.vogella.retrofitgerrit.interfaces;
 
-import com.models.RequestNotification;
+import com.models.SendNotificationModel;
 import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.UserData;
 
@@ -9,7 +9,6 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
@@ -42,7 +41,8 @@ public interface RestAPI {
     Call<UserData> provideMaxPrice(@Path("id") String id, @Body UserData userData);
 
     //Cloud messaging
-    @Headers("Authorization : key=BIIgxlXPWeoBjdULNKYB-x3VTL5opk8Vyq8Ef1vK9xJcgKmOsLCqf74jQKpR4jDWEZU7d6_kcUvtXE9w6ATjrKQ")
-    @POST("fcm/send")
-    Call<ResponseBody> sendChatNotification(@Field("to") String token, @Body RequestNotification requestNotification);
+
+    @Headers({"Authorization: key=" + "AAAAs8iUhBw:APA91bEMSHh6PCV0i27jd4q0LxRaWauVqqnBOCzZlEFyIUSwOXmt4FcAt2Un3zFsxSNUCChlipcDbcv_ZY2hXFQO0wSUHWe2VzzK552-GwNF2LZH16qHW3-qgzuGjrndsmkD_7d0xeWr", "Content-Type:application/json"})
+    @POST("https://fcm.googleapis.com/fcm/send")
+    Call<ResponseBody> sendChatNotification(@Body String model);
 }
