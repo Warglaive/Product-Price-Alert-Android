@@ -20,13 +20,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 
 import com.ProductPriceAlert.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -473,6 +473,19 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
     }
 
+    /**
+     * From Address to coordinates convert
+     *
+     * @param address
+     * @return
+     * @throws IOException
+     */
+    private LatLng addressToCoordinates(Address address) throws IOException {
+        System.out.println("Address:" + address.toString());
+        System.out.println("Address Latitude: " + address.getLatitude() + "Address Longitude: " + address.getLongitude());
+        return new LatLng(address.getLatitude(), address.getLongitude());
+    }
+
     public void addressToCoordinates(View view) throws IOException {
 
         String addressFieldText = addressField.getText().toString();
@@ -481,8 +494,15 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Address addres = geocoder.getFromLocationName(addressFieldText, 1).get(0);
             System.out.println(addres.getAddressLine(0));
 
+            LatLng coordinates = addressToCoordinates(addres);
+
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                     addressToCoordinates(addres), DEFAULT_ZOOM));
+
+            CharSequence text = "Going to: " + coordinatesToAddress(coordinates) + "\n" + addressToCoordinates(address);
+            Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+            toast.show();
+
         } catch (Exception e) {
 
             //Display Warning Message if unsuccessful
@@ -497,17 +517,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
     }
 
-    /**
-     * From Address to coordinates convert
-     * @param address
-     * @return
-     * @throws IOException
-     */
-    private LatLng addressToCoordinates(Address address) throws IOException {
-
-
-        return new LatLng(address.getLatitude(), address.getLongitude());
+    private String coordinatesToAddress(LatLng latLng) throws IOException {
+        Address addres = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 2).get(0);
+        return addres.getAddressLine(0);
     }
+
 
     private class DownloadTask extends AsyncTask<String, Void, String> {
 
@@ -607,7 +621,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 //Display Warning Message if unsuccessful
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                builder.setMessage(R.string.noPathMessage)
+                builder.setMessage(R.string.noPathMessage + " During on Post Execute")
                         .setTitle(R.string.noPath);
 
                 AlertDialog dialog = builder.create();
