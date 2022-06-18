@@ -32,6 +32,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
     private String productName;
     private ProductStorageService service;
     private Context context;
+    private TextView location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +48,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         TextView name = (TextView) findViewById(R.id.nameGet);
         TextView price = (TextView) findViewById(R.id.priceGet);
         TextView description = (TextView) findViewById(R.id.descriptionGet);
+        this.location = findViewById(R.id.locationGetM);
         ImageView productImage = findViewById(R.id.productImage);
         Button button = findViewById(R.id.button);
         Button edit = findViewById(R.id.edit);
-        Button rotate = findViewById(R.id.button2);
+        Button rotate = findViewById(R.id.buttonRot);
         this.context = this;
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
@@ -76,12 +78,16 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
                 if(product.hasDescription()) {
                     description.setText(product.getDescription());
                 }
+                if (product.hasLocation()){
+                    location.setText(product.getLocation());
+                }
                 if(product.hasImage()) {
                     String encodedImage = product.getImage();
                     byte[] imageBytes = Base64.decode(encodedImage,Base64.DEFAULT);
                     Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.length);
                     productImage.setImageBitmap(decodedImage);
                 }
+
             }
 
             @Override
@@ -107,8 +113,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
     }
 
     private void rotateImage(ImageView image) {
-        image.setPivotX(image.getWidth() / 2);
-        image.setPivotY(image.getHeight() / 2);
+        image.setPivotX((float) image.getWidth() / 2);
+        image.setPivotY((float) image.getHeight() / 2);
         image.setRotation(90);
     }
 

@@ -15,23 +15,38 @@
         android:text="@string/nameProduct"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/priceC"
-        android:layout_width="90dp"
-        android:layout_height="49dp"
+        android:layout_width="86dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="95dp"
         android:text="@string/price"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.224"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.997"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/priceGetC"
+        android:layout_width="117dp"
+        android:layout_height="48dp"
+        android:text=""
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.286"
+        app:layout_constraintHorizontal_bias="0.629"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604"
+        app:layout_constraintVertical_bias="0.693"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -70,6 +85,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
+
     <TextView
         android:id="@+id/descriptionGetC"
         android:layout_width="217dp"
@@ -83,17 +99,15 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/priceGetC"
-        android:layout_width="117dp"
-        android:layout_height="48dp"
-        android:text=""
+        android:id="@+id/locationC"
+        android:layout_width="107dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginBottom="200dp"
+        android:text="@string/Location"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.663"
+        app:layout_constraintBottom_toTopOf="@+id/buttonC"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -113,8 +127,8 @@
         android:id="@+id/purchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
         android:text="@string/purchase"
         app:layout_constraintStart_toEndOf="@+id/nameC"
         app:layout_constraintTop_toTopOf="parent" />
@@ -123,8 +137,8 @@
         android:id="@+id/request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="64dp"
         android:text="@string/request"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageC" />
@@ -133,10 +147,20 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginBottom="72dp"
         android:text="@string/maxPrice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonRotC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="304dp"
+        android:text="@string/rotate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
