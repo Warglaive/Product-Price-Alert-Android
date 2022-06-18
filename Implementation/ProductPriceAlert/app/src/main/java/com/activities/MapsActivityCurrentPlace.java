@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -472,6 +473,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
+    private String coordinatesToAddress(LatLng latLng) throws IOException {
+        Address addres = geocoder.getFromLocation(latLng.latitude,latLng.longitude,2).get(0);
+        return addres.getAddressLine(0);
+    }
     
     public void addressToCoordinates(View view) throws IOException {
 
@@ -481,8 +487,14 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Address addres = geocoder.getFromLocationName(addressFieldText, 1).get(0);
             System.out.println(addres.getAddressLine(0));
 
+            LatLng coordinates = addressToCoordinates(addres);
+
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                     addressToCoordinates(addres), DEFAULT_ZOOM));
+
+            CharSequence text = "Going to: " + coordinatesToAddress(coordinates) + "\n" + addressToCoordinates(address);
+            Toast toast = Toast.makeText(context, text,Toast.LENGTH_LONG);
+            toast.show();
         } catch (Exception e) {
 
             //Display Warning Message if unsuccessful
@@ -607,7 +619,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 //Display Warning Message if unsuccessful
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                builder.setMessage(R.string.noPathMessage)
+                builder.setMessage(R.string.noPathMessage + " During on Post Execute")
                         .setTitle(R.string.noPath);
 
                 AlertDialog dialog = builder.create();
