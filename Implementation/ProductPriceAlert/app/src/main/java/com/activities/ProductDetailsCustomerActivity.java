@@ -22,7 +22,6 @@ import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details_customer);
 
-        currentContext = this;
+        context = this;
         Gson gson = new Gson();
         this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
         ProductStorageService service = new ProductStorageService();
@@ -131,19 +130,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     public void openMap(View view) {
 
         Intent intent = new Intent(context, MapsActivityCurrentPlace.class);
-        intent.putExtra("location", location.getText().toString());
-        intent.putExtra("key", productName);
-        Gson gson = new Gson();
-        String userDataJSON = gson.toJson(user);
-        intent.putExtra("userDataKey", userDataJSON);
-        startActivity(intent);
-
-
-    }
-
-    public void openMap(View view) {
-
-        Intent intent = new Intent(currentContext, MapsActivityCurrentPlace.class);
         intent.putExtra("location", location.getText().toString());
         intent.putExtra("key", productName);
         Gson gson = new Gson();
