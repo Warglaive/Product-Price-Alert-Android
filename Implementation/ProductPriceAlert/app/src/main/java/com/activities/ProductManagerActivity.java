@@ -66,6 +66,10 @@ public class ProductManagerActivity extends AppCompatActivity {
      */
     private void addNewProductActivity(View view) {
         Intent intent = new Intent(view.getContext(), AddProductActivity.class);
+        Gson gson = new Gson();
+        String userDataJSON = gson.toJson(this.user);
+
+        intent.putExtra("userDataKey", userDataJSON);
         startActivity(intent);
     }
 

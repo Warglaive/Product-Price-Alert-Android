@@ -24,8 +24,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.ProductPriceAlert.R;
+import com.google.gson.Gson;
 import com.models.Product;
 import com.services.ProductStorageService;
+import com.vogella.retrofitgerrit.UserData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
@@ -44,6 +46,7 @@ public class AddProductActivity extends AppCompatActivity {
     private String encodedStringImage;
     private TextView displayString;
     private Button rotateButton;
+    private UserData user;
 
 
 
@@ -69,6 +72,9 @@ public class AddProductActivity extends AppCompatActivity {
         this.homeButton = findViewById(R.id.homeButton);
         this.rotateButton = findViewById(R.id.rotateButton);
 
+        Gson gson = new Gson();
+        this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
+
         this.displayString = findViewById(R.id.displayString);
         this.displayString.setText("hi");
 
@@ -87,7 +93,12 @@ public class AddProductActivity extends AppCompatActivity {
         this.homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddProductActivity.this, ProductManagerActivity.class));
+                Intent intent = new Intent(AddProductActivity.this, ProductManagerActivity.class);
+                Gson gson = new Gson();
+                String userDataJSON = gson.toJson(user);
+
+                intent.putExtra("userDataKey", userDataJSON);
+                startActivity(intent);
             }
         });
 
@@ -143,6 +154,10 @@ public class AddProductActivity extends AppCompatActivity {
                 if (RegisterProduct(product)) {
                     Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
                     intent.putExtra("key", product.getName());
+                    Gson gson = new Gson();
+                    String userDataJSON = gson.toJson(user);
+
+                    intent.putExtra("userDataKey", userDataJSON);
                     startActivity(intent);
                 } else {
                     System.out.println("Registration failed");
@@ -239,8 +254,8 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     private void rotateImage(ImageView imageview){
-        imageView.setPivotX(imageView.getWidth() / 2);
-        imageView.setPivotY(imageView.getHeight() / 2);
+        imageView.setPivotX((float)imageView.getWidth() / 2);
+        imageView.setPivotY((float)imageView.getHeight() / 2);
         imageView.setRotation(90);
     }
 
