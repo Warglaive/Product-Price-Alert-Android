@@ -475,16 +475,17 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     /**
      * From Address to coordinates convert
+     *
      * @param address
      * @return
      * @throws IOException
      */
     private LatLng addressToCoordinates(Address address) throws IOException {
-
-
+        System.out.println("Address:" + address.toString());
+        System.out.println("Address Latitude: " + address.getLatitude() + "Address Longitude: " + address.getLongitude());
         return new LatLng(address.getLatitude(), address.getLongitude());
     }
-    
+
     public void addressToCoordinates(View view) throws IOException {
 
         String addressFieldText = addressField.getText().toString();
@@ -499,7 +500,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     addressToCoordinates(addres), DEFAULT_ZOOM));
 
             CharSequence text = "Going to: " + coordinatesToAddress(coordinates) + "\n" + addressToCoordinates(address);
-            Toast toast = Toast.makeText(context, text,Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
             toast.show();
 
         } catch (Exception e) {
@@ -515,11 +516,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
         }
     }
+
     private String coordinatesToAddress(LatLng latLng) throws IOException {
-        Address addres = geocoder.getFromLocation(latLng.latitude,latLng.longitude,2).get(0);
+        Address addres = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 2).get(0);
         return addres.getAddressLine(0);
     }
-
 
 
     private class DownloadTask extends AsyncTask<String, Void, String> {
