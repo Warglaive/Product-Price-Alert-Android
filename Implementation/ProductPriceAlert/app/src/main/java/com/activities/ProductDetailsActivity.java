@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.ProductPriceAlert.R;
 import com.google.gson.Gson;
@@ -23,6 +22,7 @@ import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,10 +47,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         TextView name = (TextView) findViewById(R.id.nameGet);
         TextView price = (TextView) findViewById(R.id.priceGet);
         TextView description = (TextView) findViewById(R.id.descriptionGet);
-        ImageView productImage = findViewById(R.id.productImage);
+        ImageView image = findViewById(R.id.image);
         Button button = findViewById(R.id.button);
         Button edit = findViewById(R.id.edit);
-        Button rotate = findViewById(R.id.button2);
         this.context = this;
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
@@ -77,10 +76,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
                     description.setText(product.getDescription());
                 }
                 if(product.hasImage()) {
-                    String encodedImage = product.getImage();
-                    byte[] imageBytes = Base64.decode(encodedImage,Base64.DEFAULT);
-                    Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.length);
-                    productImage.setImageBitmap(decodedImage);
+                    URL url = new URL(product.getImage());
+                    Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection() .getInputStream());
+                    image.setImageBitmap(bitmap);
                 }
             }
 
@@ -98,18 +96,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements Product
         editProduct(edit);
         backToBrowse(button);
         landedOnDetails(this);
-        rotate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rotateImage(productImage);
-            }
-        });
-    }
-
-    private void rotateImage(ImageView image) {
-        image.setPivotX(image.getWidth() / 2);
-        image.setPivotY(image.getHeight() / 2);
-        image.setRotation(90);
     }
 
     @Override
