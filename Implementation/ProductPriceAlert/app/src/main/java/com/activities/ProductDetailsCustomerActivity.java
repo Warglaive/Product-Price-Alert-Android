@@ -22,6 +22,7 @@ import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +40,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details_customer);
 
-<<<<<<< HEAD
-        context = this;
-=======
->>>>>>> parent of 48d797e9 (Merge branch 'TimBranch')
         Gson gson = new Gson();
         this.user = gson.fromJson(getIntent().getStringExtra("userDataKey"), UserData.class);
         this.service = new ProductStorageService();
@@ -142,9 +139,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
 
 
     }
-<<<<<<< HEAD
-    private void landedOnDetails (Context context){
-=======
 
     public void maxPrice(Button button) {
         List<ProductData> list = new ArrayList<>();
@@ -195,7 +189,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     }
 
     private void landedOnDetails(Context context) {
->>>>>>> parent of 48d797e9 (Merge branch 'TimBranch')
         CharSequence text = "You got to the Product Details!";
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
