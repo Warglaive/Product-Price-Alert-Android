@@ -144,8 +144,8 @@
         android:id="@+id/purchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="52dp"
         android:text="@string/purchase"
         app:layout_constraintStart_toEndOf="@+id/nameC"
         app:layout_constraintTop_toTopOf="parent" />
@@ -154,10 +154,20 @@
         android:id="@+id/request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="10dp"
         android:text="@string/request"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageC" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="80dp"
+        android:text="@string/maxPrice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

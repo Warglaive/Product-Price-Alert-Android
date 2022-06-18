@@ -1,6 +1,7 @@
 package com.services;
 
 import com.models.User;
+import com.vogella.retrofitgerrit.ProductData;
 import com.vogella.retrofitgerrit.RestClient;
 import com.vogella.retrofitgerrit.UserData;
 import com.vogella.retrofitgerrit.interfaces.ResponseWait;
@@ -121,5 +122,26 @@ public class UserStorageService {
      */
     private boolean isPasswordValid(Response<UserData> response, String password) {
         return response.body().getPassword().equals(password);
+    }
+
+    public void maxPrice(String id, UserData userData, ResponseWait callback){
+        Call<UserData> callUpdate = this.restAPI.provideMaxPrice(id, userData);
+        callUpdate.enqueue(new Callback<UserData>() {
+            @Override
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+                if(response.isSuccessful()) {
+                    UserData userToUpdate = response.body();
+                    callback.responseWaitSingle(userToUpdate);
+                } else {
+                    System.out.println(response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+                System.out.println("Failure!");
+                t.printStackTrace();
+            }
+        });
     }
 }

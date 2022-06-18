@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -13,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +27,7 @@ import com.ProductPriceAlert.R;
 import com.models.Product;
 import com.services.ProductStorageService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
@@ -38,11 +39,13 @@ public class AddProductActivity extends AppCompatActivity {
     private EditText productName;
     private EditText productPrice;
     private EditText productDes;
-    private EditText productLocation;
+    private EditText locationField;
     private ImageView imageView;
-    private TextView text1;
+    private String encodedStringImage;
+    private TextView displayString;
+    private Button rotateButton;
 
-    String imagePath;
+
 
     // private static final int GALLERY_REQUEST = 100;
     // private static final int CAMERA_REQUEST = 200;
@@ -61,10 +64,14 @@ public class AddProductActivity extends AppCompatActivity {
         this.productName = findViewById(R.id.productName);
         this.productPrice = findViewById(R.id.productPrice);
         this.productDes = findViewById(R.id.productDes);
-        this.productLocation = findViewById(R.id.locationField);
+        this.locationField = findViewById(R.id.locationField);
         this.imageView = findViewById(R.id.imageView);
         this.homeButton = findViewById(R.id.homeButton);
-       // this.text1 = findViewById(R.id.text1);
+        this.rotateButton = findViewById(R.id.rotateButton);
+
+        this.displayString = findViewById(R.id.displayString);
+        this.displayString.setText("hi");
+
 
         ActivityCompat.requestPermissions(AddProductActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
@@ -80,7 +87,14 @@ public class AddProductActivity extends AppCompatActivity {
         this.homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddProductActivity.this, ProductManagerActivity.class));
+                startActivity(new Intent(AddProductActivity.this, BrowseProducts.class));
+            }
+        });
+
+        this.rotateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rotateImage(imageView);
             }
         });
 
@@ -117,13 +131,14 @@ public class AddProductActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Create user
+                //Create product
                 String pName = productName.getText().toString();
                 Double pPrice = Double.parseDouble(productPrice.getText().toString());
                 String pDescription = productDes.getText().toString();
-                String pImage = imagePath;
-                String pLocation = productLocation.getText().toString();
-                Product product = CreateProduct(pName,pPrice, pDescription, pImage,pLocation);
+                String pLocation = locationField.getText().toString();
+                encodedStringImage = (String) displayString.getText();
+                Product product = CreateProduct(pName,pPrice, pDescription,encodedStringImage,pLocation);
+
                 //if Register is successful redirect to login, else ->
                 if (RegisterProduct(product)) {
                     Intent intent = new Intent(view.getContext(), ProductDetailsActivity.class);
@@ -151,29 +166,60 @@ public class AddProductActivity extends AppCompatActivity {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
 
-        imagePath = getPathFromURI(image_uri);
-        text1.setText(imagePath);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == IMAGE_CAPTURE_CODE && resultCode == RESULT_OK){
+        if (requestCode == IMAGE_CAPTURE_CODE && resultCode == RESULT_OK ){
+
+
             //imageView.setImageURI(image_uri);
             Bitmap bitmap = uriToBitmap(image_uri);
+            bitmap=Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+            this.displayString.setText(encodeImage(bitmap));
             imageView.setImageBitmap(bitmap);
+
+
+
+
 
         }
 
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null){
+
+
             image_uri = data.getData();
             //imageView.setImageURI(image_uri);
             Bitmap bitmap = uriToBitmap(image_uri);
+            bitmap=Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+
+            this.encodedStringImage = encodeImage(bitmap);
+            this.displayString.setText(encodedStringImage);
             imageView.setImageBitmap(bitmap);
 
+
         }
+    }
+
+    //encode bitmap to base64 string
+    private String encodeImage(Bitmap bm)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte[] b = baos.toByteArray();
+        String encImage = Base64.encodeToString(b, Base64.DEFAULT);
+
+        return encImage;
+    }
+
+    //decode base64 string to bitmap
+    private Bitmap decodeImageToBitmap(String encodedImage){
+        byte[] imageBytes = Base64.decode(encodedImage,Base64.DEFAULT);
+        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.length);
+        return decodedImage;
     }
 
     //TODO takes URI of the image and returns bitmap
@@ -192,21 +238,11 @@ public class AddProductActivity extends AppCompatActivity {
         return  null;
     }
 
-    private String getPathFromURI(Uri contentUri){
-        try
-        {
-            String[] proj = {MediaStore.Images.Media.DATA};
-            Cursor cursor = managedQuery(contentUri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        }
-        catch (Exception e)
-        {
-            return contentUri.getPath();
-        }
+    private void rotateImage(ImageView imageview){
+        imageView.setPivotX(imageView.getWidth() / 2);
+        imageView.setPivotY(imageView.getHeight() / 2);
+        imageView.setRotation(90);
     }
-
 
 
     private Product CreateProduct(String name, Double price) {
