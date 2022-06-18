@@ -33,7 +33,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
     private String productName;
     private ProductData productDataa;
     private Context context;
-    private TextView location;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         Bundle extras = getIntent().getExtras();
         this.productName = extras.getString("key");
         this.context = this;
-        this.location = findViewById(R.id.locationGetC);
 
 
         TextView name = (TextView) findViewById(R.id.nameGetC);
@@ -57,7 +55,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         Button purchase = findViewById(R.id.purchase);
         Button request = findViewById(R.id.request);
         Button maxPrice = findViewById(R.id.button2);
-        Button rotate = findViewById(R.id.buttonRotC);
         ArrayList<ProductData> list = new ArrayList<ProductData>();
 
         service.getAllProducts(new ResponseWait() {
@@ -103,12 +100,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         purchaseProduct(purchase);
         landedOnDetails(this);
         maxPrice(maxPrice);
-        rotate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rotateImage(image);
-            }
-        });
     }
 
     @Override
@@ -176,12 +167,6 @@ public class ProductDetailsCustomerActivity extends AppCompatActivity implements
         intent.putExtra("userDataKey", userDataJSON);
         intent.putExtra("product", this.p)
         button.setOnClickListener(view1 -> startActivity(intent));*/
-    }
-
-    private void rotateImage(ImageView image) {
-        image.setPivotX((float) image.getWidth() / 2);
-        image.setPivotY((float) image.getHeight() / 2);
-        image.setRotation(90);
     }
 
     private void landedOnDetails(Context context) {
