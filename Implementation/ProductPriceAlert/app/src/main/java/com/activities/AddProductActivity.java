@@ -87,7 +87,7 @@ public class AddProductActivity extends AppCompatActivity {
         this.homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddProductActivity.this, BrowseProducts.class));
+                startActivity(new Intent(AddProductActivity.this, ProductManagerActivity.class));
             }
         });
 
