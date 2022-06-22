@@ -522,7 +522,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         return addres.getAddressLine(0);
     }
 
-
+    /**
+     * Get the result from the task in order to obtain the addresses (Point A to B)
+     */
     private class DownloadTask extends AsyncTask<String, Void, String> {
 
         @Override
