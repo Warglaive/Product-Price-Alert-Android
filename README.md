@@ -1,8 +1,6 @@
-# Product-Price-Alert-Android-Java
+# Product Price Alert 
 Android Java(Front-end) application with Loopback 4 as Back-end to handle HTTP/S Requests to/from a MongoDB Datasource, hosted on Heroku cloud.
 
-
-# Product Price Alert 
 # Goal 
 Potential customers that are interested in certain products, but do not want to buy the product, 
 because of a high price, can get alerted when the price gets lowered or the product is offered with a 
