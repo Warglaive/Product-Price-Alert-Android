@@ -10,7 +10,8 @@ The products are located in a database. The database gets updated with price cha
 a day.  
 # Browsing products  
 The customer is able to browse the available products using an app. Browsing is done by several 
-screens that give the customer the option to: 
+screens that give the customer the option to:
+
 • View popular products 
 
 • Filter products on several criteria 
