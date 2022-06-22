@@ -12,8 +12,11 @@ a day.
 The customer is able to browse the available products using an app. Browsing is done by several 
 screens that give the customer the option to: 
 • View popular products 
+
 • Filter products on several criteria 
+
 • View details of a product 
+
 When they see a product they like, they can choose to directly buy via the app or request a price 
 alert. 
 In case the user goes for a price alert, he provides the app with a maximum price he wants to pay for 
